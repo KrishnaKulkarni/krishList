@@ -39,5 +39,26 @@ RSpec.configure do |config|
   # order dependency and want to debug it, you can fix the order by providing
   # the seed, which is printed after each run.
   #     --seed 1234
-  config.order = "random"
+  ###config.order = "random"
 end
+
+
+def sign_up(email, username)
+  visit "/users/new"
+  fill_in "Email", with: email
+  fill_in "Password", with: 'abcdef'
+  fill_in "Username", with: username if username
+  click_button 'Register'
+end
+
+def sign_up_as_example_user
+  sign_up('example_user', nil)
+end
+
+def sign_in(email)
+  visit "/session/new"
+  fill_in "Email", with: email
+  fill_in "Password", with: 'abcdef'
+  click_button 'Sign In'
+end
+
