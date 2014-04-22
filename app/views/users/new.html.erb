@@ -1,0 +1,20 @@
+<h1>Title: New User Page</h1>
+<h1>Register</h1>
+
+<form action="<%= users_url %>" method="post" accept-charset="utf-8">
+  <%= auth_token %>
+
+  <label>Email :
+    <input type="email" name="user[email]"
+    value="<%= @user.email %>"></input>
+  </label><br>
+  <label>Password :
+    <input type="password" name="user[password]"></input>
+  </label><br>
+  <label>Username :
+    <input type="text" name="user[username]"
+    value="<%= @user.username %>"></input>
+  </label><br>
+
+  <p><input type="submit" value="Register"></p>
+</form>

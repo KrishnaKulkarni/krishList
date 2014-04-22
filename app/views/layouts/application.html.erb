@@ -7,6 +7,32 @@
   <%= csrf_meta_tags %>
 </head>
 <body>
+<header class="all-pages"><a href="<%= root_url %>">KrishList: New York City
+</a></header><br>
+
+<% if flash[:errors]  %>
+  <div class="page-errors">
+    Errors: <%= flash[:errors].join('<br>').html_safe %></div><br>
+<% end  %>
+
+<% if flash[:notices]  %>
+  <div class="page-notices">
+    Notices: <%= flash[:notices].join('<br>').html_safe %></div><br>
+<% end  %>
+
+<% if signed_in?  %>
+  <div class="current-user-options">
+    Welcome, <%= current_user.username %>!
+    <%= button_to "Sign Out", session_url, method: 'delete' %></div><br>
+<% else %>
+<div class="current-user-options">
+    No current user <button><a class="sign-in-link"
+      href="<%= new_session_url %>">Log In</a></button></div><br>
+    Don't have an account yet? <button><a class="sign-up-link"
+      href="<%= new_user_url %>">Sign Up</a></button></div><br>
+<% end  %>
+
+
 
 <%= yield %>
 

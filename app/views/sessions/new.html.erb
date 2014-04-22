@@ -1,0 +1,16 @@
+<h1>Title: New Session Page</h1>
+<h1>Sign Up</h1>
+
+<form action="<%= session_url %>" method="post" accept-charset="utf-8">
+  <%= auth_token %>
+
+  <label>Email :
+    <input type="email" name="user[email]"
+    value="<%= @email_attempt %>"></input>
+  </label><br>
+  <label>Password :
+    <input type="password" name="user[password]"></input>
+  </label><br>
+
+  <p><input type="submit" value="Sign In"></p>
+</form>
