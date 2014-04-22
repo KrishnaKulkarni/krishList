@@ -1,0 +1,7 @@
+<main class="ads-index">
+  <header class="subcat"><%= @subcat.title %></header>
+  <ul class="ads-list">
+    <% ads = @subcat.ads %>
+    <%= render ads %>
+  </ul>
+</main>

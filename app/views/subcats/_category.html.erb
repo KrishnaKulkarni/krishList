@@ -1,0 +1,7 @@
+<section class="<%= category.title %>">
+  <h4><%= category.title %></h4>
+  <ul class="subcat-list">
+    <% subcats =  category.subcats %>
+    <%= render subcats %>
+  </ul>
+</section>

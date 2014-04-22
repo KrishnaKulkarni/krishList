@@ -4,5 +4,8 @@ KrishList::Application.routes.draw do
   # get '/safety', to: 'static_pages#safety'
   resource :session, only: [:new, :create, :destroy]
   resources :users, only: [:new, :create]
-  
+  resources :subcats, only: [:index] do
+    resources :ads, only: [:show, :index, :new, :create, :destroy]
+  end
+
 end
