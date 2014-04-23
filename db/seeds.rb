@@ -40,3 +40,13 @@ ad2 = s1.ads.create!({
   submitter_id: 2,
   description: 'Any questions or concerns, please call or text Jason at 646-662-1907'
 })
+
+ad3 = s4.ads.create!({
+  title: '3 Great Apartments for Rent',
+  start_date: "May 21 2014",
+  end_date: "May 30 2014",
+  region: 'Chinatown',
+  price: 1375,
+  submitter_id: 2,
+  description: 'Any questions or concerns, please call or text Jason at 646-662-1907'
+})
