@@ -25,7 +25,11 @@ class ApplicationController < ActionController::Base
   end
 
   def require_signed_in!
-    redirect_to new_session_url unless signed_in?
+    unless signed_in?
+      flash[:notices] ||= []
+      flash[:notices] << "You must be signed in to perform that action."
+      redirect_to new_session_url
+    end
   end
 
 end

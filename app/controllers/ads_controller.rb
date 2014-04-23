@@ -1,4 +1,5 @@
 class AdsController < ApplicationController
+  before_action :require_signed_in!, only: [:new, :create]
 
   def index
     @subcat = Subcat.includes(:ads).find(params[:subcat_id])
@@ -16,6 +17,18 @@ class AdsController < ApplicationController
     render :new
   end
 
+  def create
+    @ad = current_user.posted_ads.new(ad_params)
+
+    if @ad.save
+      flash[:notices] = ["Ad saved"]
+      redirect_to subcat_ad_url(@ad.subcat, @ad)
+    else
+      flash.now[:errors] = @ad.errors.full_messages
+      render :new
+    end
+  end
+
   def destroy
 
   end
@@ -23,8 +36,7 @@ class AdsController < ApplicationController
   private
   def ad_params
     params.require(:ad).permit(:title, :start_date, :end_date, :location,
-    :region, :price, :subcat_id, :submitter_id, :flag_count, :description,
-    :options_data)
+    :region, :price, :subcat_id, :description, :options_data)
   end
 
 end
