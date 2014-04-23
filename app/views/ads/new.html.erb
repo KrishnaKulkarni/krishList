@@ -41,9 +41,12 @@
       </select>
       <br>
 
-    <label class="form-input">Start Date :
-      <input type="date" name="ad[start_date]" value="<%= @ad.start_date %>">
-    </label>
+    <label for="ad-description" class="form-input">
+      Description :</label>
+    <br>
+    <textarea id="ad-description" name="ad[description]" rows="15" cols="80"
+    placeholder="Provide additional description or contact info here"></textarea>
+
 
     <p><input type="submit" value="Submit Ad"></p>
   </form>

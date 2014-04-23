@@ -16,5 +16,5 @@
 /tmp
 
 /ignore_test.*
-/.DS_Store
+.DS_Store
 /config/database.yml
