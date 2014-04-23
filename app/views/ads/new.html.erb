@@ -1,0 +1,45 @@
+<main class="new-ad">
+  <h1>Submit a New Ad</h1>
+  <form class="new-ad" action="<%= ads_url %>"
+    method="post" accept-charset="utf-8">
+    <%= auth_token %>
+
+    <label class="form-input">Title :
+      <input type="text" name="ad[title]" value="<%= @ad.title %>">
+    </label>
+
+    <label class="form-input">Start Date :
+      <input type="date" name="ad[start_date]" value="<%= @ad.start_date %>">
+    </label>
+
+    <label class="form-input">End Date :
+      <input type="date" name="ad[end_date]" value="<%= @ad.end_date %>">
+    </label>
+
+    <label class="form-input">Location/Address :
+      <input type="text" name="ad[location]" value="<%= @ad.location %>">
+    </label>
+
+    <label class="form-input">Region :
+      <input type="text" name="ad[region]" value="<%= @ad.region %>">
+    </label>
+
+    <label class="form-input">Price :
+      <input type="number" name="ad[price]" value="<%= @ad.price %>">
+    </label>
+    <label for="subcat-choice" class="form-input">Listing Category :</label>
+      <select id="subcat-choice" name="ad[subcat_id]">
+        <option></option>
+        <% Subcat.all.each do |subcat| %>
+          <% if(subcat.id) == @subcat_id.to_i %>
+            <option selected="selected"
+             value="<%= subcat.id %>"><%= subcat.title %></option>
+          <% else %>
+            <option value="<%= subcat.id %>"><%= subcat.title %></option>
+          <% end %>
+        <% end  %>
+      </select>
+      <br>
+    <p><input type="submit" value="Submit Ad"></p>
+  </form>
+</main>

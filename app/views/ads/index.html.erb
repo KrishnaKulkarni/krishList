@@ -1,7 +1,10 @@
 <main class="ads-index">
-  <header class="subcat"><%= @subcat.title %></header>
+  <header class="subcat">
+    <h1><%= @subcat.title %></h1>
+    <a href="<%=new_subcat_ad_url(@subcat) %>">Post an Ad</a>
+  </header>
+
   <ul class="ads-list">
-	  <li>just testing</li>
     <% @ads = @subcat.ads.all %>
     <%= render @ads %>
   </ul>

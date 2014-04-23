@@ -17,4 +17,4 @@
 
 /ignore_test.*
 /.DS_Store
-/config/database.*
+/config/database.yml

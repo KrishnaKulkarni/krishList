@@ -10,6 +10,12 @@ class AdsController < ApplicationController
     render :show
   end
 
+  def new
+    @subcat_id = params[:subcat_id]
+    @ad = Ad.new #I forget whether I need this declaration
+    render :new
+  end
+
   def destroy
 
   end
