@@ -30,15 +30,35 @@ class UsersController < ApplicationController
 
   def destroy
     @user = User.find(params[:id])
+    if(require_current_user_matches!(@user) || require_admin!)
+      @user.destroy!
+      flash[:notices] = ["User destroyed"]
+      redirect_to root_url
+    end
+  end
 
-    @user.destroy!
-    flash[:notices] = ["User destroyed"]
-    redirect_to root_url
+  def edit
+    @user = User.find(params[:id])
+    render :edit
+  end
+
+  def update
+    @user = User.find(params[:id])
+    if(require_current_user_matches!(@user))
+      if @user.update(user_params)
+        flash[:notices] = ["User updated"]
+        redirect_to user_url(@user)
+      else
+        flash.now[:errors] = @user.errors.full_messages
+        render :edit
+      end
+    end
   end
 
   private
   def user_params
-    params.require(:user).permit(:email, :password, :username)
+    params.require(:user).permit(:email, :password, :username,
+     :wants_forwarded_responses)
   end
 
 end

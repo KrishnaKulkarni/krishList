@@ -48,7 +48,10 @@ class ApplicationController < ActionController::Base
       flash[:notices] ||= []
       flash[:notices] << "Only administrators may perform that action."
       redirect_to root_url
+      return false
     end
+
+    true
   end
 
 end

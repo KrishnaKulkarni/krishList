@@ -30,7 +30,26 @@ class AdsController < ApplicationController
   end
 
   def destroy
+    @ad = Ad.find(params[:id])
+    submitter = @ad.submitter
+    if(require_current_user_matches!(submitter))
+      @ad.destroy!
+      flash[:notices] = ["Ad destroyed"]
+      redirect_to user_ads_url(submitter)
+    elsif(require_admin!)
+      @ad.destroy!
+      flash[:notices] = ["Ad destroyed"]
+      redirect_to root_url
+    end
+  end
 
+  def repost
+    @ad = Ad.find(params[:id])
+    @subcat_id = @ad.subcat_id
+    submitter = @ad.submitter
+    if(require_current_user_matches!(submitter))
+      render :new
+    end
   end
 
   private

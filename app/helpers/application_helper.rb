@@ -7,4 +7,12 @@ module ApplicationHelper
     HTML
   end
 
+  def set_form_method(method)
+    <<-HTML.html_safe
+    <input type="hidden"
+    name="_method"
+    value="#{method}">
+    HTML
+  end
+
 end

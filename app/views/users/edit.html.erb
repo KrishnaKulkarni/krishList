@@ -1,0 +1,32 @@
+<h1>Title: Edit User Page</h1>
+<h1>Edit Your Profile Settings</h1>
+
+<form action="<%= user_url(@user) %>" method="post" accept-charset="utf-8">
+  <%= set_form_method('PATCH') %>
+  <%= auth_token %>
+
+  <label>
+    Email :
+    <input type="email" name="user[email]"
+    value="<%= @user.email %>"></input>
+  </label><br>
+
+  <label>
+    Username :
+    <input type="text" name="user[username]"
+    value="<%= @user.username %>"></input>
+  </label><br>
+
+  <label>
+    Would you like to responses to your posts forwarded to your email?
+    <select name="user[wants_forwarded_responses]">
+      <option value="false">No</option>
+      <option value="true"
+      <%= selected="selected" if(@user.wants_forwarded_responses) %>>
+        Yes
+      </option>
+    </select>
+  </label><br>
+
+  <p><input type="submit" value="Submit Changes"></p>
+</form>

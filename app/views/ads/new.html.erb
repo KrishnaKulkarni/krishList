@@ -42,10 +42,12 @@
       <br>
 
     <label for="ad-description" class="form-input">
-      Description :</label>
+      Description :
+    </label>
     <br>
-    <textarea id="ad-description" name="ad[description]" rows="15" cols="80"
-    placeholder="Provide additional description or contact info here"></textarea>
+    <textarea id="ad-description" name="ad[description]" rows="15" cols="80" placeholder="Provide additional description or contact info here"
+    ><%= @ad.description if @ad.description%>
+    </textarea>
 
 
     <p><input type="submit" value="Submit Ad"></p>

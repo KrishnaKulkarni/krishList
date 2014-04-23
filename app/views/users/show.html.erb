@@ -13,6 +13,10 @@
   <p><strong class="user-account-info">Email Responses to Posts?</strong>
    <%= @user.wants_forwarded_responses %></p>
 
-   <a class="button" href="#">Edit Settings</a>
-   <a class="button" href="#">Delete Account</a>
+   <a class="button" href="<%= edit_user_url(@user) %>">Edit Settings</a>
+   <form class="delete-user" action="<%= user_url(@user) %>" method="post">
+     <%= auth_token %>
+     <input type="hidden" name="_method" value="DELETE">
+     <input class="delete-user" type="submit" value="Delete Account">
+   </form>
 </section>

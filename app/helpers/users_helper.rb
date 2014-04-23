@@ -4,8 +4,13 @@ module UsersHelper
       options[:manage] = "manage"
     else
       options[:manage] = <<-LINKS
-          <a href="#">repost</a>
-          <a href="#">delete</a>
+          <a href="#{ad_url(options[:ad_id])}/repost">repost</a>
+          <form class="delete-ad"
+          action="#{ad_url(options[:ad_id])}" method="post">
+            #{auth_token}
+            <input type="hidden" name="_method" value="DELETE">
+            <input class="delete-ad" type="submit" value="delete">
+          </form>
           LINKS
     end
 

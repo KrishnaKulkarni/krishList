@@ -38,7 +38,7 @@
       <%= user_posts_list_item(appended_classes, options) %>
 
       <% @user.posted_ads.each do |ad|  %>
-          <% options = {status: 'UNKNOWN', title: ad.title,
+          <% options = {ad_id: ad.id, status: 'UNKNOWN', title: ad.title,
            region: ad.region, category: Subcat.find(ad.subcat_id).title,
             posted_date: ad.created_at, responses: 'UNKNOWN'} %>
         <%= user_posts_list_item([], options) %>
