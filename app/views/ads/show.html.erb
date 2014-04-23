@@ -1,7 +1,29 @@
-<h2 class="subcat-parent">Subcat:
-  <%= @ad.subcat.title %></h2>
+<h2 class="subcat-parent"><%= @ad.subcat.title %></h2>
+<section class="ad-response-bar">
+  <!-- <a href="">Respond</a> -->
+  <form action="<%= ad_responses_url(@ad) %>" method="post"
+    accept-charset="utf-8">
+    <%= auth_token %>
+    <label class="form-input">Title :
+      <input type="text" name="response[title]" value="RE: <%= @ad.title %>">
+    </label>
+    <br>
+
+    <label for="ad-description" class="form-input">
+      Description :
+    </label>
+    <br>
+    <textarea id="response-body" name="response[body]" rows="8" cols="40"
+     placeholder="Enter your response here">
+    <%= @response.try(:body)%>
+    </textarea>
+
+    <p><input type="submit" value="Submit Response"></p>
+  </form>
+  <div>Posted on: <%= @ad.created_at %></div>
+</section>
 <main class="ads-index">
-  <header class="ad"><%= @ad.title %></header>
+  <header class="ad"><h4><%= @ad.title %></h4></header>
   <ul class="ad-attributes-list">
     <li>Region: <%= @ad.region %></li>
     <li>Price: <%= @ad.price %></li>

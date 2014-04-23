@@ -10,7 +10,9 @@ KrishList::Application.routes.draw do
   resources :subcats, only: [:index] do
     resources :ads, only: [:show, :index, :new]
   end
-  resources :ads, only:  [:new, :create, :destroy]
+  resources :ads, only:  [:new, :create, :destroy] do
+    resources :responses, only: [:create]
+  end
   get '/ads/:id/repost', to: 'ads#repost'
 
 end

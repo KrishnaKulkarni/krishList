@@ -9,6 +9,8 @@ class Ad < ActiveRecord::Base
   class_name: 'User',
   foreign_key: :submitter_id, inverse_of: :posted_ads
   )
+  has_many :responses, inverse_of: :ad, dependent: :destroy
+
   private
   def ensure_flag_count
     self.flag_count ||= 0

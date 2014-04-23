@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140422204516) do
+ActiveRecord::Schema.define(version: 20140423214526) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -48,6 +48,22 @@ ActiveRecord::Schema.define(version: 20140422204516) do
   end
 
   add_index "categories", ["title"], name: "index_categories_on_title", unique: true, using: :btree
+
+  create_table "responses", force: true do |t|
+    t.integer  "ad_id",            null: false
+    t.integer  "respondent_id",    null: false
+    t.string   "title",            null: false
+    t.text     "body",             null: false
+    t.integer  "respondable_id",   null: false
+    t.integer  "respondable_type", null: false
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "responses", ["ad_id"], name: "index_responses_on_ad_id", using: :btree
+  add_index "responses", ["respondable_id"], name: "index_responses_on_respondable_id", using: :btree
+  add_index "responses", ["respondent_id"], name: "index_responses_on_respondent_id", using: :btree
+  add_index "responses", ["title"], name: "index_responses_on_title", using: :btree
 
   create_table "subcats", force: true do |t|
     t.string   "title",       null: false
