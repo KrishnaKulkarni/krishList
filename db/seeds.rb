@@ -16,4 +16,27 @@ c1 = Category.create!(title: 'Housing')
 c2 = Category.create!(title: 'For Sale')
 c3 = Category.create!(title: 'Jobs')
 
-s1 = c1.subcats.create!(title: 'Apartments & Sublets')
+s1 = c1.subcats.create!(title: 'Apartments / Housing')
+s2 = c1.subcats.create!(title: 'Sublets / Temporary')
+s3 = c1.subcats.create!(title: 'Housing Wanted')
+s4 = c3.subcats.create!(title: 'Food / Bev. / Hosp.')
+
+ad1 = s1.ads.create!({
+  title: 'For Rent! 1st Avenue and East 10th St- 3 bedroom Apartment',
+  start_date: "May 01 2014",
+  end_date: "May 20 2014",
+  region: 'East Village',
+  price: 4600,
+  submitter_id: 1,
+  description: 'Super cozy! 5 Min from the Subway!'
+})
+
+ad2 = s1.ads.create!({
+  title: '3 Great Apartments for Rent',
+  start_date: "May 21 2014",
+  end_date: "May 30 2014",
+  region: 'Chinatown',
+  price: 1375,
+  submitter_id: 2,
+  description: 'Any questions or concerns, please call or text Jason at 646-662-1907'
+})

@@ -1,7 +1,7 @@
 class AdsController < ApplicationController
 
   def index
-    @subcat = Subcat.find(params[:subcat_id]).include(:ads)
+    @subcat = Subcat.includes(:ads).find(params[:subcat_id])
     render :index
   end
 

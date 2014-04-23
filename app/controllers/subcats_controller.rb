@@ -3,7 +3,7 @@ class SubcatsController < ApplicationController
   # Subcat Model
   # assoc: Category has_many subcats
   def index
-    @categories = Category.include(:subcats).all
+    @categories = Category.includes(:subcats).all
     render :index
   end
 
