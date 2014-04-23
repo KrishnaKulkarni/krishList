@@ -1,5 +1,14 @@
 class UsersController < ApplicationController
 
+  def show
+    @user = User.find(params[:id])
+    render :show if (require_current_user_matches!(@user))
+  end
+
+  def posted_ads
+    @user = User.includes(:posted_ads).find(params[:user_id])
+    render :posted_ads if (require_current_user_matches!(@user))
+  end
 
   def new
     @user = User.new

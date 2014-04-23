@@ -11,3 +11,14 @@
  *= require_self
  *= require_tree .
  */
+
+
+
+.user-dashboard {
+  background: #E9E9E9;
+  padding: 5px;
+  border: 2px solid #646464;
+  width: 800px;
+  margin: 5px 10px;
+}
+

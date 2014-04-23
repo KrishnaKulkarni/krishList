@@ -32,4 +32,23 @@ class ApplicationController < ActionController::Base
     end
   end
 
+  def require_current_user_matches!(user)
+    unless(user == current_user)
+      flash[:notices] ||= []
+      flash[:notices] << "User dashboards may only be viewed by their own users. You may need to sign in to another account."
+      redirect_to root_url
+      return false
+    end
+
+    true
+  end
+
+  def require_admin!
+    unless current_user.is_admin == true
+      flash[:notices] ||= []
+      flash[:notices] << "Only administrators may perform that action."
+      redirect_to root_url
+    end
+  end
+
 end

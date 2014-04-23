@@ -1,0 +1,53 @@
+<style>
+
+/*  tbody.user-posts-table {
+    display: block;
+    background: blue;
+    height: 10px;
+  }*/
+
+  h4 {
+    font-weight: none;
+  }
+
+  th {
+    display: inline-block;
+  }
+
+
+</style>
+
+<header class="user-dashboard-header">
+  <h1><%= @user.username %>'s Dashboard : Postings </h1>
+</header>
+
+<nav class="user-dashboard">
+  <a class="user-dashboard-nav" href="<%= user_ads_url(@user) %>">Postings</a>
+  <a class="user-dashboard-nav" href="<%= user_url(@user) %>">Settings</a>
+</nav>
+
+<h4>Filter</h4>
+<section class="user-dashboard filter"></section>
+
+<h4>Showing All Postings</h4>
+<section class="user-dashboard posts-list">
+  <table class="user-posts-table">
+      <% appended_classes = ["table_head"] %>
+      <% options = {status: 'status', title: 'posting title', region: 'region',
+    category: 'category', posted_date: 'posted_date', responses: 'responses'} %>
+      <%= user_posts_list_item(appended_classes, options) %>
+
+      <% @user.posted_ads.each do |ad|  %>
+          <% options = {status: 'UNKNOWN', title: ad.title,
+           region: ad.region, category: Subcat.find(ad.subcat_id).title,
+            posted_date: ad.created_at, responses: 'UNKNOWN'} %>
+        <%= user_posts_list_item([], options) %>
+      <% end  %>
+      <tr><td>anything</td></tr>
+  </table>
+</section>
+
+
+
+
+

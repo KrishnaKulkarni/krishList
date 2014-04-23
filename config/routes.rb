@@ -3,7 +3,9 @@ KrishList::Application.routes.draw do
   # get '/about', to: 'static_pages#about'
   # get '/safety', to: 'static_pages#safety'
   resource :session, only: [:new, :create, :destroy]
-  resources :users, only: [:new, :create]
+  resources :users, only: [:new, :create, :show] do
+    get '/ads', to: 'users#posted_ads'
+  end
   resources :subcats, only: [:index] do
     resources :ads, only: [:show, :index, :new]
   end
