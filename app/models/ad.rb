@@ -12,6 +12,8 @@ class Ad < ActiveRecord::Base
   )
   has_many :responses, inverse_of: :ad, dependent: :destroy
 
+  has_many :response_notifications, through: :responses, source: :notification
+
   private
   def ensure_flag_count
     self.flag_count ||= 0

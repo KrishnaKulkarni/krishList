@@ -31,4 +31,19 @@ module UsersHelper
       </tr>
     HTML
   end
+
+  def account_header(user)
+    <<-HTML.html_safe
+    <header class="user-dashboard-header">
+      <h1>#{user.username}'s Dashboard : Postings </h1>
+      <nav class="user-dashboard">
+        <a class="user-dashboard-nav" href="#{user_ads_url(user)}">Postings</a>
+        <a class="user-dashboard-nav" href="#{user_url(user)}">Settings</a>
+        <a class="user-dashboard-nav" href="#{user_notifications_url(user)}">
+          Notifications
+        </a>
+      </nav>
+    </header>
+    HTML
+  end
 end

@@ -8,7 +8,15 @@ class Response < ActiveRecord::Base
   )
 
   #add polymorphic associations later
-  validates :ad, :author, :title, :body, :respondable_id,
-   :respondable_type, presence: true
+  validates :ad, :author, :title, :body, presence: true
+
+  has_one :notification, as: :notifiable, dependent: :destroy
+
+  after_create :create_notification
+
+  private
+  def create_notification
+    self.create_notification!(message_id: 1)
+  end
 
 end

@@ -18,6 +18,11 @@ class User < ActiveRecord::Base
   dependent: :destroy
   )
 
+  has_many(
+  :post_response_notifications,
+   through: :posted_ads,
+    source: :response_notifications)
+
   def self.generate_session_token
     SecureRandom::urlsafe_base64(16)
   end

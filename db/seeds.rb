@@ -50,3 +50,20 @@ ad3 = s4.ads.create!({
   submitter_id: 2,
   description: 'Any questions or concerns, please call or text Jason at 646-662-1907'
 })
+
+r1 = ad3.responses.create!(
+   respondent_id: 1,
+   title: "hey",
+   body: "Maybe this will work",
+   respondable_id: 1,
+   respondable_type: 'AClass'
+)
+
+
+r2 = ad1.responses.create!(
+   respondent_id: 2,
+   title: "its jane",
+   body: "Baby this will work",
+   respondable_id: 1,
+   respondable_type: 'AClass'
+)
