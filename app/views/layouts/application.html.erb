@@ -6,34 +6,28 @@
   <%= javascript_include_tag "application", "data-turbolinks-track" => true %>
   <%= csrf_meta_tags %>
 </head>
+
 <body>
   <nav class="all-pages">
+
     <a href="<%= root_url %>">KrishList: New York City</a>
-  <% if signed_in?  %>
-    <div class="current-user-options">
-      Welcome, <%= current_user.username %>!
-      <a class="my-account" href="<%= user_url(current_user) %>">My Account</a>
-      <%= button_to "Sign Out", session_url, method: 'delete' %>
-    </div><br>
 
-  <% else %>
-    <div class="current-user-options">
-        No current user
-        <button>
-          <a class="sign-in-link" href="<%= new_session_url %>">
-            Log In
-          </a>
-        </button>
-        <br>
-        Don't have an account yet?
-        <button>
-          <a class="sign-up-link" href="<%= new_user_url %>">
-            Sign Up
-          </a>
-        </button>
-      </div><br>
-    <% end  %>
+    <div class="bracket-link-container">
 
+      <% if signed_in?  %>
+        <%= bracket_link('account', user_url(current_user), 'GET') %>
+        <%= bracket_link('post', new_ad_url, 'GET') %>
+        <%= bracket_link('sign out', session_url, 'DELETE') %>
+
+      <% else %>
+
+            <button>
+              <a class="sign-in-link" href="<%= new_session_url %>">
+                Log In
+              </a>
+            </button>
+      <% end  %>
+    </div>
   </nav>
 
 <% if flash[:errors]  %>

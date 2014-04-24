@@ -1,6 +1,6 @@
 
 
-<form action="<%= users_url %>" method="post" accept-charset="utf-8">
+<form action="<%= users_url %>" method="post">
 	<h1>Sign Up</h1>
 	<%= auth_token %>
 
@@ -10,22 +10,22 @@
 		 name="user[email]" value="<%= @user.email %>">
 	 </input>
 	</div>
-  
+
 	<div class="input">
 	  <label for="sign-up-password">Password</label>
 	  <input type="password" id="sign-up-password"
 	   name="user[password]"></input>
    	</div>
-  
-  
+
+
 	<div class="input">
 	 <label for="sign-up-username">Username</label>
 	 <input type="text" id="sign-up-username"
 		 name="user[username]" value="<%= @user.username %>">
 	 </input>
 	</div>
-  
-	<div class="submit">	
+
+	<div class="submit">
 		  <input type="submit" value="Register">
 	</div>
 </form>

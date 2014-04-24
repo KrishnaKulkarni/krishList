@@ -1,34 +1,41 @@
-<h2 class="subcat-parent"><%= @ad.subcat.title %></h2>
-<section class="ad-response-bar">
-  <!-- <a href="">Respond</a> -->
-  <form action="<%= ad_responses_url(@ad) %>" method="post"
-    accept-charset="utf-8">
-    <%= auth_token %>
-    <label class="form-input">Title :
-      <input type="text" name="response[title]" value="RE: <%= @ad.title %>">
-    </label>
-    <br>
+<main class="ad-show">
+  <h2 class="subcat-parent"><%= @ad.subcat.title %></h2>
+  <section class="response-bar">
+    <!-- <a href="">Respond</a> -->
+    <form class="new-response" action="<%= ad_responses_url(@ad) %>"
+       method="post">
+      <%= auth_token %>
 
-    <label for="ad-description" class="form-input">
-      Description :
-    </label>
-    <br>
-    <textarea id="response-body" name="response[body]" rows="8" cols="40"
-     placeholder="Enter your response here">
-    <%= @response.try(:body)%>
-    </textarea>
+      <div class="input">
+        <label for="response-title">Title</label>
+        <input type="text" id="response-title"
+          name="response[title]" value="RE: <%= @ad.title %>">
+        </input>
+      </div>
 
-    <p><input type="submit" value="Submit Response"></p>
-  </form>
-  <div>Posted on: <%= @ad.created_at %></div>
-</section>
-<main class="ads-index">
-  <header class="ad"><h4><%= @ad.title %></h4></header>
-  <ul class="ad-attributes-list">
-    <li>Region: <%= @ad.region %></li>
-    <li>Price: <%= @ad.price %></li>
-  </ul>
-  <article class="ad-description-article">
-    <%= @ad.description %>
-  </article>
+      <div class="input">
+        <label for="response-body">Message</label>
+        <textarea id="response-body" name="response[body]" rows="8" cols="40"
+           placeholder="Enter your response here">
+        </textarea>
+      <!-- <%#= @response.try(:body)%> -->
+      </div>
+
+     	<div class="submit">
+     		  <input type="submit" value="Submit Response">
+     	</div>
+    </form>
+    <div>Posted on: <%= @ad.created_at %></div>
+  </section>
+
+  <section class="description">
+    <header class="ad"><h4><%= @ad.title %></h4></header>
+    <ul class="ad-attributes-list">
+      <li>Region: <%= @ad.region %></li>
+      <li>Price: <%= @ad.price %></li>
+    </ul>
+    <article class="ad-description-article">
+      <%= @ad.description %>
+    </article>
+  </section>
 </main>

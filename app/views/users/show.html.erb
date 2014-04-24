@@ -14,9 +14,13 @@
    <%= @user.wants_forwarded_responses %></p>
 
    <a class="button" href="<%= edit_user_url(@user) %>">Edit Settings</a>
+
+   <%= bracket_link('Delete Account', user_url(@user), 'DELETE', ["blue"]) %>
+
    <form class="delete-user" action="<%= user_url(@user) %>" method="post">
      <%= auth_token %>
-     <input type="hidden" name="_method" value="DELETE">
-     <input class="delete-user" type="submit" value="Delete Account">
+     <%= set_form_method('DELETE') %>
+     <%= form_submit('Delete Account') %>
+     <!-- <input class="delete-user" type="submit" value="Delete Account"> -->
    </form>
 </section>
