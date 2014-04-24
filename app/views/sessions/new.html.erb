@@ -1,16 +1,21 @@
-<h1>Title: New Session Page</h1>
-<h1>Sign In</h1>
-
 <form action="<%= session_url %>" method="post" accept-charset="utf-8">
+  <h1>Sign In</h1>
   <%= auth_token %>
 
-  <label>Email :
-    <input type="email" name="user[email]"
-    value="<%= @email_attempt %>"></input>
-  </label><br>
-  <label>Password :
-    <input type="password" name="user[password]"></input>
-  </label><br>
+	<div class="input">
+	 <label for="sign-in-email">Email</label>
+	 <input type="email" id="sign-in-email"
+		 name="user[email]" value="<%= @email_attempt %>">
+	 </input>
+	</div>
+	
+	<div class="input">
+	  <label for="sign-in-password">Password</label>
+	  <input type="password" id="sign-in-password"
+	   name="user[password]"></input>
+   	</div>
 
-  <p><input type="submit" value="Sign In"></p>
+	<div class="submit">	
+		  <input type="submit" value="Sign In">
+	</div>
 </form>

@@ -22,3 +22,114 @@
   margin: 5px 10px;
 }
 
+
+  nav.all-pages {
+	  background: #999;
+	  height: 50px;
+  }
+  
+  html, body, form, h1, div, label, nav, main {
+	  margin: 0;
+	  padding: 0;
+	  border: 0;
+	  font: inherit;
+	  vertical-align: baseline;
+  }
+ 
+ /* input styling begins here-->*/
+  input[type="password"], input[type="email"],
+  input[type="submit"], input[type="text"], input[type="date"] {
+	  -webkit-appearance: none;  
+	  /* changes style of submit-button & input box */
+	  box-sizing: content-box; 
+	  display: inline-block;
+	  /*??*/
+	  margin: 0;
+	  padding: 0;
+	  border: 0;
+	  /*border is what makes the input boxes identifiable*/
+	  outline: 0;
+	  font: inherit;
+	  /* button font does not inherit by default*/
+	  /*what does inherit really mean?*/
+	  vertical-align: baseline;
+	  width: auto;
+	  background: transparent;
+	  color: inherit;
+  }
+  
+  
+  input[type="submit"] {
+	  display: inline;
+  }
+  
+  body {
+  	  background: #FFC02C;
+	  font-family: Verdana, Arial, Helvetica, sans-serif;
+  }
+  
+  main {
+	  padding: 100px;
+  }
+  
+  form {
+	  background: #fff;
+	  padding: 50px;
+	  width: 300px;
+	  margin: auto;
+  }
+  
+  h1 {
+	  font-size: 45px;
+	  line-height: 1.0;
+	  font-weight: bold;
+  }
+  
+  .input {
+	  margin: 20px 0;
+  }
+  
+  .input > label {
+	  display: block;
+	  font-weight: bold;
+  }
+  
+  .input > input {
+	  border: 3px solid black;
+	  padding: 5px;
+	  width: 284px;
+	  border-radius: 3px;
+  }
+  
+  .input > input:focus {
+    border-color: #8264F0;
+/*	  border-color: #1C6BFF;*/
+  }
+  
+  .submit > input {
+	  position: relative;
+	  display: inline-block;
+	  background: #1C6BFF;
+	  color: #fff;
+	  padding: 10px 20px;
+	  border-radius: 6px;
+	  font-weight: bold;
+	  box-shadow: 0 3px 0 0 #08206A;
+  }
+  
+  .submit > input:hover {
+    background: #8264F0;
+  }
+  
+  .submit > input:active {
+	  top: 3px;
+	  box-shadow: none;
+	  background: #6640E5;
+  }
+  /*<---input styling ends here*/
+  
+  /*navbar sign-in/sign/up/sign-out options*/
+  .current-user-options {
+	  display: inline-block;
+	  float: right;
+  }

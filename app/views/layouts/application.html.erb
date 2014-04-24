@@ -34,7 +34,7 @@
       </div><br>
     <% end  %>
 
-  </nav><br>
+  </nav>
 
 <% if flash[:errors]  %>
   <div class="page-errors">
@@ -50,8 +50,9 @@
 
 
 
-
-<%= yield %>
+	<main>
+		<%= yield %>
+	</main>
 
 </body>
 </html>
