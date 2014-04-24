@@ -1,6 +1,7 @@
 module UsersHelper
   def user_posts_list_item(appended_classes, options)
-    if appended_classes.include?("table_head")
+    # if appended_classes.include?("table_head")
+    if true
       options[:manage] = "manage"
     else
       options[:manage] = <<-LINKS
@@ -22,7 +23,11 @@ module UsersHelper
         <td class="region">#{options[:region]}</td>
         <td class="category">#{options[:category]}</td>
         <td class="posted-date">#{options[:posted_date]}</td>
-        <td class="responses">#{options[:responses]}</td>
+        <td class="responses">
+          <a href="#{user_ad_responses_url(current_user.id, options[:ad_id])}">
+            #{options[:responses]}
+          </a>
+        </td>
       </tr>
     HTML
   end

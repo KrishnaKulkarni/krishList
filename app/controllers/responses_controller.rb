@@ -12,11 +12,24 @@ class ResponsesController < ApplicationController
 
     if @response.save
       flash[:notices] = ["Response saved"]
+      ad.update!(response_count: (ad.response_count + 1)) #might be bad--> maybe make transaction????
+      # MIGHT BE UNNECESSARY GIVEN javasctipt prefetching
+
+      #send email to ad.submitter and to @response.author
     else
       flash[:errors] = @response.errors.full_messages
     end
 
     redirect_to subcat_ad_url(ad.subcat, ad)
+  end
+
+  def index
+    @user = User.find(params[:user_id])
+    if(require_current_user_matches!(@user))
+      @ad = Ad.find(params[:ad_id]) #SHOULD I COMBINE THESE TWO QUERIES??
+      @responses = @ad.responses
+      render :index
+    end
   end
 
   private

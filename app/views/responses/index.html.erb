@@ -1,0 +1,11 @@
+<main class="ad-responses-index">
+  <%= account_header(@user) %>
+
+  <section>
+    <h4>Ad: <%= @ad.title %> - All Comments</h4>
+    <ul>
+      <%= render @responses %>
+    </ul>
+  </section>
+
+</main>

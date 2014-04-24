@@ -1,5 +1,6 @@
 class Ad < ActiveRecord::Base
   before_validation :ensure_flag_count
+  before_validation :ensure_response_count
   validates(:title, :start_date, :end_date, :region, :price, :subcat,
   :submitter, :flag_count, presence: true)
 
@@ -14,5 +15,9 @@ class Ad < ActiveRecord::Base
   private
   def ensure_flag_count
     self.flag_count ||= 0
+  end
+
+  def ensure_response_count
+    self.response_count ||= self.responses.length
   end
 end

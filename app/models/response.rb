@@ -4,7 +4,7 @@ class Response < ActiveRecord::Base
   :author,
   class_name: 'User',
   foreign_key: :respondent_id,
-  inverse_of: :responses
+  inverse_of: :authored_responses
   )
 
   #add polymorphic associations later

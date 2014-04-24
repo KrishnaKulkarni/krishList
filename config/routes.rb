@@ -5,6 +5,9 @@ KrishList::Application.routes.draw do
   resource :session, only: [:new, :create, :destroy]
   resources :users, only: [:new, :create, :show, :destroy, :edit, :update] do
     get '/ads', to: 'users#posted_ads'
+    resources :ads, only: [] do
+      resources :responses, only: [:index]
+    end
   end
 
   resources :subcats, only: [:index] do

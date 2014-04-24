@@ -9,8 +9,9 @@ class User < ActiveRecord::Base
   class_name: 'Ad',
   foreign_key: :submitter_id,
   inverse_of: :submitter, dependent: :destroy)
+
   has_many(
-  :responses,
+  :authored_responses,
   class_name: 'Response',
   foreign_key: :respondent_id,
   inverse_of: :author,

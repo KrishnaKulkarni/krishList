@@ -11,25 +11,26 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140423214526) do
+ActiveRecord::Schema.define(version: 20140424183314) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
   create_table "ads", force: true do |t|
-    t.string   "title",        null: false
-    t.date     "start_date",   null: false
-    t.date     "end_date",     null: false
+    t.string   "title",          null: false
+    t.date     "start_date",     null: false
+    t.date     "end_date",       null: false
     t.string   "location"
-    t.string   "region",       null: false
-    t.integer  "price",        null: false
-    t.integer  "subcat_id",    null: false
-    t.integer  "submitter_id", null: false
+    t.string   "region",         null: false
+    t.integer  "price",          null: false
+    t.integer  "subcat_id",      null: false
+    t.integer  "submitter_id",   null: false
     t.text     "description"
     t.text     "options_data"
     t.integer  "flag_count"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.integer  "response_count"
   end
 
   add_index "ads", ["end_date"], name: "index_ads_on_end_date", using: :btree
