@@ -55,8 +55,6 @@ r1 = ad3.responses.create!(
    respondent_id: 1,
    title: "hey",
    body: "Maybe this will work",
-   respondable_id: 1,
-   respondable_type: 'AClass'
 )
 
 
@@ -64,6 +62,4 @@ r2 = ad1.responses.create!(
    respondent_id: 2,
    title: "its jane",
    body: "Baby this will work",
-   respondable_id: 1,
-   respondable_type: 'AClass'
 )

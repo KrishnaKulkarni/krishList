@@ -1,5 +1,7 @@
 class Response < ActiveRecord::Base
-  belongs_to :ad, inverse_of: :responses
+  belongs_to :ad, inverse_of: :responses, counter_cache: true
+  has_one :recipient, through: :ad, source: :submitter
+
   belongs_to(
   :author,
   class_name: 'User',
@@ -7,16 +9,20 @@ class Response < ActiveRecord::Base
   inverse_of: :authored_responses
   )
 
-  #add polymorphic associations later
+  has_many :notifications, as: :notifiable, inverse_of: :notifiable,
+   dependent: :destroy
+
+  after_commit :create_notifications, on: [:create]
+
   validates :ad, :author, :title, :body, presence: true
 
-  has_one :notification, as: :notifiable, dependent: :destroy
-
-  after_create :create_notification
-
   private
-  def create_notification
-    self.create_notification!(message_id: 1)
+  def create_notifications
+    #ad scoping later
+    notification = self.notifications.unviewed.event(:new_response).new
+    notification.user = self.recipient
+    #change to unsafe saving later
+    notification.save!
   end
 
 end

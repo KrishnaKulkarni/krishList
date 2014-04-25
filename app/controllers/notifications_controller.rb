@@ -3,7 +3,7 @@ class NotificationsController < ApplicationController
   def index
     @user = User.find(params[:user_id])
     if(require_current_user_matches!(@user))
-      @notifications = @user.post_response_notifications.includes(:notifiable)
+      @notifications = @user.notifications
       render :index
     end
   end

@@ -11,26 +11,26 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140424204306) do
+ActiveRecord::Schema.define(version: 20140425154851) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
   create_table "ads", force: true do |t|
-    t.string   "title",          null: false
-    t.date     "start_date",     null: false
-    t.date     "end_date",       null: false
+    t.string   "title",           null: false
+    t.date     "start_date",      null: false
+    t.date     "end_date",        null: false
     t.string   "location"
-    t.string   "region",         null: false
-    t.integer  "price",          null: false
-    t.integer  "subcat_id",      null: false
-    t.integer  "submitter_id",   null: false
+    t.string   "region",          null: false
+    t.integer  "price",           null: false
+    t.integer  "subcat_id",       null: false
+    t.integer  "submitter_id",    null: false
     t.text     "description"
     t.text     "options_data"
     t.integer  "flag_count"
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.integer  "response_count"
+    t.integer  "responses_count"
   end
 
   add_index "ads", ["end_date"], name: "index_ads_on_end_date", using: :btree
@@ -53,28 +53,26 @@ ActiveRecord::Schema.define(version: 20140424204306) do
   create_table "notifications", force: true do |t|
     t.integer  "notifiable_id",                   null: false
     t.string   "notifiable_type",                 null: false
-    t.integer  "message_id",                      null: false
-    t.boolean  "viewed",          default: false
+    t.integer  "event_id",                        null: false
+    t.boolean  "is_viewed",       default: false
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.integer  "user_id"
   end
 
+  add_index "notifications", ["is_viewed"], name: "index_notifications_on_is_viewed", using: :btree
   add_index "notifications", ["notifiable_id"], name: "index_notifications_on_notifiable_id", using: :btree
-  add_index "notifications", ["viewed"], name: "index_notifications_on_viewed", using: :btree
 
   create_table "responses", force: true do |t|
-    t.integer  "ad_id",            null: false
-    t.integer  "respondent_id",    null: false
-    t.string   "title",            null: false
-    t.text     "body",             null: false
-    t.integer  "respondable_id",   null: false
-    t.integer  "respondable_type", null: false
+    t.integer  "ad_id",         null: false
+    t.integer  "respondent_id", null: false
+    t.string   "title",         null: false
+    t.text     "body",          null: false
     t.datetime "created_at"
     t.datetime "updated_at"
   end
 
   add_index "responses", ["ad_id"], name: "index_responses_on_ad_id", using: :btree
-  add_index "responses", ["respondable_id"], name: "index_responses_on_respondable_id", using: :btree
   add_index "responses", ["respondent_id"], name: "index_responses_on_respondent_id", using: :btree
   add_index "responses", ["title"], name: "index_responses_on_title", using: :btree
 
@@ -97,6 +95,7 @@ ActiveRecord::Schema.define(version: 20140424204306) do
     t.datetime "created_at"
     t.datetime "updated_at"
     t.string   "username",                                  null: false
+    t.integer  "notifications_count"
   end
 
   add_index "users", ["email"], name: "index_users_on_email", unique: true, using: :btree
