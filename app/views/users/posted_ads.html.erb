@@ -1,43 +1,31 @@
-<style>
-
-/*  tbody.user-posts-table {
-    display: block;
-    background: blue;
-    height: 10px;
-  }*/
-
-  h4 {
-    font-weight: none;
-  }
-
-  th {
-    display: inline-block;
-  }
-
-
-</style>
 
 <%= account_header(@user) %>
 
-<main>
+<main class="posted-ads">
   <h4>Filter</h4>
   <section class="user-dashboard filter"></section>
 
   <h4>Showing All Postings</h4>
   <section class="user-dashboard posts-list">
-    <table class="user-posts-table">
-        <% appended_classes = ["table_head"] %>
-        <% options = {status: 'status', title: 'posting title', region: 'region',
-      category: 'category', posted_date: 'posted_date', responses: 'responses'} %>
-        <%#= user_posts_list_item(appended_classes, options) %>
 
-        <% @user.posted_ads.each do |ad|  %>
-            <% options = {ad_id: ad.id, status: 'UNKNOWN', title: ad.title,
-             region: ad.region, category: Subcat.find(ad.subcat_id).title,
-              posted_date: ad.created_at, responses: ad.responses_count} %>
-          <%= user_posts_list_item([], options) %>
-        <% end  %>
+    <table class="user-posts-table">
+      <thead>
+        <tr>
+          <th>status</th>
+          <th>manage</th>
+          <th>posting title</th>
+          <th>area</th>
+          <th>category</th>
+          <th>posted date</th>
+          <th>responses</th>
+        </tr>
+      </thead>
+      <tbody>
+      <%= user_posts_list(@user.posted_ads) %>
+
+      </tbody>
     </table>
+
   </section>
 </main>
 

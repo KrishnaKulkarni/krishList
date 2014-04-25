@@ -14,22 +14,14 @@
 
 
 
-.user-dashboard {
-  background: #E9E9E9;
-  padding: 5px;
-  border: 2px solid #646464;
-  width: 800px;
-  margin: 5px 10px;
-}
-
-/*dashboard*/
   nav.all-pages {
 	  background: #999;
 	  height: 50px;
     padding-top: 10px;
   }
 
-  html, body, form, h1, div, label, nav, main, a.bracket-link {
+  html, body, form, h1, div, label, nav, main, a.bracket-link, table, thead,
+  tbody, tr, th, td {
 	  margin: 0;
 	  padding: 0;
 	  border: 0;
@@ -66,7 +58,7 @@
 
   body {
   	  background: #FFC02C;
-	  font-family: Verdana, Arial, Helvetica, sans-serif;
+	    font-family: Verdana, Arial, Helvetica, sans-serif;
   }
 
   main {
@@ -192,6 +184,50 @@
       display: block;
 
     }
+    /*dashboard-->*/
+    .user-dashboard {
+      background: #E9E9E9;
+      padding: 5px;
+      border: 1px solid #646464;
+      width: 100%;
+      margin: 5px 10px;
+    }
+
+    main.posted-ads {
+      padding: 0;
+      margin: 10px;
+    }
+
+    table {
+      margin: 15px;
+/*      border-collapse: collapse;*/
+/*      border: 5px solid red;*/
+/*      width: 890px;*/
+    }
+
+    th {
+      padding: 4px;
+      background: #FFFEFE;
+      border: 1px solid #C0C0C0;
+      text-align: center;
+/*      font-weight: bold;*/
+    }
+
+    td {
+      background: #FEE8FD;
+      padding: 4px;
+      border: 1px solid #cc99ff;
+      text-align: center;
+    }
+/* #AE63F5 vs #BF80F8 */
+    td.status {
+      background: #cc99ff;
+    }
+
+
+    /*<---dashboard*/
+
+
 
     /*bonus*/
     .blue > input {
