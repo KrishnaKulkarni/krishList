@@ -6,15 +6,14 @@ class AdsController < ApplicationController
     @min_price = params[:min_price]
     @max_price = params[:max_price]
     @start_date = params[:start_date]
-
-    min_price = params[:min_price] == "" ? 0 : params[:min_price].to_i
-    max_price = params[:max_price] == "" ? "10000000" : params[:max_price].to_i
-
+    @regions = params[:regions].keys
 
     @ads = @subcat.ads
-    .where("ads.price >= ? AND ads.price <= ?", min_price, max_price)
-    .where("ads.start_date <= ?", @start_date)
-
+    @ads = @ads.where("ads.price >= ? ", @min_price) if @min_price.present?
+    @ads = @ads.where("ads.price <= ? ", @max_price) if @max_price.present?
+    if @start_date.present?
+      @ads = @ads.where("ads.start_date <= ? ", @start_date)
+    end
     render :index
   end
 

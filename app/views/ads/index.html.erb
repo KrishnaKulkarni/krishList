@@ -13,9 +13,16 @@
   		<%= form_input("min price", "number", "min", "min_price", @min_price, "price-filter" ) %>
   		<%= form_input("max price", "number", "max", "max_price", @max_price, "price-filter" ) %>
       <%= form_input("latest possible move-in", "date", "move-in-date", "start_date", @start_date, "date-filter") %>
-  		<%= form_input("cats", "checkbox", "cats-ok", "cats_ok", @cats_ok ) %>
-  		<%= form_input("dogs", "checkbox", "dogs-ok", "dogs_ok", @dogs_ok ) %>
-  		<%= form_submit("filter") %>
+		<%= form_input("cats", "checkbox", "cats-ok", "cats_ok", true ) %>
+		<%= form_input("dogs", "checkbox", "dogs-ok", "dogs_ok", true ) %>
+
+    <% %w<mnh brk que brx stn jsy lgi wch fct>.each do |region| %>
+            <%= form_input(
+            region, "checkbox", "#{region}-ok",
+             "regions[#{region}]", true, "",
+                ("checked" if @regions.try(:include?, region) ) ) %>
+    <% end %>
+		<%= form_submit("filter") %>
   	</form>
   </section>
 

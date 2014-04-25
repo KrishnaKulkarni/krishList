@@ -41,12 +41,12 @@ module ApplicationHelper
     end
   end
 
-  def form_input(label_text, type, id, name, value, div_class =  "")
+  def form_input(label_text, type, id, name, value, div_class =  "", input_appends = "")
     <<-HTML.html_safe
       <div class="input #{div_class}">
         <label for="#{id}">#{label_text}</label>
         <input type="#{type}" id="#{id}"
-          name="#{name}" value="#{value}">
+          name="#{name}" value="#{value}" #{input_appends}>
         </input>
       </div>
     HTML
