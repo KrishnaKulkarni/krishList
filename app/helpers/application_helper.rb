@@ -41,9 +41,9 @@ module ApplicationHelper
     end
   end
 
-  def form_input(label_text, type, id, name, value)
+  def form_input(label_text, type, id, name, value, div_class =  "")
     <<-HTML.html_safe
-      <div class="input">
+      <div class="input #{div_class}">
         <label for="#{id}">#{label_text}</label>
         <input type="#{type}" id="#{id}"
           name="#{name}" value="#{value}">

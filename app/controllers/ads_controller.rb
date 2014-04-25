@@ -1,8 +1,27 @@
 class AdsController < ApplicationController
   before_action :require_signed_in!, only: [:new, :create]
 
+  def filter
+    @subcat = Subcat.includes(:ads).find(params[:subcat_id])
+    @min_price = params[:min_price]
+    @max_price = params[:max_price]
+    @start_date = params[:start_date]
+
+    min_price = params[:min_price] == "" ? 0 : params[:min_price].to_i
+    max_price = params[:max_price] == "" ? "10000000" : params[:max_price].to_i
+
+
+    @ads = @subcat.ads
+    .where("ads.price >= ? AND ads.price <= ?", min_price, max_price)
+    .where("ads.start_date <= ?", @start_date)
+
+    render :index
+  end
+
+
   def index
     @subcat = Subcat.includes(:ads).find(params[:subcat_id])
+    @ads = @subcat.ads
     render :index
   end
 
