@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140425154851) do
+ActiveRecord::Schema.define(version: 20140425162404) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -19,7 +19,6 @@ ActiveRecord::Schema.define(version: 20140425154851) do
   create_table "ads", force: true do |t|
     t.string   "title",           null: false
     t.date     "start_date",      null: false
-    t.date     "end_date",        null: false
     t.string   "location"
     t.string   "region",          null: false
     t.integer  "price",           null: false
@@ -33,7 +32,6 @@ ActiveRecord::Schema.define(version: 20140425154851) do
     t.integer  "responses_count"
   end
 
-  add_index "ads", ["end_date"], name: "index_ads_on_end_date", using: :btree
   add_index "ads", ["flag_count"], name: "index_ads_on_flag_count", using: :btree
   add_index "ads", ["price"], name: "index_ads_on_price", using: :btree
   add_index "ads", ["region"], name: "index_ads_on_region", using: :btree

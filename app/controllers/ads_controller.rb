@@ -54,7 +54,7 @@ class AdsController < ApplicationController
 
   private
   def ad_params
-    params.require(:ad).permit(:title, :start_date, :end_date, :location,
+    params.require(:ad).permit(:title, :start_date, :location,
     :region, :price, :subcat_id, :description, :options_data)
   end
 

@@ -17,28 +17,29 @@
 
 </style>
 
-  <%= account_header(@user) %>
+<%= account_header(@user) %>
 
-<h4>Filter</h4>
-<section class="user-dashboard filter"></section>
+<main>
+  <h4>Filter</h4>
+  <section class="user-dashboard filter"></section>
 
-<h4>Showing All Postings</h4>
-<section class="user-dashboard posts-list">
-  <table class="user-posts-table">
-      <% appended_classes = ["table_head"] %>
-      <% options = {status: 'status', title: 'posting title', region: 'region',
-    category: 'category', posted_date: 'posted_date', responses: 'responses'} %>
-      <%#= user_posts_list_item(appended_classes, options) %>
+  <h4>Showing All Postings</h4>
+  <section class="user-dashboard posts-list">
+    <table class="user-posts-table">
+        <% appended_classes = ["table_head"] %>
+        <% options = {status: 'status', title: 'posting title', region: 'region',
+      category: 'category', posted_date: 'posted_date', responses: 'responses'} %>
+        <%#= user_posts_list_item(appended_classes, options) %>
 
-      <% @user.posted_ads.each do |ad|  %>
-          <% options = {ad_id: ad.id, status: 'UNKNOWN', title: ad.title,
-           region: ad.region, category: Subcat.find(ad.subcat_id).title,
-            posted_date: ad.created_at, responses: ad.responses_count} %>
-        <%= user_posts_list_item([], options) %>
-      <% end  %>
-  </table>
-</section>
-
+        <% @user.posted_ads.each do |ad|  %>
+            <% options = {ad_id: ad.id, status: 'UNKNOWN', title: ad.title,
+             region: ad.region, category: Subcat.find(ad.subcat_id).title,
+              posted_date: ad.created_at, responses: ad.responses_count} %>
+          <%= user_posts_list_item([], options) %>
+        <% end  %>
+    </table>
+  </section>
+</main>
 
 
 

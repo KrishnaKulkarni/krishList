@@ -5,61 +5,78 @@
 #
 #   cities = City.create([{ name: 'Chicago' }, { name: 'Copenhagen' }])
 #   Mayor.create(name: 'Emanuel', city: cities.first)
+regions = %w<mnh brk que brx stn jsy lgi wch fct>
 
 u1 = User.create!(email: 'john@example.com', password: 'password',
  username: 'Johnny')
 u2 = User.create!(email: 'jane@example.com', password: 'password', username: 'Jane216')
 a1 = User.create!(email: 'admin@example.com', password: 'password', username: 'Admin', is_admin: true)
+users = [u1, u2, a1]
 
 
 c1 = Category.create!(title: 'Housing')
 c2 = Category.create!(title: 'For Sale')
 c3 = Category.create!(title: 'Jobs')
+categories = [c1, c2, c3]
+
 
 s1 = c1.subcats.create!(title: 'Apartments / Housing')
 s2 = c1.subcats.create!(title: 'Sublets / Temporary')
 s3 = c1.subcats.create!(title: 'Housing Wanted')
 s4 = c3.subcats.create!(title: 'Food / Bev. / Hosp.')
+subcats = [s1, s2, s3, s4]
 
-ad1 = s1.ads.create!({
+ad1 = s1.ads.new(
   title: 'For Rent! 1st Avenue and East 10th St- 3 bedroom Apartment',
   start_date: "May 01 2014",
-  end_date: "May 20 2014",
-  region: 'East Village',
+  region: regions[0],
   price: 4600,
-  submitter_id: 1,
-  description: 'Super cozy! 5 Min from the Subway!'
-})
+   description: 'Super cozy! 5 Min from the Subway!')
+ad1.submitter = u1
+ad1.save!
 
-ad2 = s1.ads.create!({
-  title: '3 Great Apartments for Rent',
+ad2 = s2.ads.new(
+  title: 'New Sublet open',
   start_date: "May 21 2014",
-  end_date: "May 30 2014",
-  region: 'Chinatown',
-  price: 1375,
-  submitter_id: 2,
-  description: 'Any questions or concerns, please call or text Jason at 646-662-1907'
-})
+  region: regions[1],
+  price: 2100,
+  description: 'Any questions or concerns, please call or text Jason at 646-662-1907')
+ad2.submitter = u2
+ad2.save!
 
-ad3 = s4.ads.create!({
-  title: '3 Great Apartments for Rent',
-  start_date: "May 21 2014",
-  end_date: "May 30 2014",
-  region: 'Chinatown',
-  price: 1375,
-  submitter_id: 2,
-  description: 'Any questions or concerns, please call or text Jason at 646-662-1907'
-})
-
-r1 = ad3.responses.create!(
-   respondent_id: 1,
-   title: "hey",
-   body: "Maybe this will work",
-)
+ads = [ad1, ad2]
 
 
-r2 = ad1.responses.create!(
-   respondent_id: 2,
-   title: "its jane",
-   body: "Baby this will work",
-)
+
+r1 = ad1.responses.new(title: "hey", body: "I like manhattan")
+r1.author = a1
+r1.save!
+
+r2 = ad2.responses.new(title: "hey", body: "I wanna sublet")
+r2.author = u1
+r2.save!
+
+responses = [r1, r2]
+
+users.each do |user|
+  3.times do |i|
+    ad = subcats[i].ads.new(
+      title: "Title #{i} from User #{user.username}",
+      start_date: "Jun 01 2014",
+      region: regions[i],
+      price: 1500,
+       description: "Description #{i}")
+    ad.submitter = user
+    ad.save!
+    ads.push(ad)
+  end
+end
+
+ads.each do |ad|
+  users.each do |user|
+    r = ad.responses.new(title: "R from #{user.username}", body: "I like it")
+    r.author = user
+    r.save!
+  end
+end
+
