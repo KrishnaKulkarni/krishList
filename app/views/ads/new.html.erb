@@ -1,5 +1,5 @@
+<h1>Submit a New Ad</h1>
 <main class="new-ad">
-  <h1>Submit a New Ad</h1>
   <form class="new-ad" action="<%= ads_url %>"
     method="post" accept-charset="utf-8">
     <%= auth_token %>
@@ -35,7 +35,7 @@
       Description :
     </label>
     <br>
-    <textarea id="ad-description" name="ad[description]" rows="15" cols="80" placeholder="Provide additional description or contact info here"
+    <textarea id="ad-description" name="ad[description]" rows="15" cols="45" placeholder="Provide additional description or contact info here"
     ><%= @ad.description if @ad.description%>
     </textarea>
 
