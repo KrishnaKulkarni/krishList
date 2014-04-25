@@ -20,12 +20,7 @@
         <%= bracket_link('sign out', session_url, 'DELETE') %>
 
       <% else %>
-
-            <button>
-              <a class="sign-in-link" href="<%= new_session_url %>">
-                Log In
-              </a>
-            </button>
+	  	<%= bracket_link('sign in', new_session_url, 'GET') %>
       <% end  %>
     </div>
   </nav>
