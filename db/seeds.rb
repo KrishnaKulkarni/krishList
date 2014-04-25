@@ -80,3 +80,18 @@ ads.each do |ad|
   end
 end
 
+months = %w<Jan Feb Mar Apr May Jun Jul Aug Sep Oct Nov Dec>
+subcats.each do |subcat|
+  20.times do |i|
+    month = months.sample
+    price = (rand * 500).to_i * 10 + 300
+    ad = subcat.ads.new(
+      title: "Rand Ad No. #{i}",
+      start_date: "#{month} 01 2014",
+      region: regions.sample,
+      price: price,
+      description: 'Any questions or concerns, please call or text Jason at 646-662-1907')
+    ad.submitter = users.sample
+    ad.save!
+  end
+end
