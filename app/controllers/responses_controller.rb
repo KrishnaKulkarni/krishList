@@ -5,14 +5,12 @@ class ResponsesController < ApplicationController
     ad = Ad.find(params[:ad_id])
     @response = ad.responses.new(
     response_params.merge({
-      respondent_id: current_user.id,
-      respondable_id: params[:ad_id],
-      respondable_type: 'Ad'
+      respondent_id: current_user.id
       }))
 
     if @response.save
       flash[:notices] = ["Response saved"]
-      ad.update!(response_count: (ad.response_count + 1)) #might be bad--> maybe make transaction????
+
       # MIGHT BE UNNECESSARY GIVEN javasctipt prefetching
 
       #send email to ad.submitter and to @response.author
@@ -34,8 +32,7 @@ class ResponsesController < ApplicationController
 
   private
   def response_params
-    params.require(:response).permit(:title, :body, :respondable_id,
-     :respondable_type)
+    params.require(:response).permit(:title, :body)
   end
 
 end
