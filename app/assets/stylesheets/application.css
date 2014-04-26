@@ -264,6 +264,14 @@
       width: 170px;
     }
 
+    .filter input[type="checkbox"] {
+      width: 8px;
+    }
+
+    .filter label {
+      font-weight: normal;
+    }
+
 /*<----filter*/
 
     /*bonus*/
