@@ -6,13 +6,17 @@ class AdsController < ApplicationController
     @min_price = params[:min_price]
     @max_price = params[:max_price]
     @start_date = params[:start_date]
-    @regions = params[:regions].keys
+    @regions = params[:regions]
 
     @ads = @subcat.ads
     @ads = @ads.where("ads.price >= ? ", @min_price) if @min_price.present?
     @ads = @ads.where("ads.price <= ? ", @max_price) if @max_price.present?
     if @start_date.present?
       @ads = @ads.where("ads.start_date <= ? ", @start_date)
+    end
+    if @regions
+      @regions = @regions.keys
+      @ads = @ads.where("ads.region IN (?)", @regions)
     end
     render :index
   end

@@ -20,7 +20,7 @@
             <%= form_input(
             region, "checkbox", "#{region}-ok",
              "regions[#{region}]", true, "",
-                ("checked" if @regions.try(:include?, region) ) ) %>
+              ("checked" if (@regions.nil? || @regions.include?(region)) ) )%>
     <% end %>
 		<%= form_submit("filter") %>
   	</form>
