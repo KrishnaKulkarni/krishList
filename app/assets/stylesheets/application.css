@@ -131,7 +131,8 @@
   
   /* GENERAL INPUT STYLING*/
   .input > input:focus {
-    border-color: #8264F0;
+/*    border-color: #8264F0;*/
+	  border-color: #184FF7;
   }
 
   .submit > input {
