@@ -22,11 +22,18 @@
 	<div class="visuals clearfix">
 		<div class="left-column">
 			<section class="apt-pics">
-	         <img src="apt_pic.jpg" width="450" height="450" alt="Apt Pic">
+	         <img src="<%= asset_path("apt_pic.jpg") %>" width="450" height="450" alt="Apt Pic">
 			</section>
 			
 			<section class="apt-thumbs">
-				Thumbnails
+				<ul>
+					<li>
+						<img src="<%= asset_path("apt_pic.jpg") %>" width="50" height="50" alt="Apt Pic">
+					</li>
+					<li>
+						<img src="<%= asset_path("apt_pic.jpg") %>" width="50" height="50" alt="Apt Pic">
+					</li>
+				</ul>
 			</section>
   		</div>	
   	  <div class="right-column">
