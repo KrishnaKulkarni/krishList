@@ -15,7 +15,7 @@
 
 /* RESETS */
   html, body, header, main, form, h1, div, label, nav, a, table, thead,
-  tbody, tr, th, td, ul, li, h5{
+  tbody, tr, th, td, ul, li, h2, h3, h4, h5, span{
 	  margin: 0;
 	  padding: 0;
 	  border: 0;
@@ -90,6 +90,15 @@
  	color: #fff;
  }
  
+ form label {
+	 color: #fff;
+	 display: block;
+ }
+ 
+ ul {
+	 list-style: none;
+ }
+ 
  /*END*/
 
 /* Ads Index*/
@@ -134,6 +143,7 @@
 	  border-radius: 6px;
 	  font-weight: bold;
 	  box-shadow: 0 3px 0 0 #08206A;
+	  letter-spacing: 1px;
   }
 
   .submit > input:hover {
@@ -289,7 +299,7 @@
 /*		background: #DEFABB;*/
 		background: #fff;
 		color: #878787;
-/*		border: 1px solid #8264F0;*/
+/*		border: 2px solid #8264F0;*/
 	}
 
     .all-posts-table th {
@@ -396,6 +406,124 @@
       	  content: "[";
           color: #fff;
     }
+
+/* Ad SHOW*/
+	.listing-show {
+		padding: 20px 150px;
+	}
+	
+	.listing-title {
+		display: block;
+		padding-bottom: 10px;
+		border-bottom: 1px solid #000;
+		margin-bottom: 15px;
+	}
+	
+	.listing-show h2 {
+		display: block;
+		font-weight: bold;
+		font-size: 36px;
+		float: left;
+	}
+	
+	.listing-show .essentials {
+		display: block;
+		float: right;
+		width: 300px;
+/*		border: 1px solid purple;*/
+	}
+	
+	.listing-show .essentials li {
+	}
+	
+	.listing-show h3 {
+		font-size: 15px;
+		display: block;
+		font-weight: bold;
+		text-align: right;
+	}
+	
+	.listing-show .tags {
+		float: left;
+/*		height: 42px;*/
+/*		width: 240px;*/
+/*		border: 1px solid #000;*/
+		margin: 0 50px 0 110px;
+	}
+
+	.listing-show .tags li {
+		float: left;
+		font-size: 13px;
+		padding: 2px;
+/*		background: #999;*/
+		background: #6EA9EB;;
+		margin: 1px 2px 2px 2px;
+		border-radius: 3px;
+	}
+	
+	.listing-show .left-column {
+		float: left;
+	}
+	
+	.listing-show .right-column {
+/*		border: 1px solid red;*/
+		float: right;
+	}
+	
+	.listing-show .apt-pics {
+		display: block;
+		height: 450px;
+		width: 600px;
+		border: 1px solid purple;
+	}
+	
+	.listing-show .apt-thumbs {
+		margin-top: 10px;
+		height: 50px;
+		width: 600px;
+		border: 1px solid cyan;
+	}
+	
+
+	
+	.listing-show .response-bar {
+		display: block;
+/*		border: 1px solid green;*/
+	}
+	
+	.listing-show .new-response {
+		background: #999;
+		padding: 10px;
+	}
+	
+	.listing-show input[type="text"], .listing-show textarea {
+		background: #fff;
+		margin: 5px 0;
+		width: 350px;
+		font-size: 85%;	
+	}
+	
+	.listing-show .submit input {
+		padding: 5px;
+	/*	font-weight: normal;*/
+		font-size: 90%;
+	}
+
+	.listing-show .map {
+		border: 1px solid green;
+		height: 250px;
+		margin-top: 15px;
+	}
+	
+	.listing-show h4 {
+		background: #999;
+		color: #fff;
+		padding: 10px;
+		margin: 15px 0;
+		font-size: 110%;
+	}
+
+/* END */
 
     /*new response form --->*/
   form.new-response {

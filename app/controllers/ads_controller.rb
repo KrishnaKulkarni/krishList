@@ -3,8 +3,8 @@ class AdsController < ApplicationController
   
   def filter    
     @subcat = Subcat.includes(:ads).find(params[:subcat_id])
-    @header_options = { head_link_text: @subcat.title,
-       head_link_url: subcat_ads_url(@subcat)
+    @header_options = { head_link_text: [@subcat.title],
+       head_link_url: [subcat_ads_url(@subcat)]
       }
     
     
@@ -31,15 +31,20 @@ class AdsController < ApplicationController
     @subcat = Subcat.includes(:ads).find(params[:subcat_id])
     @ads = @subcat.ads.order(created_at: :desc)
     
-    @header_options = { head_link_text: @subcat.title,
-       head_link_url: subcat_ads_url(@subcat)
+    @header_options = { head_link_text: [@subcat.title],
+       head_link_url: [subcat_ads_url(@subcat)]
       }
       
     render :index
   end
 
   def show
-    @ad = Ad.find(params[:id])
+    @ad = Ad.includes(:subcat).find(params[:id])
+    @header_options = { head_link_text: [@ad.subcat.title, "apts by owner"],
+       head_link_url: [subcat_ads_url(@ad.subcat), subcat_ad_url(@ad.subcat, @ad)]
+      }
+    
+    
     render :show
   end
 

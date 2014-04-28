@@ -62,6 +62,17 @@ module ApplicationHelper
   
   def header(header_options)
     header_options ||= {}
+    header_append_html = ""
+    if header_options[:head_link_text].present?
+      header_options[:head_link_text].each_index do |i|
+        header_append_html += <<-HTML.html_safe
+        > <a href="#{ header_options[:head_link_url][i] }">
+            #{ header_options[:head_link_text][i] }
+          </a>
+        HTML
+      end
+    end 
+    
     <<-HTML.html_safe
     <header class="all-pages">
       
@@ -70,10 +81,8 @@ module ApplicationHelper
           <a href="#{root_url}">KrishList</a>
           >
           <a href="#{root_url}">New York City</a>
-          >
-          <a href="#{ header_options[:head_link_url] }">
-            #{ header_options[:head_link_text] }
-          </a>
+          
+          #{header_append_html}
         </ul>  
         
         <div class="bracket-link-container">
