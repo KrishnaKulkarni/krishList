@@ -59,6 +59,39 @@ module ApplicationHelper
      	</div>
     HTML
   end
+  
+  def header(header_options)
+    header_options ||= {}
+    <<-HTML.html_safe
+    <header class="all-pages">
+      
+      <nav class="header clearfix">
+        <ul class="header-path-links">
+          <a href="#{root_url}">KrishList</a>
+          >
+          <a href="#{root_url}">New York City</a>
+          >
+          <a href="#{ header_options[:head_link_url] }">
+            #{ header_options[:head_link_text] }
+          </a>
+        </ul>  
+        
+        <div class="bracket-link-container">
+
+          #{
+          if(signed_in?)
+              bracket_link('account', user_url(current_user), 'GET') + 
+              bracket_link('post', new_ad_url, 'GET') + 
+              bracket_link('sign out', session_url, 'DELETE')
+          else
+    	  	    bracket_link('sign in', new_session_url, 'GET')
+          end
+           }
+        </div>
+      </nav>
+    </header>
+    HTML
+  end
 
 end
 

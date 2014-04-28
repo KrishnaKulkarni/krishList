@@ -1,8 +1,13 @@
 class AdsController < ApplicationController
   before_action :require_signed_in!, only: [:new, :create]
-
-  def filter
+  
+  def filter    
     @subcat = Subcat.includes(:ads).find(params[:subcat_id])
+    @header_options = { head_link_text: @subcat.title,
+       head_link_url: subcat_ads_url(@subcat)
+      }
+    
+    
     @min_price = params[:min_price]
     @max_price = params[:max_price]
     @start_date = params[:start_date]
@@ -25,6 +30,11 @@ class AdsController < ApplicationController
   def index
     @subcat = Subcat.includes(:ads).find(params[:subcat_id])
     @ads = @subcat.ads
+    
+    @header_options = { head_link_text: @subcat.title,
+       head_link_url: subcat_ads_url(@subcat)
+      }
+      
     render :index
   end
 

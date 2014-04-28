@@ -8,22 +8,8 @@
 </head>
 
 <body>
-  <nav class="all-pages">
-
-    <a href="<%= root_url %>">KrishList: New York City</a>
-
-    <div class="bracket-link-container">
-
-      <% if signed_in?  %>
-        <%= bracket_link('account', user_url(current_user), 'GET') %>
-        <%= bracket_link('post', new_ad_url, 'GET') %>
-        <%= bracket_link('sign out', session_url, 'DELETE') %>
-
-      <% else %>
-	  	<%= bracket_link('sign in', new_session_url, 'GET') %>
-      <% end  %>
-    </div>
-  </nav>
+	
+<%= header(@header_options) %>
 
 <% if flash[:errors]  %>
   <div class="page-errors">

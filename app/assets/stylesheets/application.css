@@ -13,66 +13,83 @@
  */
 
 
-
-  nav.all-pages {
-	  background: #999;
-	  height: 50px;
-    padding-top: 10px;
-  }
-
-  html, body, form, h1, div, label, nav, main, a.bracket-link, table, thead,
-  tbody, tr, th, td {
+/* RESETS */
+  html, body, header, main, form, h1, div, label, nav, a, table, thead,
+  tbody, tr, th, td, ul, li, h5{
 	  margin: 0;
 	  padding: 0;
 	  border: 0;
 	  font: inherit;
 	  vertical-align: baseline;
+	  font-size: 100%;
+  }
+  
+  body {
+/*  	  background: #FFC02C;*/
+	  background: #CBCBCB;
+	  font-family: Verdana, Arial, Helvetica, sans-serif;
   }
 
- /* input styling begins here-->*/
+  main {
+	  padding: 100px;
+  }
+  
+/* HEADER */
+  header {
+	  display: block;
+	  background: #999;
+	  height: 50px;
+ }
+  
+  a {
+	  text-decoration: none;
+	  color: #fff;
+  }
+  
+  a:hover {
+	  text-decoration: underline;
+  }
+  
+  .clearfix:after {
+	content: "";
+	display: block;
+	clear: both;	
+  }
+  
   input[type="password"], input[type="email"],
-  input[type="submit"], input[type="text"], input[type="date"] {
+  input[type="submit"], input[type="text"], input[type="date"],
+  input[type="number"], input[type="checkbox"] {
 	  -webkit-appearance: none;
 	  /* changes style of submit-button & input box */
 	  box-sizing: content-box;
 	  display: inline-block;
-	  /*??*/
 	  margin: 0;
 	  padding: 0;
 	  border: 0;
-	  /*border is what makes the input boxes identifiable*/
 	  outline: 0;
 	  font: inherit;
-	  /* button font does not inherit by default*/
-	  /*what does inherit really mean?*/
 	  vertical-align: baseline;
-	  width: auto;
+/*	  width: auto;*/
 	  background: transparent;
 	  color: inherit;
+	  font-size: 100%;
   }
 
 
   input[type="submit"] {
 	  display: inline;
   }
-
-  body {
-  	  background: #FFC02C;
-	    font-family: Verdana, Arial, Helvetica, sans-serif;
+  
+  input[type="checkbox"] {
+	  -webkit-appearance: checkbox;
   }
 
-  main {
-	  padding: 100px;
-  }
 
-  form {
-	  background: #fff;
-	  padding: 50px;
-	  width: 300px;
-	  margin: auto;
-  }
+/* Ads Index*/
 
-  h1 {
+/* New user form*/
+  
+/*  h1 {
 	  font-size: 45px;
 	  line-height: 1.0;
 	  font-weight: bold;
@@ -85,18 +102,17 @@
   .input > label {
 	  display: block;
 	  font-weight: bold;
-  }
+  }*/
 
-  .input > input {
+/*  .input > input {
 	  border: 3px solid black;
 	  padding: 5px;
 	  width: 284px;
 	  border-radius: 3px;
-  }
+  }*/
 
   .input > input:focus {
     border-color: #8264F0;
-/*	  border-color: #1C6BFF;*/
   }
 
   .submit > input {
@@ -119,6 +135,127 @@
 	  box-shadow: none;
 	  background: #6640E5;
   }
+  
+  
+  /*END */
+
+  
+  /*ALL POSTS FILTER*/
+  
+  	.filter {
+	  display: block;
+  	  border: 1px solid #000;
+	  border-radius: 3px;
+	  background: #999;
+	  padding: 5px 10px;
+	 }
+	 
+	
+
+	 .filter-parameters {
+	   	  display: block;
+	 }
+	 
+	 .filter label, .filter h5 {
+		 color: #fff;
+	 }
+	  
+	.filter-parameters > .typables {
+		display: block;
+		float: left;
+	} 
+	
+	.typables > .non-price {
+		display: block;
+		width: 300px;
+		float: left;
+	}
+	
+	.typables > .price {
+		display: block;
+		width: 300px;
+		float: left;
+	}
+	
+    .typables input {
+	  background: #fff;
+  	  border: 1px solid #000;
+  	  padding: 5px;
+	  margin-top: 3px;
+  	  width: 284px;
+	  height: 24px;
+  	  border-radius: 3px;
+    }
+	
+	.filter-parameters > .checkables {
+		display: block;
+		width: 310px;
+		float: right;	
+	}
+
+	.filter .typables .input {
+		display: block;
+		margin: 10px 0;
+	} 
+	
+	.filter .checkables .input {
+		display: block;
+		float: left;
+		margin: 5px 5px 0 5px;
+	} 
+	
+	.checkables label {
+		display: block;
+		margin-bottom: 3px;
+	}
+	
+	.checkables input[type="checkbox"] {
+		display: block;
+		margin: auto;
+	}
+	
+	.filter .checkables .regions {		
+	}
+	
+	.filter .checkables .options {
+		margin-top: 5px;
+		
+	}
+	
+	.checkables h5 {
+		display: block;
+		text-align: center;
+		border-bottom: 1px solid #fff;
+	}
+	
+	.filter .submit {
+		margin: 5px 0;
+	}
+	
+  
+  .header {
+	  margin: 0px 65px;
+  }
+  
+  .header-path-links {
+	  margin: 10px 0;
+	  float: left;
+  }
+
+/* END FILTER STYLING*/
+
+ /* input styling begins here-->*/
+
+
+
+/*  form {
+	  background: #fff;
+	  padding: 50px;
+	  width: 300px;
+	  margin: auto;
+  }*/
+
+
   /*<---input styling ends here*/
 
   /*navbar sign-in/sign/up/sign-out options-->*/
@@ -131,7 +268,7 @@
 
   .bracket-link-container {
 	  float: right;
-	  margin: 0 30px 0 0;
+	  margin: 10px 0;
   }
 
   .bracket-link-wrap {
@@ -214,21 +351,33 @@
     }
 
     td {
-      background: #FEE8FD;
+/*      background: #FEE8FD;*/
+		
+	  background: #DEFABB;
       padding: 4px;
-      border: 1px solid #cc99ff;
+/*      border: 1px solid #cc99ff;*/
+      border: 1px solid #C0C0C0;
+	  
       text-align: center;
     }
 /* #AE63F5 vs #BF80F8 */
     td.status {
-      background: #cc99ff;
+/*      background: #cc99ff;*/
+		background: #97D441;
     }
 
+	.user-dashboard td a {
+		color: #6A6A6A;
+	}
+	
+	.linkable-cell:hover {
+		background: white;
+	}
 
     /*<---dashboard*/
 
 /*filter --->*/
-
+/*
   	.filter {
   		padding: 0;
   		background: white;
@@ -271,7 +420,7 @@
     .filter label {
       font-weight: normal;
     }
-
+*/
 /*<----filter*/
 
     /*bonus*/
