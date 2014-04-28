@@ -18,3 +18,5 @@
 /ignore_test.*
 .DS_Store
 /config/database.yml
+# Ignore application configuration
+/config/application.yml
