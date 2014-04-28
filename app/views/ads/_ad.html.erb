@@ -1,12 +1,14 @@
-<tr class="user-posts-list">
+<tr class="user-posts-list clickable-row" href="<%= subcat_ad_url(ad.subcat, ad) %>">
   <td class="title">
-    <a href="<%= subcat_ad_url(ad.subcat, ad) %>">
+   
       <%= h(ad.title) %>
-    </a>
+   
   </td>
   <td><%= h(ad.price) %></td>
   <td>?BR?</td>
   <td><%= h(ad.start_date) %></td>
   <td><%= h(ad.region) %></td>
-  <td><%= h(ad.created_at) %></td>
+  <td><%= h(ad.created_at) %></td> 
 </tr>
+
+

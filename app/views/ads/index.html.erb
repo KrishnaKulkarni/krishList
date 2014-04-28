@@ -1,9 +1,6 @@
-
-
-
-  <section>
-  	<form class="filter" action="<%= filter_subcat_ads_url(@subcat) %>" method="post">
-  		<%= auth_token %>
+<section>
+	<form class="filter" action="<%= filter_subcat_ads_url(@subcat) %>" method="post">
+		<%= auth_token %>
 		<div class="filter-parameters clearfix">
 			<div class="typables clearfix">
 				<div class="non-price">
@@ -14,9 +11,9 @@
 			  		<%= form_input("min price", "number", "min", "min_price", @min_price, "price-filter" ) %>
 			  		<%= form_input("max price", "number", "max", "max_price", @max_price, "price-filter" ) %>
 		     	</div>
-	 	
+ 	
 			</div>
-		
+	
 			<div class="checkables">
 				<div class="regions clearfix">
 					<h5>Areas</h5>
@@ -27,38 +24,46 @@
 				              ("checked" if (@regions.nil? || @regions.include?(region)) ) )%>
 				    <% end %>
 				</div>
-			
+		
 				<div class="options clearfix">
 					<h5>Other Options</h5>
 					<%= form_input("cats", "checkbox", "cats-ok", "cats_ok", true ) %>
 					<%= form_input("dogs", "checkbox", "dogs-ok", "dogs_ok", true ) %>
 				</div>
-	
+
 			</div>
 		</div>
 				<%= form_submit("filter") %>
-  	</form>
-  </section>
+	</form>
+</section>
 
-    <section class="user-dashboard posts-list">
+<section class="all-posts-list">
 
-      <table class="user-posts-table">
-        <thead>
-          <tr>
-            <th>title</th>
-            <th>price</th>
-            <th>bedrooms</th>
-            <th>available by</th>
-            <th>area</th>
-            <th>posted date</th>
-          </tr>
-        </thead>
-        <tbody>
-          <%= render @ads %>
-        </tbody>
-      </table>
+  <table class="all-posts-table">
+    <thead>
+      <tr>
+        <th class="title">title</th>
+        <th>price</th>
+        <th>bedrooms</th>
+        <th>available by</th>
+        <th>area</th>
+        <th>posted date</th>
+      </tr>
+    </thead>
+    <tbody>
+      <%= render @ads %>
+    </tbody>
+  </table>
 
-    </section>
+</section>
+
+<script>
+ $(document).ready(function() {
+      $(".clickable-row").click(function() {
+            window.document.location = $(this).attr("href");
+      });
+});
+</script>
 
   <!-- <ul class="ads-list">
      <li>moved</li>

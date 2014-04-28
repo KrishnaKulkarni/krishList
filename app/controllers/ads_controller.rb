@@ -13,7 +13,7 @@ class AdsController < ApplicationController
     @start_date = params[:start_date]
     @regions = params[:regions]
 
-    @ads = @subcat.ads
+    @ads = @subcat.ads.order(created_at: :desc)
     @ads = @ads.where("ads.price >= ? ", @min_price) if @min_price.present?
     @ads = @ads.where("ads.price <= ? ", @max_price) if @max_price.present?
     if @start_date.present?
@@ -29,7 +29,7 @@ class AdsController < ApplicationController
 
   def index
     @subcat = Subcat.includes(:ads).find(params[:subcat_id])
-    @ads = @subcat.ads
+    @ads = @subcat.ads.order(created_at: :desc)
     
     @header_options = { head_link_text: @subcat.title,
        head_link_url: subcat_ads_url(@subcat)
