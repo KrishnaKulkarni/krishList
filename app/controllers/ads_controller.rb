@@ -56,7 +56,6 @@ class AdsController < ApplicationController
 
   def create
     @ad = current_user.posted_ads.new(ad_params)
-
     if @ad.save
       flash[:notices] = ["Ad saved"]
       redirect_to subcat_ad_url(@ad.subcat, @ad)
@@ -92,7 +91,7 @@ class AdsController < ApplicationController
   private
   def ad_params
     params.require(:ad).permit(:title, :start_date, :location,
-    :region, :price, :subcat_id, :description, :options_data)
+    :region, :price, :subcat_id, :description, :options_data, :pic1)
   end
 
 end

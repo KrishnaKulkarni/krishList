@@ -14,6 +14,15 @@ class Ad < ActiveRecord::Base
   validates(:title, :start_date, :region, :price, :subcat,
   :submitter, presence: true)
 
+
+  has_attached_file :pic1, styles: {
+    full: "600x450#",
+    big: "450x450>",
+    thumbnail: "50x50#"
+  }
+  
+ validates_attachment_content_type :pic1, :content_type => /\Aimage\/.*\Z/
+
   private
   def ensure_flag_count
     self.flag_count ||= 0

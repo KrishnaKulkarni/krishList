@@ -1,7 +1,7 @@
 <h1>Submit a New Ad</h1>
 <main class="new-ad">
   <form class="new-ad" action="<%= ads_url %>"
-    method="post" accept-charset="utf-8">
+    method="post" accept-charset="utf-8" enctype="multipart/form-data">
     <%= auth_token %>
 
     <%#= form_input(label_text, type, id, name, value) %>
@@ -16,6 +16,8 @@
      @ad.region) %>
 
     <%= form_input('Price', 'number', 'new-ad-price', 'ad[price]', @ad.price) %>
+	
+	<%= form_input("Upload Image", "file", "", "ad[pic1]", nil) %>
 
     <label for="subcat-choice" class="form-input">Listing Category :</label>
       <select id="subcat-choice" name="ad[subcat_id]">
