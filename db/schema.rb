@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140429155922) do
+ActiveRecord::Schema.define(version: 20140429161423) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -44,6 +44,12 @@ ActiveRecord::Schema.define(version: 20140429155922) do
   add_index "ads", ["submitter_id"], name: "index_ads_on_submitter_id", using: :btree
   add_index "ads", ["title"], name: "index_ads_on_title", using: :btree
 
+  create_table "boolean_option_values", force: true do |t|
+    t.boolean  "value",      null: false
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
   create_table "categories", force: true do |t|
     t.string   "title",      null: false
     t.datetime "created_at"
@@ -51,6 +57,18 @@ ActiveRecord::Schema.define(version: 20140429155922) do
   end
 
   add_index "categories", ["title"], name: "index_categories_on_title", unique: true, using: :btree
+
+  create_table "date_option_values", force: true do |t|
+    t.date     "value",      null: false
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "integer_option_values", force: true do |t|
+    t.integer  "value",      null: false
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
 
   create_table "notifications", force: true do |t|
     t.integer  "notifiable_id",                   null: false
@@ -105,6 +123,12 @@ ActiveRecord::Schema.define(version: 20140429155922) do
   add_index "responses", ["ad_id"], name: "index_responses_on_ad_id", using: :btree
   add_index "responses", ["respondent_id"], name: "index_responses_on_respondent_id", using: :btree
   add_index "responses", ["title"], name: "index_responses_on_title", using: :btree
+
+  create_table "string_option_values", force: true do |t|
+    t.string   "value",      null: false
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
 
   create_table "subcats", force: true do |t|
     t.string   "title",       null: false

@@ -21,6 +21,7 @@ class OptionClass < ActiveRecord::Base
   
   belongs_to :option_classable, polymorphic: true, inverse_of: :option_classes
   
+  has_many :options, inverse_of: :option_class, dependent: :destroy
   
   validates :input_type, inclusion: { in: INPUT_TYPES }
   validates :is_mandatory, inclusion: { in: [true, false] }

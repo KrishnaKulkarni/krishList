@@ -19,7 +19,7 @@ regions = %w<mnh brk que brx stn jsy lgi wch fct>
 
 # OptionClasses
 # Subcat.first.option_classes.mandatory.new(title: "Bedrooms", input_type: "number")
-# 
+# Subcat.first.option_classes.discretionary.new(title: "Housing Type", input_type: "text")
 
 
 u1 = User.create!(email: 'john@example.com', password: 'password',

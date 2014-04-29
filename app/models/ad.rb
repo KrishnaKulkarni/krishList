@@ -11,6 +11,9 @@ class Ad < ActiveRecord::Base
 
   has_many :response_notifications, through: :responses, source: :notification
 
+  has_many :options, inverse_of: :ad, dependent: :destroy
+  has_many :option_values, through: :options, source: :option_value
+
   validates(:title, :start_date, :region, :price, :subcat,
   :submitter, presence: true)
 
@@ -20,8 +23,18 @@ class Ad < ActiveRecord::Base
     big: "450x450>",
     thumbnail: "50x50#"
   }
+
+  validates_attachment_content_type :pic1, :content_type => /\Aimage\/.*\Z/
+
+  def option_classes
+    OptionClass.where("(option_classable_id = ? AND option_classable_type = ?) 
+    OR (option_classable_id = ? AND option_classable_type = ?)",
+     self.subcat_id, 'Subcat', self.subcat.category_id, 'Category')
+  end
   
- validates_attachment_content_type :pic1, :content_type => /\Aimage\/.*\Z/
+  def mandatory_option_classes
+    option_classes.mandatory
+  end
 
   private
   def ensure_flag_count

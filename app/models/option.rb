@@ -11,8 +11,9 @@ class Option < ActiveRecord::Base
   def create_option_value_type
     return if self.option_value_type
   
-    option_value = self.option_class.value_type.new(value: self.raw_value)
-    option_value.option = self
+    self.option_value_type = self.option_class.value_type
+    option_value = self.option_value_type.new(value: self.raw_value)
+    # option_value.option = self
     option_value.save!
   end
 
