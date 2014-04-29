@@ -250,7 +250,7 @@ DEPENDENCIES
   jbuilder (~> 1.2)
   jquery-rails
   jquery-ui-rails
-  paperclip
+  paperclip (~> 4.1)
   pg
   pry-rails
   rails (= 4.0.4)
