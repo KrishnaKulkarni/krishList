@@ -15,6 +15,13 @@ regions = %w<mnh brk que brx stn jsy lgi wch fct>
 # cds/dvd/vhs cell phones clothes+acc collectibles electronics farm+garden garage sale heavy equip motorcycles music instr photo+video toys+games video_gaming>
 # 
 
+
+
+# OptionClasses
+# Subcat.first.option_classes.mandatory.new(title: "Bedrooms", input_type: "number")
+# 
+
+
 u1 = User.create!(email: 'john@example.com', password: 'password',
  username: 'Johnny')
 u2 = User.create!(email: 'jane@example.com', password: 'password', username: 'Jane216')
