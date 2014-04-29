@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140429021524) do
+ActiveRecord::Schema.define(version: 20140429060645) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -64,6 +64,31 @@ ActiveRecord::Schema.define(version: 20140429021524) do
 
   add_index "notifications", ["is_viewed"], name: "index_notifications_on_is_viewed", using: :btree
   add_index "notifications", ["notifiable_id"], name: "index_notifications_on_notifiable_id", using: :btree
+
+  create_table "option_values", force: true do |t|
+    t.integer  "ad_id",      null: false
+    t.integer  "option_id",  null: false
+    t.string   "value",      null: false
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "option_values", ["ad_id"], name: "index_option_values_on_ad_id", using: :btree
+  add_index "option_values", ["option_id"], name: "index_option_values_on_option_id", using: :btree
+
+  create_table "options", force: true do |t|
+    t.string   "title",           null: false
+    t.string   "input_type",      null: false
+    t.string   "datatype",        null: false
+    t.integer  "optionable_id",   null: false
+    t.string   "optionable_type", null: false
+    t.boolean  "is_mandatory",    null: false
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "options", ["optionable_id"], name: "index_options_on_optionable_id", using: :btree
+  add_index "options", ["title"], name: "index_options_on_title", using: :btree
 
   create_table "responses", force: true do |t|
     t.integer  "ad_id",         null: false

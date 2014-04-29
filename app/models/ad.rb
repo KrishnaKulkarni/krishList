@@ -11,6 +11,10 @@ class Ad < ActiveRecord::Base
 
   has_many :response_notifications, through: :responses, source: :notification
 
+  has_one :category, through: :subcat, source: :category
+  has_many :subcat_options, through: :subcat, source: :options
+  has_many :category_options, through: :category, source: :options
+
   validates(:title, :start_date, :region, :price, :subcat,
   :submitter, presence: true)
 
@@ -22,6 +26,14 @@ class Ad < ActiveRecord::Base
   }
   
  validates_attachment_content_type :pic1, :content_type => /\Aimage\/.*\Z/
+
+ def options
+   # Option.join(:subcat_options).join(:category_options)
+   
+   Option.where("(optionable_id = ? AND optionable_class = ?) OR
+   (optionable_id = ? AND optionable_class = ?)",
+    self.subcat_id, 'Subcat', self.category.id, 'Category')
+ end
 
   private
   def ensure_flag_count
