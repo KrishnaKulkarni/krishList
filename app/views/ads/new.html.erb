@@ -18,7 +18,7 @@
     <%= form_input('Price', 'number', 'new-ad-price', 'ad[price]', @ad.price) %>
 	
 	<%= form_input("Upload Image", "file", "", "ad[pic1]", nil) %>
-
+	
     <label for="subcat-choice" class="form-input">Listing Category :</label>
       <select id="subcat-choice" name="ad[subcat_id]">
         <option></option>
@@ -33,13 +33,19 @@
       </select>
       <br>
 
+ 	<% d_subcat = Subcat.first %>
+	
+ 	<% d_subcat.combined_option_classes.each do |opt_class| %>
+		<% bool =  (opt_class.input_type == "checkbox") ? true : nil %>
+ 		<%= form_input(opt_class.title, opt_class.input_type, "",
+ 		 "ad[entered_options][#{opt_class.id}]", bool) %>
+ 	<% end %>
+
     <label for="ad-description" class="form-input">
       Description :
     </label>
     <br>
-    <textarea id="ad-description" name="ad[description]" rows="15" cols="45" placeholder="Provide additional description or contact info here"
-    ><%= @ad.description if @ad.description%>
-    </textarea>
+    <textarea id="ad-description" name="ad[description]" rows="15" cols="45" placeholder="Provide additional description or contact info here"><%= @ad.description if @ad.description%></textarea>
 
     <%= form_submit("Submit Ad") %>
   </form>

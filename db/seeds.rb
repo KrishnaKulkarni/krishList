@@ -20,7 +20,8 @@ regions = %w<mnh brk que brx stn jsy lgi wch fct>
 # OptionClasses
 # Subcat.first.option_classes.mandatory.new(title: "Bedrooms", input_type: "number")
 # Subcat.first.option_classes.discretionary.new(title: "Housing Type", input_type: "text")
-
+# Subcat.first.option_classes.discretionary.new(title: "Cats", input_type: "checkbox")
+# Subcat.first.option_classes.discretionary.new(title: "Dogs", input_type: "checkbox")
 
 u1 = User.create!(email: 'john@example.com', password: 'password',
  username: 'Johnny')

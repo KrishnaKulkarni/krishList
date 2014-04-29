@@ -10,6 +10,14 @@ class Subcat < ActiveRecord::Base
     dependent: :destroy)
   
   #has_many :inherited_option_classes, through: :category, source: :option_classes
+  def combined_option_classes
+    OptionClass.where("(option_classable_id = ? AND option_classable_type = ?) 
+    OR (option_classable_id = ? AND option_classable_type = ?)",
+     self.id, 'Subcat', self.category_id, 'Category')
+  end
   
-
+  def mandatory_option_classes
+    combined_option_classes.mandatory
+  end
+  
 end
