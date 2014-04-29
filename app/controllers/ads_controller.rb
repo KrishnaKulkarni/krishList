@@ -43,8 +43,7 @@ class AdsController < ApplicationController
     @header_options = { head_link_text: [@ad.subcat.title, "apts by owner"],
        head_link_url: [subcat_ads_url(@ad.subcat), subcat_ad_url(@ad.subcat, @ad)]
       }
-    
-    
+        
     render :show
   end
 
@@ -56,8 +55,8 @@ class AdsController < ApplicationController
 
   def create
     @ad = current_user.posted_ads.new(ad_params)
-    # @ad.entered_options = option_params
-    fail
+    @ad.entered_options = params[:entered_options]
+    #fail
     if @ad.save
       flash[:notices] = ["Ad saved"]
       redirect_to subcat_ad_url(@ad.subcat, @ad)
@@ -92,9 +91,9 @@ class AdsController < ApplicationController
 
   private
   def ad_params
-    # params.require(:ad).permit(:title, :start_date, :location,
-    # :region, :price, :subcat_id, :description, :pic1)
-    params.require(:ad).permit!
+    params.require(:ad).permit(:title, :start_date, :location,
+    :region, :price, :subcat_id, :description, :pic1)
+    # params.require(:ad).permit!
   end
 
   def option_params

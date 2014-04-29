@@ -38,7 +38,7 @@
  	<% d_subcat.combined_option_classes.each do |opt_class| %>
 		<% bool =  (opt_class.input_type == "checkbox") ? true : nil %>
  		<%= form_input(opt_class.title, opt_class.input_type, "",
- 		 "ad[entered_options][#{opt_class.id}]", bool) %>
+ 		 "entered_options[#{opt_class.id}]", bool) %>
  	<% end %>
 
     <label for="ad-description" class="form-input">

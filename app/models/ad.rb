@@ -41,11 +41,10 @@ class Ad < ActiveRecord::Base
   end
 
   def entered_options=(entered_options)
-    puts "entererd_options="
-    p entered_options
+    #return unless entered_options.class == 'Hash'.constantize
+    
     entered_options.each do |(opt_class_id, raw_value)|
       next unless raw_value #how else can I ensure/validate that no option is created without raw data
-      
       option = self.options.new()
       option.option_class = OptionClass.find(opt_class_id)
       option.raw_value = raw_value
