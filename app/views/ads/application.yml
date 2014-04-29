@@ -1,0 +1,93 @@
+<main class="listing-show">
+	<div class="listing-title clearfix">
+	  <h2><%= @ad.title %></h2>
+	  <ul class="tags">
+	  	<li>tag1</li>
+		<li>tag2</li>
+		<li>tag3</li>
+	  	<li>tag1</li>
+		<li>tag2</li>
+		<li>tag3</li>
+	  	<li>tag1</li>
+		<li>tag2</li>
+		<li>tag3</li>
+	  </ul>
+	  <ul class="essentials">
+		<li><h3>$<%= @ad.price %> / 2BR</h3></li>  
+		<li><h3>Available: <%= @ad.start_date %></h3></li>
+	  	<li><h3>Posted: <%= @ad.created_at %></h3></li>
+	  </ul>
+  </div>
+	
+	<div class="visuals clearfix">
+		<div class="left-column">
+			<section class="apt-pics">
+				<% if @ad.pic1.present? %>
+				<img src="<%= @ad.pic1.url(:full) %>">
+				<% else  %>
+	         <img src="<%= asset_path("apt_pic.jpg") %>" width="450" height="450" alt="Apt Pic">
+				<% end %>
+			</section>
+			
+			<section class="apt-thumbs">
+				<ul>
+	   				<% if @ad.pic1.present? %>
+					<li>
+						<img src="<%= @ad.pic1.url(:thumbnail) %>">
+					</li>
+	   				<% end %>
+				<li>
+					<img src="<%= asset_path("apt_pic.jpg") %>" width="50" height="50" alt="Apt Pic">
+				</li>
+				</ul>
+			</section>
+  		</div>	
+  	  <div class="right-column">
+		  
+		  <section class="response-bar">
+		    <!-- <a href="">Respond</a> -->
+		    <form class="new-response" action="<%= ad_responses_url(@ad) %>"
+		       method="post">
+		      <%= auth_token %>
+
+		      <div class="input">
+		        <label for="response-title">Title</label>
+		        <input type="text" id="response-title"
+		          name="response[title]" value="RE: <%= @ad.title %>">
+		        </input>
+		      </div>
+
+		      <div class="input">
+		        <label for="response-body">Message</label>
+		        <textarea id="response-body" name="response[body]" rows="8" cols="40"
+		           placeholder="Enter your response here"></textarea>
+		      <!-- <%#= @response.try(:body)%> -->
+		      </div>
+
+		     	<div class="submit">
+		     		  <input type="submit" value="reply">
+		     	</div>
+		    </form>
+		  </section>
+	  
+		  <section class="map">
+		  	Map
+		  </section>
+		  </div>
+	</div>	
+
+
+  <section class="description">
+	<h4 class="description">Description</h4>
+    <article class="ad-description-article">
+      <%= @ad.description %>
+	  Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+	  <br><br>
+	  
+	  Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+	  <br><br>
+	  
+	  Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+    </article>
+  </section>
+</main>

@@ -7,6 +7,14 @@
 #   Mayor.create(name: 'Emanuel', city: cities.first)
 regions = %w<mnh brk que brx stn jsy lgi wch fct>
 
+# housing = ["apts / housing", "rooms / shared", "sublets / temporary", "housing wanted", "housing swap", "vacation rentals", "parking / storage", "office / commercial", "real estate for sale"]
+# 
+# jobs = ["account+finance", "admin / office", "arch / engineering", "art / media / design", "biotech / science", "business / mgmt", "customer service", "education", "food / bev / hosp", "general labor", "government", "human resources", "internet engineers", "legal / paralegal", "manufacturing", "marketing / pr / ad", "medical / health", "nonprofit sector", "real estate", "retail / wholesale", "sales / bix dev", "salon / spa / fitness", "security", "skilled trade / craft", "software / qa / dba", "systems / network", "technical support", "transport", "tv / film / video", "web / info design", "writing / editing"]
+# 
+# for_sale = w%<antiques baby+kid barter bikes boats books business computer free furniture general household jewelry materials rvs+camp sporting tickets tools wanted appliances arts+crafts atv/utv/sno auto_parts beauty+hlth cars+trucks
+# cds/dvd/vhs cell phones clothes+acc collectibles electronics farm+garden garage sale heavy equip motorcycles music instr photo+video toys+games video_gaming>
+# 
+
 u1 = User.create!(email: 'john@example.com', password: 'password',
  username: 'Johnny')
 u2 = User.create!(email: 'jane@example.com', password: 'password', username: 'Jane216')
