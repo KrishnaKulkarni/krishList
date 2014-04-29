@@ -14,7 +14,11 @@ class Ad < ActiveRecord::Base
   has_many :response_notifications, through: :responses, source: :notification
 
   has_many :options, inverse_of: :ad, dependent: :destroy
-  has_many :option_values, through: :options, source: :option_value, 
+  
+  has_many :integer_option_values, through: :options, source: :option_value, source_type: 'IntegerOptionValue' 
+  has_many :string_option_values, through: :options, source: :option_value, source_type: 'StringOptionValue'   
+  has_many :boolean_option_values, through: :options, source: :option_value, source_type: 'BooleanOptionValue' 
+  has_many :date_option_values, through: :options, source: :option_value, source_type: 'DateOptionValue' 
 
   validates(:title, :start_date, :region, :price, :subcat,
   :submitter, presence: true)
@@ -28,24 +32,24 @@ class Ad < ActiveRecord::Base
 
   validates_attachment_content_type :pic1, :content_type => /\Aimage\/.*\Z/
 
+  #Note: The following is not an AREL; it cannot be since it concatenates entries multiple different tables.
+  def option_values
+    self.integer_option_values.all
+    .concat(string_option_values)
+    .concat(boolean_option_values)
+    .concat(date_option_values)
+  end
+
   def entered_options=(entered_options)
-    #puts "-A-"
-    #p entered_options
+    puts "entererd_options="
+    p entered_options
     entered_options.each do |(opt_class_id, raw_value)|
-      #puts "heree"
       next unless raw_value #how else can I ensure/validate that no option is created without raw data
-      #puts "hererere"
       
       option = self.options.new()
       option.option_class = OptionClass.find(opt_class_id)
       option.raw_value = raw_value
-      
-      #puts "and here"
-      
-    end #I dont need to save here because the entire ad will be saved
-    
-   # puts "self options :"
-   # p self.options
+    end 
   end
    
   # a1 = Subcat.first.ads.new(
