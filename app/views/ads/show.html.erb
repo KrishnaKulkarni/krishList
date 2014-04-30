@@ -22,7 +22,9 @@
 	<div class="visuals clearfix">
 		<div class="left-column">
 			<section class="apt-pics">
-				<% if @ad.pic1.present? %>
+				<% if @ad.pictures.present? %>
+				<img src="<%= @ad.pictures.first.image.url(:full) %>">
+				<% elsif @ad.pic1.present? %>
 				<img src="<%= @ad.pic1.url(:full) %>">
 				<% else  %>
 	         <img src="<%= asset_path("apt_pic.jpg") %>" width="450" height="450" alt="Apt Pic">
@@ -31,14 +33,13 @@
 			
 			<section class="apt-thumbs">
 				<ul>
-	   				<% if @ad.pic1.present? %>
-					<li>
-						<img src="<%= @ad.pic1.url(:thumbnail) %>">
-					</li>
-	   				<% end %>
-				<li>
-					<img src="<%= asset_path("apt_pic.jpg") %>" width="50" height="50" alt="Apt Pic">
-				</li>
+					<% if @ad.pictures.present? %>
+		   				<% @ad.pictures.each do |pic| %>
+						<li>
+							<img src="<%= pic.image.url(:thumbnail) %>">
+						</li>
+		   				<% end %>
+					<% end %>
 				</ul>
 			</section>
   		</div>	

@@ -39,7 +39,7 @@ class AdsController < ApplicationController
   end
 
   def show
-    @ad = Ad.includes(:subcat).find(params[:id])
+    @ad = Ad.includes(:subcat).includes(:pictures).find(params[:id])
     @header_options = { head_link_text: [@ad.subcat.title, "apts by owner"],
        head_link_url: [subcat_ads_url(@ad.subcat), subcat_ad_url(@ad.subcat, @ad)]
       }
@@ -54,9 +54,15 @@ class AdsController < ApplicationController
   end
 
   def create
-    fail
+    #fail
     @ad = current_user.posted_ads.new(ad_params)
-    @ad.entered_options = params[:entered_options]
+    #@ad.entered_options = params[:entered_options]
+    6.times do |i|
+      if(params["picture#{i+1}"])
+        @ad.pictures.new(image: params["picture#{i+1}"]) 
+      end
+    end
+    
     if @ad.save
       flash[:notices] = ["Ad saved"]
       redirect_to subcat_ad_url(@ad.subcat, @ad)

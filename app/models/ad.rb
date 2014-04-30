@@ -23,6 +23,7 @@ class Ad < ActiveRecord::Base
   validates(:title, :start_date, :region, :price, :subcat,
   :submitter, presence: true)
 
+  has_many :pictures, inverse_of: :ad, dependent: :destroy
 
   has_attached_file :pic1, styles: {
     full: "600x450#",
@@ -50,6 +51,8 @@ class Ad < ActiveRecord::Base
       option.raw_value = raw_value
     end 
   end
+   
+   
    
   # a1 = Subcat.first.ads.new(
 #     title: 'For Rent! 1st Avenue and East 10th St- 3 bedroom Apartment',

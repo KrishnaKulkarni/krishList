@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140429161423) do
+ActiveRecord::Schema.define(version: 20140430082621) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -110,6 +110,18 @@ ActiveRecord::Schema.define(version: 20140429161423) do
   add_index "options", ["ad_id"], name: "index_options_on_ad_id", using: :btree
   add_index "options", ["option_class_id"], name: "index_options_on_option_class_id", using: :btree
   add_index "options", ["option_value_id"], name: "index_options_on_option_value_id", using: :btree
+
+  create_table "pictures", force: true do |t|
+    t.integer  "ad_id",              null: false
+    t.datetime "created_at"
+    t.datetime "updated_at"
+    t.string   "image_file_name"
+    t.string   "image_content_type"
+    t.integer  "image_file_size"
+    t.datetime "image_updated_at"
+  end
+
+  add_index "pictures", ["ad_id"], name: "index_pictures_on_ad_id", using: :btree
 
   create_table "responses", force: true do |t|
     t.integer  "ad_id",         null: false
