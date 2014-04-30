@@ -7,13 +7,16 @@ class AdsController < ApplicationController
        head_link_url: [subcat_ads_url(@subcat)]
       }
     
-    
+    @search_words = params[:search_words]
     @min_price = params[:min_price]
     @max_price = params[:max_price]
     @start_date = params[:start_date]
     @regions = params[:regions]
 
     @ads = @subcat.ads.order(created_at: :desc)
+    if @search_words
+      @ads = @ads.search_by_content(@search_words)
+    end
     @ads = @ads.where("ads.price >= ? ", @min_price) if @min_price.present?
     @ads = @ads.where("ads.price <= ? ", @max_price) if @max_price.present?
     if @start_date.present?
@@ -23,6 +26,7 @@ class AdsController < ApplicationController
       @regions = @regions.keys
       @ads = @ads.where("ads.region IN (?)", @regions)
     end
+    
     render :index
   end
 

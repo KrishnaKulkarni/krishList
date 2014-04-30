@@ -1,4 +1,7 @@
 class Ad < ActiveRecord::Base
+  include PgSearch
+  pg_search_scope :search_by_content, against: [:title, :description]
+  
   attr_reader :entered_options
   
   before_validation :ensure_flag_count
