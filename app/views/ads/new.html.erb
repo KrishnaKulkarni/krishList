@@ -30,14 +30,10 @@
 
     <%= form_input('Price', 'number', 'new-ad-price', 'ad[price]', @ad.price) %>
 
-	<div id="new-image-uploads"></div>
+		<div id="new-image-uploads">
 	
-	<%= form_input("Upload Image", "file", "", "picture1", nil) %>
-	<%= form_input("Upload Image", "file", "", "picture2", nil) %>
-	<%= form_input("Upload Image", "file", "", "picture3", nil) %>
-	<%= form_input("Upload Image", "file", "", "picture4", nil) %>
-	<%= form_input("Upload Image", "file", "", "picture5", nil) %>
-	<%= form_input("Upload Image", "file", "", "picture6", nil) %>
+			<%= form_input("Upload Image", "file", "", "pictures[]", nil) %>
+		</div>
 	
 	</div>
 	<div id="subcat-options"></div>
@@ -60,9 +56,9 @@
 
  $(document).ready(function() {    
  
+ 
 	 $( "#category" ).change(function () {	 
 		    var value = $(this).val()
-			 	console.log("cat selected");
 		  	$.ajax({
 			     url: '/categories/' + value,
 			     type: 'GET',
@@ -73,17 +69,23 @@
 	   });
 	   
 	   $("#subcat-dropdown").change(function () {
-		 			var value = $("#subcat-choice").val(); 
-				 	console.log("subcat selected");		 
-				 console.log("value", value);		
+		 		 var value = $("#subcat-choice").val(); 
 				 $.ajax({
 	 	  		     url: '/subcats/' + value + '/options',
 	 	  		     type: 'GET',
 	 	  		     success: function(data){
 	 	  		 		$("#subcat-options").append(data);
 	 	  		     }
-			 	 });  
-			
+			 	 }); 
 		 });
+		 
+	   var fileForm = "<div class='input'><label>Upload Another Image</label><input type='file' name='pictures[]'></input></div>";
+
+		 
+	   $("#new-image-uploads").change(function () {
+			 console.log("image div");
+			 $("#new-image-uploads").append(fileForm);
+		 });
+		 
 });
 </script>	
