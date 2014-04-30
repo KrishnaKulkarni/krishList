@@ -1,30 +1,23 @@
 <h1>Submit a New Ad</h1>
 <main class="new-ad">
-	
-	<section id="category-selections">
-		  
-		  <a href="<%= category_url(1) %>" data-remote="true">click</a>
-		  <button id="select-button">submit</button>
-		  <div class="display"></div>
-	</section>
-	
+		
 	
   <form id="new-listing" action="<%= ads_url %>"
     method="post" accept-charset="utf-8" enctype="multipart/form-data">
     <%= auth_token %>
     
-	<div class="category-dropdowns">
-	<label class="form-input">Category :</label>
-      <select id="category" name="ad[subcat_id]">
-        <option></option>
-        <% Category.all.each do |cat| %>
-            <option value="<%= cat.id %>"><%= cat.title %></option>
-        <% end  %>
-      </select>
-	
+	<div id="new-listing-categories">
+		<label class="form-input">Category :</label>
+	      <select id="category" name="category">
+	        <option></option>
+	        <% Category.all.each do |cat| %>
+	            <option value="<%= cat.id %>"><%= cat.title %></option>
+	        <% end  %>
+	      </select>
+		  <div id="subcat-dropdown"></div>
 	</div>
     <%#= form_input(label_text, type, id, name, value) %>
-
+	<div id="new-listing-options">
     <%= form_input('Title', 'text', 'new-ad-title', 'ad[title]', @ad.title) %>
 
     <%= form_input('Start Date', 'date', 'new-ad-start-date', 'ad[start_date]', @ad.start_date) %>
@@ -35,23 +28,20 @@
      @ad.region) %>
 
     <%= form_input('Price', 'number', 'new-ad-price', 'ad[price]', @ad.price) %>
+
+	<div id="subcat_options"></div>
 	
 	<%= form_input("Upload Image", "file", "", "ad[pic1]", nil) %>
-
- 	<% d_subcat = Subcat.first %>
+	</div>
 	
- 	<% d_subcat.combined_option_classes.each do |opt_class| %>
-		<% bool =  (opt_class.input_type == "checkbox") ? true : nil %>
- 		<%= form_input(opt_class.title, opt_class.input_type, "",
- 		 "entered_options[#{opt_class.id}]", bool) %>
- 	<% end %>
-
+	<div id="new-listing-description">
     <label for="ad-description" class="form-input">
       Description :
     </label>
     <br>
     <textarea id="ad-description" name="ad[description]" rows="15" cols="45" placeholder="Provide additional description or contact info here"><%= @ad.description if @ad.description%></textarea>
-
+	</div>
+	
     <%= form_submit("Submit Ad") %>
   </form>
 </main>
@@ -68,40 +58,42 @@
 	 //     $( ".display" ).text( str );
 	 //   }).change();
 	 //       
-
-	 
-	 
+ 
 	 $( "select#category" ).change(function () {
-	     var str = "";
+		 var str = "";
 		 var value = null;
 	     $( "select option:selected" ).each(function() {
-	       str += $(this).text() + " " + $(this).val();
-		   value = $(this).val();
-		   
-  	     $( ".display" ).text( str );
-  		 console.log("value:", value);
-  		 $.ajax({
-  		     url: '/categories/' + value,
-  		     type: 'GET',
-  		     success: function(data){
-  				 console.log(data);
-  				 // console.log(data.title)
-  		 // 				 console.log(data.subcats)
-  		 	$(".category-dropdowns").append(data);
-  		     }
-  		   })
-		 
+		  	 value = $(this).val();
+			 console.log("cat selected");
+	  		 $.ajax({
+	  		     url: '/categories/' + value,
+	  		     type: 'GET',
+	  		     success: function(data){
+	  		 	$("#subcat-dropdown").html(data);
+	  		     }
+	  		   });  
 		 });
-		 
-	    
 	   }).change();
-      
-	 
+	   
+	   $( "select#subcat" ).change(function () {
+		 var value = null;
+			 $( "select option:selected" ).each(function() {
+			  	 value = $(this).val();
+				 console.log("subcat selected");
+			 	 alert("alert" + value); 		 
+						 $.ajax({
+			 	  		     url: '/subcats/' + value + '/options',
+			 	  		     type: 'GET',
+			 	  		     success: function(data){
+			 	  		 	$("#subcat-options").html(data);
+			 	  		     }
+			 	 });  
+			 });
+		 }).change();
 	  
-	  
-	  $("#select-button").click(function() {
-		  alert("hello");
-		  		    // window.document.location = $(this).attr("href");
-      });
+	  // $("#select-button").click(function() {
+  // 		  alert("hello");
+  // 		  		    // window.document.location = $(this).attr("href");
+  //     });
 });
 </script>	

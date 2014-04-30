@@ -1,0 +1,5 @@
+<% @subcat_options.each do |opt_class| %>
+	<% bool =  (opt_class.input_type == "checkbox") ? true : nil %>
+	<%= form_input(opt_class.title, opt_class.input_type, "",
+	 "entered_options[#{opt_class.id}]", bool) %>
+<% end %>

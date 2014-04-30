@@ -12,6 +12,7 @@ KrishList::Application.routes.draw do
   end
 
   resources :subcats, only: [:index] do
+    get '/options', to: 'subcats#options'
     resources :ads, only: [:show, :index, :new] do
       collection do
         post '/filter', to: 'ads#filter'

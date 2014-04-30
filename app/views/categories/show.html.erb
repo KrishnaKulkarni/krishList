@@ -1,5 +1,5 @@
     <label for="subcat-choice" class="form-input">Subcategory :</label>
-      <select name="ad[subcat_id]">
+      <select id="subcat" name="ad[subcat_id]">
         <option></option>
         <% @category.subcats.each do |subcat| %>
             <option value="<%= subcat.id %>"><%= subcat.title %></option>
