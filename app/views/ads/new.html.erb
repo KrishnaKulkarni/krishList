@@ -15,6 +15,7 @@
 	        <% end  %>
 	      </select>
 		  <div id="subcat-dropdown"></div>
+		  
 	</div>
     <%#= form_input(label_text, type, id, name, value) %>
 	<div id="new-listing-options">
@@ -29,7 +30,7 @@
 
     <%= form_input('Price', 'number', 'new-ad-price', 'ad[price]', @ad.price) %>
 
-	<div id="subcat_options"></div>
+	<div id="new-image-uploads"></div>
 	
 	<%= form_input("Upload Image", "file", "", "picture1", nil) %>
 	<%= form_input("Upload Image", "file", "", "picture2", nil) %>
@@ -39,7 +40,7 @@
 	<%= form_input("Upload Image", "file", "", "picture6", nil) %>
 	
 	</div>
-	
+	<div id="subcat-options"></div>
 	<div id="new-listing-description">
     <label for="ad-description" class="form-input">
       Description :
@@ -55,18 +56,11 @@
 
 
 <script>
- $(document).ready(function() {
-	 // $( "select" ).change(function () {
-	 //     var str = "";
-	 //     $( "select option:selected" ).each(function() {
-	 //       str += $( this ).text() + " ";
-	 //     });
-	 //     $( ".display" ).text( str );
-	 //   }).change();
-	 //       
+
+
+ $(document).ready(function() {    
  
-	 $( "select#category" ).change(function () {
-		 var str = "";
+	 $( "#category" ).change(function () {
 		 var value = null;
 	     $( "select option:selected" ).each(function() {
 		  	 value = $(this).val();
@@ -81,25 +75,19 @@
 		 });
 	   }).change();
 	   
-	   $( "select#subcat" ).change(function () {
+	   $( "#subcat-dropdown" ).change(function () {
 		 var value = null;
 			 $( "select option:selected" ).each(function() {
 			  	 value = $(this).val();
-				 console.log("subcat selected");
-			 	 alert("alert" + value); 		 
-						 $.ajax({
-			 	  		     url: '/subcats/' + value + '/options',
-			 	  		     type: 'GET',
-			 	  		     success: function(data){
-			 	  		 	$("#subcat-options").html(data);
-			 	  		     }
+				 console.log("subcat selected");		 
+				 $.ajax({
+	 	  		     url: '/subcats/' + value + '/options',
+	 	  		     type: 'GET',
+	 	  		     success: function(data){
+	 	  		 		$("#subcat-options").html(data);
+	 	  		     }
 			 	 });  
 			 });
 		 }).change();
-	  
-	  // $("#select-button").click(function() {
-  // 		  alert("hello");
-  // 		  		    // window.document.location = $(this).attr("href");
-  //     });
 });
 </script>	

@@ -54,7 +54,6 @@ class AdsController < ApplicationController
   end
 
   def create
-    #fail
     @ad = current_user.posted_ads.new(ad_params)
     #@ad.entered_options = params[:entered_options]
     6.times do |i|

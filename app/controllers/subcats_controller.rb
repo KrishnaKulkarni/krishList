@@ -8,8 +8,8 @@ class SubcatsController < ApplicationController
   end
   
   def options
-    @subcat_options = Subcat.find(params[:subcat_id]).combined_options_classes
-    render :options
+   @subcat_options = Subcat.find(params[:subcat_id]).combined_option_classes
+    render :options, layout: false
   end
 
 end
