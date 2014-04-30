@@ -13,7 +13,7 @@
 		<li>tag3</li>
 	  </ul>
 	  <ul class="essentials">
-		<li><h3>$<%= @ad.price %> / 2BR</h3></li>  
+		<li><h3>$<%= @ad.price %> / ?BR</h3></li>  
 		<li><h3>Available: <%= @ad.start_date %></h3></li>
 	  	<li><h3>Posted: <%= @ad.created_at %></h3></li>
 	  </ul>
@@ -67,8 +67,41 @@
 		  </section>
 	  
 		  <section class="map">
-		  	Map
+		  	<div id='map' data-coordinates="<%= Geocoder.coordinates(@address) %>"></div>
 		  </section>
+			<script>
+			// var address = '780 St Marks Ave, NYC';
+			// var geocoder = L.mapbox.geocoder('krishnakulkarni.i4a9i1jm'),
+			//     map = L.mapbox.map('map', 'krishnakulkarni.i4a9i1jm')
+			// 
+			// geocoder.query(address, showMap);
+			// 
+			// function showMap(err, data) {
+			//      map.fitBounds(data.lbounds);
+			// 		 
+			// }
+			
+			var coordinates = JSON.parse($('#map').attr('data-coordinates'));
+			var magnification = 14;
+			var map = L.mapbox.map('map', 'krishnakulkarni.i4a9i1jm')
+			.setView(coordinates, magnification);
+			
+			L.mapbox.featureLayer({
+			    type: 'Feature',
+			    geometry: {
+			        type: 'Point',
+			        coordinates: coordinates.reverse()
+			    },
+			    properties: {
+			        title: 'Listing Address',
+			        // one can customize markers by adding simplestyle properties
+			        // http://mapbox.com/developers/simplestyle/
+			        'marker-size': 'medium',
+			        'marker-color': '#1C6BFF' 
+			    }
+			}).addTo(map);		
+					
+			</script>
 		  </div>
 	</div>	
 
@@ -77,13 +110,6 @@
 	<h4 class="description">Description</h4>
     <article class="ad-description-article">
       <%= @ad.description %>
-	  Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
-	  <br><br>
-	  
-	  Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
-	  <br><br>
-	  
-	  Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
     </article>
   </section>
 </main>

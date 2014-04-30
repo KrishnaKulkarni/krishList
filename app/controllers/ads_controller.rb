@@ -47,7 +47,9 @@ class AdsController < ApplicationController
     @header_options = { head_link_text: [@ad.subcat.title, "apts by owner"],
        head_link_url: [subcat_ads_url(@ad.subcat), subcat_ad_url(@ad.subcat, @ad)]
       }
-        
+    @address = (@ad.location == "" || @ad.location.nil?) ?
+     "36 Cooper Sq, New York, NY" : @ad.location
+    
     render :show
   end
 

@@ -73,3 +73,4 @@ gem "aws-sdk"
 gem "figaro"
 
 gem 'pg_search'
+gem 'geocoder'
