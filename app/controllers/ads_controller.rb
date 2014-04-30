@@ -54,13 +54,11 @@ class AdsController < ApplicationController
   end
 
   def create
-    fail
     @ad = current_user.posted_ads.new(ad_params)
     @ad.entered_options = params[:entered_options]
-    6.times do |i|
-      if(params["picture#{i+1}"])
-        @ad.pictures.new(image: params["picture#{i+1}"]) 
-      end
+    
+    params[:pictures] && params[:pictures].reverse.each do |uploaded_img|
+      @ad.pictures.new(image: uploaded_img) 
     end
     
     if @ad.save
