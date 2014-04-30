@@ -59,11 +59,16 @@
 </section>
 </main>
 <script>
- $(document).ready(function() {
+
+function makeRowsClick() {
       $(".clickable-row").click(function() {
             window.document.location = $(this).attr("href");
       });
-});
+}
+
+ $(document).ready(makeRowsClick);
+ $(document).on('page:load', makeRowsClick);
+ // $(document).on('page:change', makeRowsClick);
 </script>
 
   <!-- <ul class="ads-list">
