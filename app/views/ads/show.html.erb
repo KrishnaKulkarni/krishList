@@ -23,15 +23,14 @@
 		<div class="left-column">
 			<% if @ad.pictures.present? %>
 			<section class="apt-pics" id="featured-apt">			
-   				<% @ad.pictures.each_with_index do |pic, i| %>
-					<img id="image-<%= pic.id %>" class="<%= (i == 0) ? "featured" : nil %>" src="<%= pic.image.url(:full) %>">
-   				<% end %>
+					<img id="featured-pic" src="<%= @ad.pictures.first.image.url(:full) %>">
 			</section>
 			
 			<section class="apt-thumbs">
 				<ul id="apt-thumbs-list">
 	   				<% @ad.pictures.each_with_index do |pic, i| %>
-						<li id="thumb-<%= pic.id %>" class="clickable-thumb <%= (i == 0) ? "selected" : nil %>">
+						<li id="thumb-<%= pic.id %>" class="clickable-thumb <%= (i == 0) ? "selected" : nil %>" 
+							data-fullpic="<%= pic.image.url(:full) %>">
 							<img src="<%= pic.image.url(:thumbnail) %>">
 						</li>
 	   				<% end %>
@@ -91,13 +90,16 @@
 <script>
 function makePicsSwap(){
   
-  $(".clickable-thumb").click(function() {
+  $(".clickable-thumb").mouseover(function() {
 	  $(".selected").removeClass("selected");
 	  $(this).addClass("selected");
-	  var id = $(this).attr('id');
-	  var id_num = id.charAt(id.length - 1)
-	  $(".featured").removeClass("featured");
-	  $("#image-" + id_num).addClass("featured");
+	  // var id = $(this).attr('id');
+	  // var id_num = id.charAt(id.length - 1)
+		
+		var fullPic = $(this).attr('data-fullpic');
+	  // $(".featured").removeClass("featured");
+	  // $("#image-" + id_num).addClass("featured");
+		$("#featured-pic").attr("src", fullPic);
   });
  
 };

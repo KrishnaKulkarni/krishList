@@ -533,15 +533,6 @@
 		font-size: 110%;
 	}
 	
-	.apt-pics > img {
-		display: none;
-	}
-	
-	.apt-pics > .featured{
-		display: block;
-	}
-	
-	
 	.apt-thumbs .selected {
 		border: solid 1px orange;
 		-webkit-box-shadow: 0 0 0 1px orange;
