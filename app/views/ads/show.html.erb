@@ -21,21 +21,19 @@
 	
 	<div class="visuals clearfix">
 		<div class="left-column">
-			<section class="apt-pics">
+			<section class="apt-pics" id="featured-apt">
 				<% if @ad.pictures.present? %>
-				<img src="<%= @ad.pictures.first.image.url(:full) %>">
-				<% elsif @ad.pic1.present? %>
-				<img src="<%= @ad.pic1.url(:full) %>">
-				<% else  %>
-	         <img src="<%= asset_path("apt_pic.jpg") %>" width="450" height="450" alt="Apt Pic">
+	   				<% @ad.pictures.each_with_index do |pic, i| %>
+					<img id="image-<%= pic.id %>" class="<%= (i == 0) ? "featured" : nil %>" src="<%= pic.image.url(:full) %>">
+	   				<% end %>
 				<% end %>
 			</section>
 			
 			<section class="apt-thumbs">
-				<ul>
+				<ul id="apt-thumbs-list">
 					<% if @ad.pictures.present? %>
-		   				<% @ad.pictures.each do |pic| %>
-						<li>
+		   				<% @ad.pictures.each_with_index do |pic, i| %>
+						<li id="thumb-<%= pic.id %>" class="clickable-thumb <%= (i == 0) ? "selected" : nil %>">
 							<img src="<%= pic.image.url(:thumbnail) %>">
 						</li>
 		   				<% end %>
@@ -92,3 +90,48 @@
     </article>
   </section>
 </main>
+<script>
+$(document).ready(function(){
+
+
+  var $thumbList = $("#apt-thumbs-list");
+  // var $catForm = $("#cat-new-form");
+  var $aptFeatured = $("#featured-apt");
+  
+  $(".clickable-thumb").click(function() {
+	  $(".selected").removeClass("selected");
+	  $(this).addClass("selected");
+	  var id = $(this).attr('id');
+	  var id_num = id.charAt(id.length - 1)
+	  $(".featured").removeClass("featured");
+	  $("#image-" + id_num).addClass("featured");
+  });
+  
+
+  $thumbList.on("ajax:success", "a", function(event, data){
+    console.log("html partial show", data);
+    $aptFeatured.html(data);
+  });
+
+
+  $catList.on("ajax:success", "form", function(event, data){
+    console.log("cat toggle form", data);
+
+    var $li = $(event.target).closest("li");
+
+    if(data.is_favorite){
+      $li.addClass("is-favorite");
+    } else {
+      $li.removeClass("is-favorite");
+    }
+  });
+
+  $catForm.on("ajax:success", function(event, data){
+    console.log("new cat form submitted", data);
+    $catList.append(data);
+    $catForm[0].reset();
+  });
+
+});
+
+</script>
