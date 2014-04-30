@@ -542,6 +542,15 @@
 	.apt-thumbs img{
 		display: block;
 	}
+	
+/*	.new-image-uploads .uploaded:after {
+		content: "successfully uploaded ";
+	}
+
+	.new-image-uploads .uploaded input, label {
+		display: none;
+	}*/
+	
 
 /* END */
 
