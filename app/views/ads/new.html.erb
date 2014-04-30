@@ -60,34 +60,30 @@
 
  $(document).ready(function() {    
  
-	 $( "#category" ).change(function () {
-		 var value = null;
-	     $( "select option:selected" ).each(function() {
-		  	 value = $(this).val();
-			 console.log("cat selected");
-	  		 $.ajax({
-	  		     url: '/categories/' + value,
-	  		     type: 'GET',
-	  		     success: function(data){
-	  		 	$("#subcat-dropdown").html(data);
-	  		     }
-	  		   });  
-		 });
-	   }).change();
+	 $( "#category" ).change(function () {	 
+		    var value = $(this).val()
+			 	console.log("cat selected");
+		  	$.ajax({
+			     url: '/categories/' + value,
+			     type: 'GET',
+			     success: function(data){
+			 			 $("#subcat-dropdown").html(data);
+			     }
+		  	});  
+	   });
 	   
-	   $( "#subcat-dropdown" ).change(function () {
-		 var value = null;
-			 $( "select option:selected" ).each(function() {
-			  	 value = $(this).val();
-				 console.log("subcat selected");		 
+	   $("#subcat-dropdown").change(function () {
+		 			var value = $("#subcat-choice").val(); 
+				 	console.log("subcat selected");		 
+				 console.log("value", value);		
 				 $.ajax({
 	 	  		     url: '/subcats/' + value + '/options',
 	 	  		     type: 'GET',
 	 	  		     success: function(data){
-	 	  		 		$("#subcat-options").html(data);
+	 	  		 		$("#subcat-options").append(data);
 	 	  		     }
 			 	 });  
-			 });
-		 }).change();
+			
+		 });
 });
 </script>	
