@@ -25,4 +25,6 @@ KrishList::Application.routes.draw do
   get '/ads/:id/repost', to: 'ads#repost'
   post '/notifications/:id/viewed', to: 'notifications#viewed'
 
+
+  resources :categories, only: [:show]
 end

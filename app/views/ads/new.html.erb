@@ -1,9 +1,28 @@
 <h1>Submit a New Ad</h1>
 <main class="new-ad">
-  <form class="new-ad" action="<%= ads_url %>"
+	
+	<section id="category-selections">
+		  
+		  <a href="<%= category_url(1) %>" data-remote="true">click</a>
+		  <button id="select-button">submit</button>
+		  <div class="display"></div>
+	</section>
+	
+	
+  <form id="new-listing" action="<%= ads_url %>"
     method="post" accept-charset="utf-8" enctype="multipart/form-data">
     <%= auth_token %>
-
+    
+	<div class="category-dropdowns">
+	<label class="form-input">Category :</label>
+      <select id="category" name="ad[subcat_id]">
+        <option></option>
+        <% Category.all.each do |cat| %>
+            <option value="<%= cat.id %>"><%= cat.title %></option>
+        <% end  %>
+      </select>
+	
+	</div>
     <%#= form_input(label_text, type, id, name, value) %>
 
     <%= form_input('Title', 'text', 'new-ad-title', 'ad[title]', @ad.title) %>
@@ -18,20 +37,6 @@
     <%= form_input('Price', 'number', 'new-ad-price', 'ad[price]', @ad.price) %>
 	
 	<%= form_input("Upload Image", "file", "", "ad[pic1]", nil) %>
-	
-    <label for="subcat-choice" class="form-input">Listing Category :</label>
-      <select id="subcat-choice" name="ad[subcat_id]">
-        <option></option>
-        <% Subcat.all.each do |subcat| %>
-          <% if(subcat.id) == @subcat_id.to_i %>
-            <option selected="selected"
-             value="<%= subcat.id %>"><%= subcat.title %></option>
-          <% else %>
-            <option value="<%= subcat.id %>"><%= subcat.title %></option>
-          <% end %>
-        <% end  %>
-      </select>
-      <br>
 
  	<% d_subcat = Subcat.first %>
 	
@@ -52,12 +57,51 @@
 </main>
 
 
+
 <script>
-$(document).ready(function){
-	
-	
-	
-	
-};
-	
-</script>
+ $(document).ready(function() {
+	 // $( "select" ).change(function () {
+	 //     var str = "";
+	 //     $( "select option:selected" ).each(function() {
+	 //       str += $( this ).text() + " ";
+	 //     });
+	 //     $( ".display" ).text( str );
+	 //   }).change();
+	 //       
+
+	 
+	 
+	 $( "select#category" ).change(function () {
+	     var str = "";
+		 var value = null;
+	     $( "select option:selected" ).each(function() {
+	       str += $(this).text() + " " + $(this).val();
+		   value = $(this).val();
+		   
+  	     $( ".display" ).text( str );
+  		 console.log("value:", value);
+  		 $.ajax({
+  		     url: '/categories/' + value,
+  		     type: 'GET',
+  		     success: function(data){
+  				 console.log(data);
+  				 // console.log(data.title)
+  		 // 				 console.log(data.subcats)
+  		 	$(".category-dropdowns").append(data);
+  		     }
+  		   })
+		 
+		 });
+		 
+	    
+	   }).change();
+      
+	 
+	  
+	  
+	  $("#select-button").click(function() {
+		  alert("hello");
+		  		    // window.document.location = $(this).attr("href");
+      });
+});
+</script>	
