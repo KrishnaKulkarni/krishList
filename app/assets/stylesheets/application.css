@@ -95,6 +95,10 @@
 	 display: block;
  }
  
+ form {
+	 background: #999;
+ }
+ 
  ul {
 	 list-style: none;
  }
@@ -498,7 +502,7 @@
 	}
 	
 	.listing-show .new-response {
-		background: #999;
+/*		background: #999;*/
 		padding: 10px;
 	}
 	
