@@ -11,6 +11,15 @@
 		  <% subcats =  category.subcats.drop(19) %>
 		  <%= render subcats %>
 		</div>
+		<% elsif ["gigs"].include? category.title %>
+		<div class="subcolumn">
+		  <% subcats =  category.subcats.take(4) %>
+		  <%= render subcats %>
+		</div>
+		<div class="subcolumn">
+		  <% subcats =  category.subcats.drop(4) %>
+		  <%= render subcats %>
+		</div>
 		<% else %>
 		
 	  	<% subcats =  category.subcats.take(23) %>

@@ -739,12 +739,12 @@
 /* City Home*/
 .city-home {
 	padding: 0;
-	margin-bottom: 210px;
+	margin-bottom: 175px;
 }		
 		
 .cats-container {
 /*	border: 1px solid red;*/
-	width: 830px;
+	width: 840px;
 	margin: 50px auto;
 	background: #999;
 	border-radius: 3px;
@@ -777,8 +777,18 @@
 }
 	
 .second.column {
-	width: 140px;
+	width: 150px;
 }	
+
+.fourth.column {
+	width: 210px;
+}
+
+.fourth.column .subcolumn {
+	float: left;
+	margin-right: 10px;
+}
+	
 
 .cats-container .left{
 	float: left;
@@ -817,15 +827,7 @@
 	background: #6EA9EB ;
 }
 
-.fourth.column {
-	width: 210px;
-}
-
-.fourth.column .subcolumn {
-	float: left;
-	margin-right: 10px;
-}
-		
+	
 /*END*/
 		
 	
