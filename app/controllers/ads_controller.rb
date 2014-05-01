@@ -74,7 +74,7 @@ class AdsController < ApplicationController
   end
 
   def show
-    @ad = Ad.includes(:subcat).includes(:pictures).find(params[:id])
+    @ad = Ad.includes(:subcat).includes(:pictures).includes(:options).find(params[:id])
     @header_options = { head_link_text: [@ad.subcat.category.title, @ad.subcat.title, "listings"],
        head_link_url: [subcat_ads_url(@ad.subcat), subcat_ads_url(@ad.subcat), subcat_ad_url(@ad.subcat, @ad)]
       }

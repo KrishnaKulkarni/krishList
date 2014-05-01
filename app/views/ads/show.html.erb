@@ -6,15 +6,11 @@
 	<div class="listing-title clearfix">
 	  <h2><%= @ad.title %></h2>
 	  <ul class="tags">
-	  	<li>tag1</li>
-		<li>tag2</li>
-		<li>tag3</li>
-	  	<li>tag1</li>
-		<li>tag2</li>
-		<li>tag3</li>
-	  	<li>tag1</li>
-		<li>tag2</li>
-		<li>tag3</li>
+			<% @ad.options.each do |option|  %>
+				<% value = option.option_value.value %>
+				<% value = value == true ? "ok" : value%>
+				<li> <%= option.option_class.title %>:<%= value %></li>  <!-- option_values and classes are not prefetched with the option. How can I optimize these queries? -->
+			<% end %>
 	  </ul>
 	  <ul class="essentials">
 			
