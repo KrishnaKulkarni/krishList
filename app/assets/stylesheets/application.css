@@ -15,7 +15,7 @@
 
 /* RESETS */
   html, body, header, main, form, h1, div, label, nav, a, table, thead,
-  tbody, tr, th, td, ul, li, h2, h3, h4, h5, span{
+  tbody, tr, th, td, ul, li, h2, h3, h4, h5, span, footer{
 	  margin: 0;
 	  padding: 0;
 	  border: 0;
@@ -23,7 +23,14 @@
 	  vertical-align: baseline;
 	  font-size: 100%;
   }
+	
+	#content {
+		min-height: 1000px;
+		margin-top: 40px;
+	}
   
+	
+	
   body {
 /*  	  background: #FFC02C;*/
 	  background: #CBCBCB;

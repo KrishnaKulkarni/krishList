@@ -10,11 +10,10 @@
 	<link href='https://api.tiles.mapbox.com/mapbox.js/v1.6.2/mapbox.css' rel='stylesheet' />
 </head>
 
-<%= header(@header_options) %>
+
 <body>
-	
-
-
+	<%= header(@header_options) %>
+<section id="content">
 <% if flash[:errors]  %>
   <div class="page-errors">
     Errors: <%= flash[:errors].join('<br>').html_safe %>
@@ -31,8 +30,8 @@
 
 
 		<%= yield %>
-
-</body>
+		</section>
+		
 <footer class="footer">
   
 	<nav class="footer-nav">
@@ -46,4 +45,6 @@
    </nav>
   </nav>
 </footer>
+</body>
+
 </html>
