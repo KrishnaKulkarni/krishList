@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140430082621) do
+ActiveRecord::Schema.define(version: 20140501043555) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -150,7 +150,7 @@ ActiveRecord::Schema.define(version: 20140430082621) do
   end
 
   add_index "subcats", ["category_id"], name: "index_subcats_on_category_id", using: :btree
-  add_index "subcats", ["title"], name: "index_subcats_on_title", unique: true, using: :btree
+  add_index "subcats", ["title"], name: "index_subcats_on_title", using: :btree
 
   create_table "users", force: true do |t|
     t.string   "email",                                     null: false

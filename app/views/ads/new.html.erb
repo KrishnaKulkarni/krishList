@@ -74,7 +74,7 @@
 	 	  		     url: '/subcats/' + value + '/options',
 	 	  		     type: 'GET',
 	 	  		     success: function(data){
-	 	  		 		$("#subcat-options").append(data);
+	 	  		 		$("#subcat-options").html(data);
 	 	  		     }
 			 	 }); 
 		 });
