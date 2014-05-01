@@ -14,7 +14,8 @@ class AdsController < ApplicationController
     @regions = params[:regions]
 
     @ads = @subcat.ads.order(created_at: :desc)
-    if @search_words
+    
+    if @search_words.present?
       @ads = @ads.search_by_content(@search_words)
     end
     @ads = @ads.where("ads.price >= ? ", @min_price) if @min_price.present?
