@@ -17,8 +17,15 @@
 		<li>tag3</li>
 	  </ul>
 	  <ul class="essentials">
-		<li><h3>$<%= @ad.price %> / ?BR</h3></li>  
-		<li><h3>Available: <%= @ad.start_date %></h3></li>
+			
+			<% subcat = @ad.subcat  %>	
+			<% feature1 = @ad.options.where("option_class_id = ?", subcat.featured_option_class_id1).first %>
+			<% feature2 = @ad.options.where("option_class_id = ?", subcat.featured_option_class_id2).first %>
+			<% if(subcat.featured_text && feature1 && feature2) %>
+				<li><h3><%= subcat.featured_text.gsub("~", feature1.option_value.value.to_s).gsub("^", feature2.option_value.value.to_s) %></h3></li>
+			<% end %>
+			
+			<li><h3><%= @ad.location %></h3></li>
 	  	<li><h3>Posted: <%= @ad.created_at %></h3></li>
 	  </ul>
   </div>

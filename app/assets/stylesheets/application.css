@@ -510,7 +510,7 @@
 	.listing-show .essentials {
 		display: block;
 		float: right;
-		width: 300px;
+		width: 400px;
 /*		border: 1px solid purple;*/
 	}
 	
@@ -522,6 +522,7 @@
 		display: block;
 		font-weight: bold;
 		text-align: right;
+		word-wrap: nowrap;
 	}
 	
 	.listing-show .tags {
