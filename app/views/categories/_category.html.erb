@@ -1,7 +1,20 @@
-<section class="<%= category.title %>">
+<section class="category <%= category.title %>">
   <h4><%= category.title %></h4>
-  <ul class="subcat-list">
-    <% subcats =  category.subcats %>
-    <%= render subcats %>
+  <ul class="subcat-list left">
+		
+		<% if ["for sale"].include? category.title  %>
+		<div class="subcolumn">
+		  <% subcats =  category.subcats.take(19) %>
+		  <%= render subcats %>
+		</div>
+		<div class="subcolumn">
+		  <% subcats =  category.subcats.drop(19) %>
+		  <%= render subcats %>
+		</div>
+		<% else %>
+		
+	  	<% subcats =  category.subcats.take(23) %>
+	  	<%= render subcats %>
+		<% end %>
   </ul>
 </section>

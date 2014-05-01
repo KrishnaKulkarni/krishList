@@ -1,0 +1,3 @@
+Design Specification
+
+LIGHT BLUE: #6EA9EB

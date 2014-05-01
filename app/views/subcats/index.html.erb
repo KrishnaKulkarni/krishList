@@ -1,7 +1,25 @@
 <h1>All New York City Listings</h1>
 <main class="city-home">
 
+	<section class="cats-container clearfix">
+		<div class="first column">
+		<%= render @categories.select{ |cat| ["community", "gigs"].include? cat.title  } %>
+		</div>
+		<div class="second column">
+		<%= render @categories.select{ |cat| ["personals", "housing"].include? cat.title  } %>
+		</div>
+		
+		<div class="third column">
+		<%= render @categories.select{ |cat| ["services"].include? cat.title  }  %>
+		</div>
+		
+		<div class="fifth column">
+		<%= render @categories.select{ |cat| ["jobs"].include? cat.title  }  %>
+		</div>
+		
+		<div class="fourth column clearfix">
+				<%= render @categories.select{ |cat| ["for sale"].include? cat.title  }  %>
 
-<%= render @categories %>
-
+		</div>
+	</section>
 </main>
