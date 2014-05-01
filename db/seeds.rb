@@ -185,3 +185,9 @@ subcats.each do |subcat|
     ad.save!
   end
 end
+
+# subcat = Subcat.includes(:option_classes).includes(:inherited_option_classes).find_by(title: "apts / housing")
+# opt_class = subcat.inherited_option_classes.find_by(title: "rent")
+# subcat.update!(featured_option_class_id1: opt_class.id)
+# opt_class = subcat.option_classes.find_by(title: "bedrooms")
+# subcat.update!(featured_option_class_id2: opt_class.id)

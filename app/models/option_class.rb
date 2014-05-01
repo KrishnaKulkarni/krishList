@@ -23,6 +23,16 @@ class OptionClass < ActiveRecord::Base
   
   has_many :options, inverse_of: :option_class, dependent: :destroy
   
+  has_many(
+  :featured_first_subcats,
+  class_name: 'OptionClass',
+  foreign_key: :featured_option_class_id1, inverse_of: :featured_option_class1)
+  
+  has_many(
+  :featured_second_subcats,
+  class_name: 'OptionClass',
+  foreign_key: :featured_option_class_id2, inverse_of: :featured_option_class2)
+  
   validates :input_type, inclusion: { in: INPUT_TYPES }
   validates :is_mandatory, inclusion: { in: [true, false] }
   validates :option_classable, :title, presence: true

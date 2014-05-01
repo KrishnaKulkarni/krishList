@@ -50,10 +50,10 @@
     <thead>
       <tr>
         <th class="title">title</th>
-        <th>price</th>
-        <th>bedrooms</th>
-        <th>available by</th>
+        <th><%= OptionClass.find(@subcat.featured_option_class1).title %></th>
+      	<th><%= OptionClass.find(@subcat.featured_option_class2).title %></th>
         <th>area</th>
+		<th>address</th>
         <th>posted date</th>
       </tr>
     </thead>

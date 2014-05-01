@@ -9,7 +9,17 @@ class Subcat < ActiveRecord::Base
     inverse_of: :option_classable,
     dependent: :destroy)
   
-  #has_many :inherited_option_classes, through: :category, source: :option_classes
+  belongs_to(
+  :featured_option_class1,
+  class_name: 'OptionClass',
+  foreign_key: :featured_option_class_id1, inverse_of: :featured_first_subcats, dependent: :destroy)
+  
+  belongs_to(
+  :featured_option_class2,
+  class_name: 'OptionClass',
+  foreign_key: :featured_option_class_id2, inverse_of: :featured_second_subcats, dependent: :destroy)
+  
+  has_many :inherited_option_classes, through: :category, source: :option_classes
   def combined_option_classes
     OptionClass.where("(option_classable_id = ? AND option_classable_type = ?) 
     OR (option_classable_id = ? AND option_classable_type = ?)",

@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140501043555) do
+ActiveRecord::Schema.define(version: 20140501211950) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -143,10 +143,12 @@ ActiveRecord::Schema.define(version: 20140501043555) do
   end
 
   create_table "subcats", force: true do |t|
-    t.string   "title",       null: false
-    t.integer  "category_id", null: false
+    t.string   "title",                     null: false
+    t.integer  "category_id",               null: false
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.integer  "featured_option_class_id1"
+    t.integer  "featured_option_class_id2"
   end
 
   add_index "subcats", ["category_id"], name: "index_subcats_on_category_id", using: :btree
