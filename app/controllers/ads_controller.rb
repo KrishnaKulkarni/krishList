@@ -6,6 +6,10 @@ class AdsController < ApplicationController
     @header_options = { head_link_text: [@subcat.category.title, @subcat.title],
        head_link_url: [subcat_ads_url(@subcat), subcat_ads_url(@subcat)]
       }
+    @idio_options = @subcat.combined_option_classes
+    
+    @option_filters = params[:options].delete_if{ |k, v| !v.present? }
+    
     
     @search_words = params[:search_words]
     @min_price = params[:min_price]
@@ -13,7 +17,13 @@ class AdsController < ApplicationController
     @start_date = params[:start_date]
     @regions = params[:regions]
 
-    @ads = @subcat.ads.order(created_at: :desc)
+    @ads = @subcat.ads
+    .includes(:integer_option_values)
+    .includes(:string_option_values)
+    .includes(:boolean_option_values)
+    .includes(:date_option_values)
+    .order(created_at: :desc)
+    
     
     if @search_words.present?
       @ads = @ads.search_by_content(@search_words)
@@ -27,13 +37,33 @@ class AdsController < ApplicationController
       @regions = @regions.keys
       @ads = @ads.where("ads.region IN (?)", @regions)
     end
-    
+        
+    @option_filters.each do |(id, value)|
+      option_class = OptionClass.find(id) 
+      case option_class.value_type
+        when "IntegerOptionValue"
+          @ads = @ads.where("options.option_class_id = ? AND integer_option_values.value >= ?", id, value)
+          .references(:options, :integer_option_values)
+        when "StringOptionValue"
+          @ads = @ads.where("options.option_class_id = ? AND string_option_values.value = ?", id, value)
+          .references(:options, :string_option_values)
+        when "BooleanOptionValue"
+          @ads = @ads.where("options.option_class_id = ? AND integer_option_values.value = ?", id, value)
+          .references(:options, :boolean_option_values)
+        when "DateOptionValue"
+          @ads = @ads.where("options.option_class_id = ? AND date_option_values.value >= ?", id, value)
+          .references(:options, :date_option_values)
+      end
+    end
+
     render :index
   end
 
 
   def index
     @subcat = Subcat.includes(:ads).find(params[:subcat_id])
+    @idio_options = @subcat.combined_option_classes
+    
     @ads = @subcat.ads.order(created_at: :desc)
     
     @header_options = { head_link_text: [@subcat.category.title, @subcat.title],

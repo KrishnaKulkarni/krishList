@@ -26,14 +26,20 @@
 				    <% end %>
 				</div>
 
-				<div class="options clearfix">
-					<h5>Other Options</h5>
-					<%= form_input("cats", "checkbox", "cats-ok", "cats_ok", true ) %>
-					<%= form_input("dogs", "checkbox", "dogs-ok", "dogs_ok", true ) %>
-				</div>
-
+			</div>
+	
+			
+		</div>
+		
+		<div class="optionables">
+			<div class="options clearfix">
+				<h5>Other Options</h5>
+				<% @idio_options.each do |id_op|  %>
+				<%= form_input(id_op.title, id_op.input_type, "", "options[#{id_op.id}]", nil ) %>
+				<% end  %>
 			</div>
 		</div>
+		
 				<%= form_submit("filter") %>
 	</form>
 </section>

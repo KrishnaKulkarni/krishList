@@ -42,6 +42,7 @@ module ApplicationHelper
   end
 
   def form_input(label_text, type, id, name, value, div_class =  "", input_appends = "")
+    value = true if type == "checkbox"
     <<-HTML.html_safe
       <div class="input #{div_class}">
         <label for="#{id}">#{label_text}</label>
