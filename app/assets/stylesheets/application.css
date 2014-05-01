@@ -86,8 +86,17 @@
 	  color: #fff;
  }
  
- header a {
+ header a, footer a {
  	color: #fff;
+ }
+ 
+ .header {
+  margin: 0px 65px;
+ }
+ 
+ .header-path-links {
+  margin: 10px 0;
+  float: left;
  }
  
  form label {
@@ -103,6 +112,30 @@
 	 list-style: none;
  }
  
+ /*END*/
+
+/* FOOTER*/
+ .footer {
+ 	position: fixed;
+ 	bottom: 0px;
+ 	left: 0px;
+  display: block;
+  background: #999;
+  height: 30px;
+	width: 100%;
+  color: #fff;
+	
+}
+
+.footer .links-list {
+	margin: auto;
+	width: 900px;
+}
+
+.footer .links-list li{
+	float: left;
+	
+}
  /*END*/
 
 /* Ads Index*/
@@ -257,14 +290,7 @@
 	}
 	
   
-  .header {
-	  margin: 0px 65px;
-  }
-  
-  .header-path-links {
-	  margin: 10px 0;
-	  float: left;
-  }
+
 
 /* END FILTER STYLING*/
 
