@@ -78,9 +78,9 @@ module ApplicationHelper
       
       <nav class="header clearfix">
         <ul class="header-path-links">
-          <a href="#{root_url}">KrishList</a>
+          <a href="#{root_url}">krishList</a>
           >
-          <a href="#{root_url}">New York City</a>
+          <a href="#{root_url}">new york city</a>
           
           #{header_append_html}
         </ul>  

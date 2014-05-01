@@ -10,9 +10,10 @@
 	<link href='https://api.tiles.mapbox.com/mapbox.js/v1.6.2/mapbox.css' rel='stylesheet' />
 </head>
 
+<%= header(@header_options) %>
 <body>
 	
-<%= header(@header_options) %>
+
 
 <% if flash[:errors]  %>
   <div class="page-errors">
