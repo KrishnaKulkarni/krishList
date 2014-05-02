@@ -77,6 +77,9 @@ module UsersHelper
         <a class="user-dashboard-nav" href="#{user_notifications_url(user)}">
           Notifications
         </a>
+        <a class="user-dashboard-nav" href="#{user_alerts_url(user)}">
+          Alerts
+        </a>
       </nav>
 
     HTML

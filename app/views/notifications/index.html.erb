@@ -2,7 +2,7 @@
   <%= account_header(@user) %>
 
   <section class="notifications-list">
-    <h4>Your Notifications</h4>
+    <h4>Notifications for <%= @user.username %></h4>
     <ul>
       <%= render @notifications %>
     </ul>

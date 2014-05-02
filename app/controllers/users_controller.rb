@@ -9,6 +9,11 @@ class UsersController < ApplicationController
     @user = User.includes(:posted_ads).find(params[:user_id])
     render :posted_ads if (require_current_user_matches!(@user))
   end
+  
+  def alerts
+    @user = User.includes(:alerts => :subcat).find(params[:user_id])
+    render :alerts if (require_current_user_matches!(@user))
+  end
 
   def new
     @user = User.new

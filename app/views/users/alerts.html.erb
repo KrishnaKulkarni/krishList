@@ -1,0 +1,13 @@
+<main class="posted-ads">
+  <%= account_header(@user) %>
+
+  <section class="notifications-list">
+    <h4>Alerts for <%= @user.username %></h4>
+			<% @user.alerts.each do |alert| %>
+				<li>
+				  Alert #<%= alert.id%>  --- <%= alert.subcat.title %>
+				</li>
+			<% end %>
+  </section>
+
+</main>
