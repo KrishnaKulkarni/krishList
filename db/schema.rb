@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140501215501) do
+ActiveRecord::Schema.define(version: 20140502011436) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -43,6 +43,60 @@ ActiveRecord::Schema.define(version: 20140501215501) do
   add_index "ads", ["subcat_id"], name: "index_ads_on_subcat_id", using: :btree
   add_index "ads", ["submitter_id"], name: "index_ads_on_submitter_id", using: :btree
   add_index "ads", ["title"], name: "index_ads_on_title", using: :btree
+
+  create_table "alert_boolean_options", force: true do |t|
+    t.integer  "alert_id",                        null: false
+    t.integer  "option_class_id",                 null: false
+    t.boolean  "value",           default: false
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "alert_boolean_options", ["alert_id"], name: "index_alert_boolean_options_on_alert_id", using: :btree
+  add_index "alert_boolean_options", ["option_class_id"], name: "index_alert_boolean_options_on_option_class_id", using: :btree
+
+  create_table "alert_date_options", force: true do |t|
+    t.integer  "alert_id",        null: false
+    t.integer  "option_class_id", null: false
+    t.date     "value",           null: false
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "alert_date_options", ["alert_id"], name: "index_alert_date_options_on_alert_id", using: :btree
+  add_index "alert_date_options", ["option_class_id"], name: "index_alert_date_options_on_option_class_id", using: :btree
+
+  create_table "alert_integer_options", force: true do |t|
+    t.integer  "alert_id",        null: false
+    t.integer  "option_class_id", null: false
+    t.integer  "value",           null: false
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "alert_integer_options", ["alert_id"], name: "index_alert_integer_options_on_alert_id", using: :btree
+  add_index "alert_integer_options", ["option_class_id"], name: "index_alert_integer_options_on_option_class_id", using: :btree
+
+  create_table "alert_string_options", force: true do |t|
+    t.integer  "alert_id",        null: false
+    t.integer  "option_class_id", null: false
+    t.string   "value",           null: false
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "alert_string_options", ["alert_id"], name: "index_alert_string_options_on_alert_id", using: :btree
+  add_index "alert_string_options", ["option_class_id"], name: "index_alert_string_options_on_option_class_id", using: :btree
+
+  create_table "alerts", force: true do |t|
+    t.integer  "subcat_id",  null: false
+    t.integer  "user_id",    null: false
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "alerts", ["subcat_id"], name: "index_alerts_on_subcat_id", using: :btree
+  add_index "alerts", ["user_id"], name: "index_alerts_on_user_id", using: :btree
 
   create_table "boolean_option_values", force: true do |t|
     t.boolean  "value",      null: false

@@ -33,6 +33,11 @@ class OptionClass < ActiveRecord::Base
   class_name: 'OptionClass',
   foreign_key: :featured_option_class_id2, inverse_of: :featured_option_class2)
   
+  has_many :alert_integer_options, inverse_of: :option_class, dependent: :destroy
+  has_many :alert_string_options, inverse_of: :option_class, dependent: :destroy 
+  has_many :alert_boolean_options, inverse_of: :option_class, dependent: :destroy
+  has_many :alert_date_options, inverse_of: :option_class, dependent: :destroy
+  
   validates :input_type, inclusion: { in: INPUT_TYPES }
   validates :is_mandatory, inclusion: { in: [true, false] }
   validates :option_classable, :title, presence: true

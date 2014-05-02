@@ -20,6 +20,9 @@ class Subcat < ActiveRecord::Base
   foreign_key: :featured_option_class_id2, inverse_of: :featured_second_subcats, dependent: :destroy)
   
   has_many :inherited_option_classes, through: :category, source: :option_classes
+  
+  has_many :alerts, inverse_of: :subcat, dependent: :destroy
+  
   def combined_option_classes
     OptionClass.where("(option_classable_id = ? AND option_classable_type = ?) 
     OR (option_classable_id = ? AND option_classable_type = ?)",
