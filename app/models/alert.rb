@@ -11,16 +11,20 @@ class Alert < ActiveRecord::Base
   
   validates :subcat, :user, presence: true
   
+  scope :for_user, -> (user_id) { where(user_id: user_id) }
+  scope :for_subcat, -> (subcat_id) { where(subcat_id: subcat_id) }
+  
+  
   def alert_options
-    self.integer_options.all
-    .concat(string_options)
-    .concat(boolean_options)
-    .concat(date_options)
+    self.alert_integer_options.load
+    .concat(self.alert_string_options)
+    .concat(self.alert_boolean_options)
+    .concat(self.alert_date_options)
   end
   
   def notify_user(ad)
      #create notification for the user
-     notification = self.notifications.unviewed.event(:new_relevant_ad)
+     notification = self.notifications.unviewed.event(:new_relevant_ad).new
      notification.user = self.user
      notification.ad = ad
      notification.save!

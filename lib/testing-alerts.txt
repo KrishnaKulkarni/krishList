@@ -1,0 +1,108 @@
+Tests
+
+Testing Alerts
+
+A. Test Alert itself
+
+	i. it can be created 
+			- create user
+			- grab subcat
+			- create and check it
+	ii. it has functioning associations
+		 - check subcat, user, notification, alert..options
+		 - create some options and check them with associations
+	iii. it can #notify_user
+		- grab an ad and call notify_user with that ad
+		- check the User's notifications
+		
+B. test alert filtering
+			- grab ad
+			- create at least two alerts on that ad's subcat
+			- check ad options and candidate_alerts
+			- test the #execute_alerts method
+			--- test the matches private methods
+			--- check that execute alerts works when called by itself
+C. integration
+    - make execute_alerts private and check whether it works automatically upon creation of the ad; after creating a new ad in the appropriate subcat, are there now new notifications for each of the relevant users?
+		
+
+u1 = User.create!(username: "krishna", password: "password", email: "krishna@gmail.com")
+s1 = Subcat.first # or findby title = "apts / housing"
+u1.alerts
+s1.alerts
+a1 = u1.alerts.new() #should add scope for alert
+a1.user
+a1.subcat
+a1.subcat = s1
+a1.save!
+Alert.first
+Alert.first.user
+Alert.first.subcat
+a1.notifications
+a1.alert_integer_options
+a1.alert_string_options
+a1.alert_boolean_options
+a1.alert_date_options
+s1.combined_option_classes
+abo1 = a1.alert_boolean_options.for_option(8).new(value: true) #has dogs
+abo1.save!
+a1.alert_boolean_options
+aio1 = a1.alert_integer_options.for_option(1).is_min.new(value: 500) #has rent min 500
+aio1.save!
+a1.alert_integer_options
+a1.alert_integer_options.first.value
+
+ad1 = a1.subcat.ads.last
+a1.notify_user(ad1)
+a1.user.notifications.last
+a1.user.notifications.last.text
+
+a2 = a1.subcat.alerts.for_user(a1.user.id).new
+a2.save!
+
+a1.subcat.alerts
+a2.alert_integer_options.for_option(1).is_min.create!(value: 500) #has rent min 500
+a2.alert_integer_options.for_option(4).is_max.create!(value: 2) #has max 5 bedrooms
+a2.alert_date_options.for_option(3).is_max.create!(value: "2014-05-15") #move in by may 15 or #earlier
+
+ad2 = Subcat.first.ads.take(2).last
+
+## tested Ad#matches_date_or_integer_options?(alert_options, ad_options)
+## For subcat *'apts / housing' user(krishna) has two alerts:
+## alert 1: has dogs, has min rent 500
+## alert 2 : min rent 500, max 5 bedrooms, move in no later than may 15
+
+## clear out users notifications and create three ads
+## ad1 - rent = 700 but no dogs
+## ad2 - rent = 700, has dogs, has cats, has 4 bedrooms, available by may 1
+## ad3 - rent = 900, has cats, has 4 bedrooms, available by may 2
+
+s1 = Subcat.first
+u2 = User.first
+ad1 =  s1.ads.new(
+  title: 'Second Inwood Apt open',
+  start_date: "May 1 2019",
+  region: "mnh",
+  price: 100,
+  location: '55 Payson, New York, NY',
+  description: 'YOLO')
+ad1.entered_options = { "1" => 700 }
+ad1.submitter = u2
+ad1.save!
+
+ad2 =  s1.ads.new(
+  title: 'This ad is great for krishnas filters',
+  start_date: "May 1 2019",
+  region: "mnh",
+  price: 100,
+  location: '55 Payson, New York, NY',
+  description: 'YOLO')
+ad2.entered_options = { "1" => "700", "8" => "true", "7" => "true", "4" => "4", "3" => "2014-05-15" }
+ad2.submitter = u2
+ad2.save!
+
+#---> user should have 3 notifications, 2 for ad2 and 1 for ad3
+
+### note: my ad filter still doesn't check for universal ad-filters(search words, area, address)
+
+### feature, make search work for addresses as

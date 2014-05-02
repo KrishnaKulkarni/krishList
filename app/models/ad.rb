@@ -84,10 +84,10 @@ class Ad < ActiveRecord::Base
     self.candidate_alerts.each do |alert|
       matching_alert = true
             
-      unless(matches_date_or_integer_options?(alert.alert_integer_options, ad_options)
-         && matches_date_or_integer_options?(alert.alert_date_options, ad_options)
-         && matches_string_or_boolean_options?(alert.alert_string_options, ad_options)
-         && matches_string_or_boolean_options?(alert.alert_boolean_options, ad_options))
+      unless(matches_date_or_integer_options?(alert.alert_integer_options, ad_options) &&
+        matches_date_or_integer_options?(alert.alert_date_options, ad_options) && 
+        matches_string_or_boolean_options?(alert.alert_string_options, ad_options) &&
+        matches_string_or_boolean_options?(alert.alert_boolean_options, ad_options))
          
          matching_alert = false      
       end
@@ -152,7 +152,7 @@ class Ad < ActiveRecord::Base
  #  matches_date_or_integer_options(alert_integer_options, ad_options) && matches_date_or_integer_options(alert_date_options, ad_options) 
   def matches_date_or_integer_options?(alert_options, ad_options)    
     alert_options.each do |alert_option|
-      matched_option = ad_options.select do |ad_option|
+      matched_option = ad_options.detect do |ad_option|
         ad_option.option_class_id == alert_option.option_class_id
       end
   
@@ -170,8 +170,8 @@ class Ad < ActiveRecord::Base
   def matches_string_or_boolean_options?(alert_options, ad_options)
     alert_options.each do |alert_option|
       is_matched = ad_options.any? do |ad_option|
-        (ad_option.option_class_id == alert_option.option_class_id 
-        && alert_option.value == ad_option.option_value.value)
+        (ad_option.option_class_id == alert_option.option_class_id &&
+        alert_option.value == ad_option.option_value.value)
       end
       return false unless(is_matched)
     end

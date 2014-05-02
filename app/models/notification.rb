@@ -44,8 +44,7 @@ class Notification < ActiveRecord::Base
       when :new_relevant_ad
         ad = self.ad
         
-        "A new ad has been posted that matches your preferences -- Ad: #{ad.title}, Posted in
-        #{ad.subcat.title} on #{ad.created_at}"
+        "A new ad has been posted that matches your preferences -- Ad: #{ad.title}, Posted in #{ad.subcat.title} on #{ad.created_at}"
     end
   end
 
