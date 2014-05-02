@@ -21,14 +21,14 @@
 	<div id="new-listing-options">
     <%= form_input('Title', 'text', 'new-ad-title', 'ad[title]', @ad.title) %>
 
-    <%= form_input('Start Date', 'date', 'new-ad-start-date', 'ad[start_date]', @ad.start_date) %>
+    <%= form_input('', 'hidden', 'new-ad-start-date', 'ad[start_date]', "Jun 01 2014") %>
 
     <%= form_input('Address', 'text', 'new-ad-location', 'ad[location]', @ad.location) %>
 
     <%= form_input('Region', 'text', 'new-ad-region', 'ad[region]',
      @ad.region) %>
 
-    <%= form_input('Price', 'number', 'new-ad-price', 'ad[price]', @ad.price) %>
+    <%= form_input('', 'hidden', 'new-ad-price', 'ad[price]', 900) %>
 
 		<div id="new-image-uploads">
 	
