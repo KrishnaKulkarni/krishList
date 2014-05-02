@@ -91,7 +91,7 @@ class Ad < ActiveRecord::Base
          
          matching_alert = false      
       end
-      
+      #debugger
       matching_alerts << alert if(matching_alert) 
     end
     
@@ -146,6 +146,8 @@ class Ad < ActiveRecord::Base
   # end
   
   ###
+  
+  #matched_option = ad_options.detect do |ad_option| ad_option.option_class_id == alert_option.option_class_id end
   
   # integer_alert_options = alert.alert_integer_options
  #  date_alert_options = alert.alert_date_options
