@@ -78,56 +78,118 @@ class Ad < ActiveRecord::Base
   def execute_alerts
     #iterate through all alerts, filtering out ones that don't match; with each of the remaining alerts, call Alert#notify_user
     
-    ad_options = self.options#.includes(:option_class)
+    ad_options = self.options.includes(:option_value) #.includes(:option_class)
     matching_alerts = []
+    
     self.candidate_alerts.each do |alert|
       matching_alert = true
-      
-      # Checking each alert option, determining whether they all match; otherwise filter out this alert
-      ##Filtering integer alert options
-      unless(matches_integer_options?(alert, ad_options))
-        matching_alert = false
-        break
-      end
-      ####
-      [ 
-        :alert_integer_options,
-        :alert_boolean_options,
-        :alert_string_options,
-        :alert_date_options 
-      ].each do |options_set|
-        alert_options = alert.try(options_set)
-        alert_options.present? && alert_options.each do |alert_option| #the .present? check shouldn't be necessary
-          match = 
-        
-        end 
-      ####
+            
+      unless(matches_date_or_integer_options?(alert.alert_integer_options, ad_options)
+         && matches_date_or_integer_options?(alert.alert_date_options, ad_options)
+         && matches_string_or_boolean_options?(alert.alert_string_options, ad_options)
+         && matches_string_or_boolean_options?(alert.alert_boolean_options, ad_options))
          
+         matching_alert = false      
       end
       
-      
+      matching_alerts << alert if(matching_alert) 
     end
+    
+    matching_alerts.each do |alert|
+      alert.notify_user
+    end    
   end
+  
   private
-  def matches_integer_options?(alert, ad_options)
-    alert_integer_options = alert.alert_integer_options
-
-    alert_integer_options.each do |alert_integer_option|
-      ##need to know whether it's a greater than or less than filter
+  # unless(matches_integer_options?(alert, ad_options) 
+#     && matches_date_options?(alert, ad_options))
+#     matching_alert = false
+#   end
+#   
+  # def matches_integer_options?(alert, ad_options)
+  #   alert_integer_options = alert.alert_integer_options
+  # 
+  #   alert_integer_options.each do |alert_integer_option|
+  #     ##need to know whether it's a greater than or less than filter
+  #     matched_option = ad_options.select do |ad_option|
+  #        ad_option.option_class_id == alert_integer_option.option_class_id
+  #     end
+  #           
+  #     return false unless(matched_option.present?)
+  #      
+  #     if(alert_integer_option.is_lower_bound)
+  #       return false unless(alert_integer_option.value <= matched_option.option_value.value)
+  #     else
+  #       return false unless(alert_integer_option.value >= matched_option.option_value.value)
+  #     end
+  #   end
+  #   true
+  # end
+  # 
+  # def matches_date_options?(alert, ad_options)
+  #   alert_date_options = alert.alert_date_options
+  #   
+  #   alert_date_options.each do |alert_date_option|
+  #     matched_option = ad_options.select do |ad_option|
+  #       ad_option.option_class_id == alert_date_option.option_class_id
+  #     end
+  # 
+  #     return false unless(matched_option.present?)
+  #   
+  #     if(alert_date_option.is_lower_bound)
+  #       return false unless (alert_date_option.value <= matched_option.option_value.value)
+  #     else
+  #       return false unless (alert_date_option.value >= matched_option.option_value.value)
+  #     end
+  #   end
+  #   true
+  # end
+  
+  ###
+  
+  # integer_alert_options = alert.alert_integer_options
+ #  date_alert_options = alert.alert_date_options
+ #  matches_date_or_integer_options(alert_integer_options, ad_options) && matches_date_or_integer_options(alert_date_options, ad_options) 
+  def matches_date_or_integer_options?(alert_options, ad_options)    
+    alert_options.each do |alert_option|
       matched_option = ad_options.select do |ad_option|
-         ad_option.option_class_id == alert_integer_option.option_class_id
+        ad_option.option_class_id == alert_option.option_class_id
       end
-      
+  
       return false unless(matched_option.present?)
-       
-      if(alert_integer_option.is_lower_bound)
-        return false unless(alert_integer_option.value <= matched_option.option_value.value)
+    
+      if(alert_option.is_lower_bound)
+        return false unless (alert_option.value <= matched_option.option_value.value)
       else
-        return false unless(alert_integer_option.value >= matched_option.option_value.value)
+        return false unless (alert_option.value >= matched_option.option_value.value)
       end
     end
     true
   end
+  
+  def matches_string_or_boolean_options?(alert_options, ad_options)
+    alert_options.each do |alert_option|
+      is_matched = ad_options.any? do |ad_option|
+        (ad_option.option_class_id == alert_option.option_class_id 
+        && alert_option.value == ad_option.option_value.value)
+      end
+      return false unless(is_matched)
+    end
+    true
+  end
+  
+  #this implementation leverages the fact that as of yet, boolean options are only created for 'true' values
+  # once I alter that feature, I will simply use the string_option_method
+  # ---> NEVERMIND, I'll just set it up now so that it will work in either case
+  # def matches_boolean_options?(alert_options, ad_options)
+#     alert_options.each do |alert_option|
+#       
+#       
+#     end
+#     true
+#   end
+  
+  ###
   
   
   def ensure_flag_count

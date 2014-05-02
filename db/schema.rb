@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140502011436) do
+ActiveRecord::Schema.define(version: 20140502025334) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -61,6 +61,7 @@ ActiveRecord::Schema.define(version: 20140502011436) do
     t.date     "value",           null: false
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.boolean  "is_lower_bound"
   end
 
   add_index "alert_date_options", ["alert_id"], name: "index_alert_date_options_on_alert_id", using: :btree
@@ -72,6 +73,7 @@ ActiveRecord::Schema.define(version: 20140502011436) do
     t.integer  "value",           null: false
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.boolean  "is_lower_bound"
   end
 
   add_index "alert_integer_options", ["alert_id"], name: "index_alert_integer_options_on_alert_id", using: :btree
