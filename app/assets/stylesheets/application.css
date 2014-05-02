@@ -33,7 +33,9 @@
 	
   body {
 /*  	  background: #FFC02C;*/
-	  background: #CBCBCB;
+/*	  background: #CBCBCB;*/
+/*		background: #E9E9E9;*/
+		background: #ddd;
 	  font-family: Verdana, Arial, Helvetica, sans-serif;
   }
 
@@ -94,7 +96,23 @@
 	a {
 		color: #fff;
 	}
+	
+	/*Errors, Notices, and Notifications*/
+	
+	.page-notices, .page-errors {
+		background: #333;
+		padding: 15px;
+		color: #fff;
+		max-width: 400px;
+		display: inline-block;
+	}
+	
+	.page-errors{
+		background: red;
+	}
   
+	/*END*/
+	
 /* HEADER*/
   header {
 	 	position: fixed;
@@ -672,12 +690,19 @@
     }
     /*dashboard-->*/
     .user-dashboard {
-      background: #E9E9E9;
+/*      background: #E9E9E9;*/
+			background: #999;
       padding: 5px;
       border: 1px solid #646464;
-      width: 100%;
-      margin: 5px 10px;
+/*      width: 100%;*/
+     margin-top: 60px;
+		 margin-bottom: 20px;
     }
+		
+		nav.user-dashboard > a {
+			display: inline-block;
+			margin: 0 15px 0 15px;
+		}
 
     main.posted-ads {
       padding: 0;
@@ -702,7 +727,7 @@
     .user-dashboard td {
 /*      background: #FEE8FD;*/
 		
-	  background: #DEFABB;
+	  	background: #DEFABB;
       padding: 4px;
 /*      border: 1px solid #cc99ff;*/
       border: 1px solid #C0C0C0;
@@ -723,6 +748,28 @@
 		background: white;
 	}
 
+
+	.notifications-list {
+		display: block;
+		width: 800px;
+		margin: 60px auto;
+		background: #999;
+		padding: 25px 45px 25px 45px;
+		border: 1px solid #777;
+		color: #fff;
+	}
+	
+	.notifications-list > h4 {
+		font-size: 20px;	
+		border-bottom: 1px solid #fff;
+		margin-bottom: 20px;
+	}
+	
+	.notifications-list li {
+		display: block;
+		padding: 5px 10px;
+		border-bottom: 1px solid #777;
+	}
 
     /*<---dashboard*/
 
