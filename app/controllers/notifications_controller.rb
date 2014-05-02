@@ -2,6 +2,9 @@ class NotificationsController < ApplicationController
 
   def index
     @user = User.find(params[:user_id])
+    @header_options = { head_link_text: ["account", "notifications"],
+       head_link_url: [user_ads_url(@user), user_notifications_url(@user)]
+      }
     if(require_current_user_matches!(@user))
       @notifications = @user.notifications
       render :index

@@ -2,16 +2,26 @@ class UsersController < ApplicationController
 
   def show
     @user = User.find(params[:id])
+    @header_options = { head_link_text: ["account", "settings"],
+       head_link_url: [user_ads_url(@user), users_url(@user)]
+      }
     render :show if (require_current_user_matches!(@user))
+ 
   end
 
   def posted_ads
     @user = User.includes(:posted_ads).find(params[:user_id])
+    @header_options = { head_link_text: ["account", "postings"],
+       head_link_url: [user_ads_url(@user), user_ads_url(@user)]
+      }
     render :posted_ads if (require_current_user_matches!(@user))
   end
   
   def alerts
     @user = User.includes(:alerts => :subcat).find(params[:user_id])
+    @header_options = { head_link_text: ["account", "alerts"],
+       head_link_url: [user_ads_url(@user), user_alerts_url(@user)]
+      }
     render :alerts if (require_current_user_matches!(@user))
   end
 
