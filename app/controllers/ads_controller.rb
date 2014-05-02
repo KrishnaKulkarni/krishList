@@ -34,32 +34,42 @@ class AdsController < ApplicationController
     if @start_date.present?
       @ads = @ads.where("ads.start_date <= ? ", @start_date)
     end
-    if @regionsads
+    if @regions
       @regions = @regions.keys
       @ads = @ads.where("ads.region IN (?)", @regions)
     end
         
     ##THIS SHOULD BE ABLE TO BE SPED UP WITH BOOTSTRAPPING DATA
-    @option_filters && @option_filters.each do |(id, value)|
+    ids = []
+    @option_filters.present? && @option_filters.each_with_index do |(id, value), index|
       option_class = OptionClass.find(id) 
      # debugger
       case option_class.value_type
         when "IntegerOptionValue"
-          @ads = @ads.where("options.option_class_id = ? AND integer_option_values.value >= ?", id, value)
-          .references(:options, :integer_option_values)
+           new_ids = @ads.where("options.option_class_id = ? AND integer_option_values.value >= ?", id, value)
+          .references(:options, :integer_option_values).pluck(:id)
         when "StringOptionValue"
-          @ads = @ads.where("options.option_class_id = ? AND string_option_values.value = ?", id, value)
-          .references(:options, :string_option_values)
+          new_ids = @ads.where("options.option_class_id = ? AND string_option_values.value = ?", id, value)
+          .references(:options, :string_option_values).pluck(:id)
         when "BooleanOptionValue"
-          @ads = @ads.where("options.option_class_id = ? AND boolean_option_values.value = ?", id, value)
-          .references(:options, :boolean_option_values)
+          new_ids = @ads.where("options.option_class_id = ? AND boolean_option_values.value = ?", id, value)
+          .references(:options, :boolean_option_values).pluck(:id)
         when "DateOptionValue"
-          @ads = @ads.where("options.option_class_id = ? AND date_option_values.value >= ?", id, value)
-          .references(:options, :date_option_values)
+          new_ids = @ads.where("options.option_class_id = ? AND date_option_values.value >= ?", id, value)
+          .references(:options, :date_option_values).pluck(:id)
       end
       #debugger
+      if(index == 0)
+        ids = new_ids
+      else
+        ids = ids & new_ids
+      end
     end
     #fail
+    if(@option_filters.present?)
+      @ads = ids.present? ? Ad.find(*ids) : []
+    end
+
     render :index
   end
 
