@@ -110,6 +110,9 @@ Category.find_by(title: "jobs").option_classes.discretionary.create!(title: "int
 Category.find_by(title: "jobs").option_classes.discretionary.create!(title: "part-time", input_type: "checkbox")
 Category.find_by(title: "jobs").option_classes.discretionary.create!(title: "non-profit", input_type: "checkbox")
 
+Category.find_by(title: "personals").option_classes.discretionary.create!(title: "age", input_type: "number")
+Category.find_by(title: "personals").option_classes.discretionary.create!(title: "style", input_type: "text")
+
 subcats = Subcat.all
 
 ad1 = Subcat.find_by(title: "sublets / temporary").ads.new(
@@ -143,48 +146,143 @@ r1.save!
 r2 = ad2.responses.new(title: "hey", body: "I wanna sublet")
 r2.author = u1
 r2.save!
-
 responses = [r1, r2]
 
-users.each do |user|
-  3.times do |i|
-    ad = subcats[i].ads.new(
-      title: "Title #{i} from User #{user.username}",
-      start_date: "Jun 01 2014",
-      region: regions[i],
-      price: 1500,
-      location: '770 Broadway, New York, NY',
-      description: "Description #{i}")
-    ad.submitter = user
-    ad.save!
-    ads.push(ad)
-  end
+
+
+def gen_rand_value(oc_title)
+  months = %w<Jan Feb Mar Apr May Jun Jul Aug Sep Oct Nov Dec>
+  housing_types = ["apt", "duplex", "house"] 
+  styles = ["rough", "tender", "sturdy", "stationary"]
+  
+  rand_value = {
+    "rent"          => (rand * 400).to_i * 10 + 300,
+    "sq ft"         => (rand * 250).to_i * 10 + 300,
+    "available by"  => "#{months.sample} 01 2014",
+    "bedrooms"      => (rand * 5).to_i + 1,
+    "bathrooms"     => (rand * 4).to_i,
+    "housing type"  => housing_types.sample,
+    "cats"          => [true, false].sample,
+    "dogs"          => [true, false].sample,
+    "private room"  => [true, false].sample,
+    "private bath"  => [true, false].sample,
+    "price"         => (rand * 1000).to_i,  
+    "year"          => (rand * 30).to_i + 1982,
+    "telecommute"   => [true, false].sample,
+    "contract"      => [true, false].sample,
+    "internship"    => [true, false].sample,
+    "part-time"     => [true, false].sample,
+    "non-profit"    => [true, false].sample,
+    "year"          => (rand * 50).to_i + 17,
+    "styles"        => styles.sample    
+  }
+  
+  rand_value[oc_title]
 end
 
-ads.each do |ad|
-  users.each do |user|
-    r = ad.responses.new(title: "R from #{user.username}", body: "I like it")
-    r.author = user
-    r.save!
-  end
+Category.includes(:subcats).find_by(title: "housing").subcats.each do |subcat|
+  subcat.featured_option_class_id1 = 1
+  subcat.featured_option_class_id2 = 4
+  subcat.save! 
 end
 
-months = %w<Jan Feb Mar Apr May Jun Jul Aug Sep Oct Nov Dec>
-subcats.each do |subcat|
+Category.includes(:subcats).find_by(title: "for sale").subcats.each do |subcat|
+  subcat.featured_option_class1 = Category.find_by(title: "for sale").option_classes.find_by(title:"price")
+  subcat.save! 
+end
+
+Category.includes(:subcats).find_by(title: "jobs").subcats.each do |subcat|
+  subcat.featured_option_class1 = Category.find_by(title: "jobs").option_classes.find_by(title:"part-time")
+  subcat.featured_option_class2 = Category.find_by(title: "jobs").option_classes.find_by(title:"contract")
+  subcat.save! 
+end
+
+Category.includes(:subcats).find_by(title: "personals").subcats.each do |subcat|
+  subcat.featured_option_class1 = Category.find_by(title: "personals").option_classes.find_by(title:"age")
+  subcat.featured_option_class2 = Category.find_by(title: "personals").option_classes.find_by(title:"style")
+  subcat.save! 
+end
+
+
+Category.includes(:subcats).find_by(title: "housing").subcats.each do |subcat|
   20.times do |i|
-    month = months.sample
-    price = (rand * 500).to_i * 10 + 300
     ad = subcat.ads.new(
-      title: "Rand Ad No. #{i}",
-      start_date: "#{month} 01 2014",
-      region: regions.sample,
-      price: price,
-      location: '116th St and Broadway, New York, NY',
-      description: 'Any questions or concerns, please call or text Jason at 646-662-1907')
-    ad.submitter = users.sample
-    ad.save!
+          title: "Great new place #{i}!",
+          start_date: "Jun 01 2014",
+          region: regions.sample,
+          price: 1500,
+          location: '770 Broadway, New York, NY',
+          description: "Description #{i}")
+        ad.submitter = User.first
+        entered_options = {}
+        subcat.combined_option_classes.each do |opt_class|
+          entered_options[opt_class.id] = gen_rand_value(opt_class.title)
+        end
+        ad.entered_options = entered_options
+        ad.save!
   end
 end
+
+Category.includes(:subcats).find_by(title: "personals").subcats.each do |subcat|
+  20.times do |i|
+    ad = subcat.ads.new(
+          title: "Great new babe #{i}!",
+          start_date: "Jun 01 2014",
+          region: regions.sample,
+          price: 1500,
+          location: '770 Broadway, New York, NY',
+          description: "Description #{i}")
+        ad.submitter = User.first
+        entered_options = {}
+        subcat.combined_option_classes.each do |opt_class|
+          entered_options[opt_class.id] = gen_rand_value(opt_class.title)
+        end
+        ad.entered_options = entered_options
+        ad.save!
+  end
+end
+
+
+
+# users.each do |user|
+#   3.times do |i|
+#     ad = subcats[i].ads.new(
+#       title: "Title #{i} from User #{user.username}",
+#       start_date: "Jun 01 2014",
+#       region: regions[i],
+#       price: 1500,
+#       location: '770 Broadway, New York, NY',
+#       description: "Description #{i}")
+#     ad.submitter = user
+#     ad.save!
+#     ads.push(ad)
+#   end
+# end
+# 
+# ads.each do |ad|
+#   users.each do |user|
+#     r = ad.responses.new(title: "R from #{user.username}", body: "I like it")
+#     r.author = user
+#     r.save!
+#   end
+# end
+# 
+# months = %w<Jan Feb Mar Apr May Jun Jul Aug Sep Oct Nov Dec>
+# subcats.each do |subcat|
+#   20.times do |i|
+#     month = months.sample
+#     price = (rand * 500).to_i * 10 + 300
+#     ad = subcat.ads.new(
+#       title: "Rand Ad No. #{i}",
+#       start_date: "#{month} 01 2014",
+#       region: regions.sample,
+#       price: price,
+#       location: '116th St and Broadway, New York, NY',
+#       description: 'Any questions or concerns, please call or text Jason at 646-662-1907')
+#     ad.submitter = users.sample
+#     ad.save!
+#   end
+# end
 
 # subcat = Subcat.includes(:option_classes).includes(:inherited_option_classes).find_by(title: "apts / housing")
 # opt_class = subcat.inherited_option_classes.find_by(title: "rent")
