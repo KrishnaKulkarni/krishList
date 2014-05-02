@@ -96,7 +96,7 @@ class Ad < ActiveRecord::Base
     end
     
     matching_alerts.each do |alert|
-      alert.notify_user
+      alert.notify_user(self)
     end    
   end
   

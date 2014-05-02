@@ -2,11 +2,13 @@ class Notification < ActiveRecord::Base
   include Rails.application.routes.url_helpers
 
   EVENTS = {
-    1  => :new_response
+    1  => :new_response,
+    2  => :new_relevant_ad 
   }
 
   EVENT_IDS = EVENTS.invert
-
+  
+  belongs_to :ad
   belongs_to :notifiable, polymorphic: true, inverse_of: :notifications
   belongs_to :user, inverse_of: :notifications, counter_cache: true
   # add after create email to the relevant user
@@ -25,16 +27,25 @@ class Notification < ActiveRecord::Base
       when :new_response
         response = self.notifiable
         #Implement later
+      when :new_relevant_ad
+        response = self.notifiable
+        ####
     end
   end
 
   def text
     case EVENTS[self.event_id]
       when :new_response
+         #Note: With my introduction of an ad as a notification assocation, the following could be modified
         ad = self.notifiable.ad
         author = self.notifiable.author
 
         "Your ad '#{ad.title}' has a new response from #{author.username}"
+      when :new_relevant_ad
+        ad = self.ad
+        
+        "A new ad has been posted that matches your preferences -- Ad: #{ad.title}, Posted in
+        #{ad.subcat.title} on #{ad.created_at}"
     end
   end
 
