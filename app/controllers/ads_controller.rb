@@ -10,6 +10,7 @@ class AdsController < ApplicationController
     
     @option_filters = params[:options].delete_if{ |k, v| !v.present? }
     
+    create_alert(@subcat, current_user, @option_filters) if(params[:save_alert])
     
     @search_words = params[:search_words]
     @min_price = params[:min_price]
@@ -38,6 +39,7 @@ class AdsController < ApplicationController
       @ads = @ads.where("ads.region IN (?)", @regions)
     end
         
+    ##THIS SHOULD BE ABLE TO BE SPED UP WITH BOOTSTRAPPING DATA
     @option_filters.each do |(id, value)|
       option_class = OptionClass.find(id) 
       case option_class.value_type
@@ -48,14 +50,14 @@ class AdsController < ApplicationController
           @ads = @ads.where("options.option_class_id = ? AND string_option_values.value = ?", id, value)
           .references(:options, :string_option_values)
         when "BooleanOptionValue"
-          @ads = @ads.where("options.option_class_id = ? AND integer_option_values.value = ?", id, value)
+          @ads = @ads.where("options.option_class_id = ? AND boolean_option_values.value = ?", id, value)
           .references(:options, :boolean_option_values)
         when "DateOptionValue"
           @ads = @ads.where("options.option_class_id = ? AND date_option_values.value >= ?", id, value)
           .references(:options, :date_option_values)
       end
     end
-
+    
     render :index
   end
 
@@ -139,6 +141,31 @@ class AdsController < ApplicationController
 
   def option_params
     # params.require(:entered_options).permit!
+  end
+
+  def create_alert(subcat, user, options_values)
+    alert = user.alerts.for_subcat(subcat.id).new
+    options_values.each do |(option_class_id, value)|
+      option_class = OptionClass.find(option_class_id) 
+      case option_class.value_type
+        when "IntegerOptionValue"
+          alert.alert_integer_options.for_option(option_class_id).is_min.new(value: value)
+        when "StringOptionValue"
+          alert.alert_string_options.for_option(option_class_id).new(value: value)
+        when "BooleanOptionValue"
+          alert.alert_boolean_options.for_option(option_class_id).new(value: value)
+        when "DateOptionValue"
+          alert.alert_date_options.for_option(option_class_id).is_min.new(value: value)
+      end
+    end
+    
+    if alert.save
+      flash[:notices] ||= []
+      flash[:notices] << "New Alert Saved!"
+    else
+      flash[:errors] ||= []
+      flash.now[:errors].concat(alert.errors.full_messages)
+    end
   end
 
   # def option_params
