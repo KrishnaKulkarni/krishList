@@ -46,7 +46,7 @@ class AdsController < ApplicationController
      # debugger
       case option_class.value_type
         when "IntegerOptionValue"
-           new_ids = @ads.where("options.option_class_id = ? AND integer_option_values.value >= ?", id, value)
+           new_ids = @ads.where("options.option_class_id = ? AND integer_option_values.value <= ?", id, value)
           .references(:options, :integer_option_values).pluck(:id)
         when "StringOptionValue"
           new_ids = @ads.where("options.option_class_id = ? AND string_option_values.value = ?", id, value)
@@ -55,7 +55,7 @@ class AdsController < ApplicationController
           new_ids = @ads.where("options.option_class_id = ? AND boolean_option_values.value = ?", id, value)
           .references(:options, :boolean_option_values).pluck(:id)
         when "DateOptionValue"
-          new_ids = @ads.where("options.option_class_id = ? AND date_option_values.value >= ?", id, value)
+          new_ids = @ads.where("options.option_class_id = ? AND date_option_values.value <= ?", id, value)
           .references(:options, :date_option_values).pluck(:id)
       end
       #debugger
@@ -161,13 +161,13 @@ class AdsController < ApplicationController
       option_class = OptionClass.find(option_class_id) 
       case option_class.value_type
         when "IntegerOptionValue"
-          alert.alert_integer_options.for_option(option_class_id).is_min.new(value: value)
+          alert.alert_integer_options.for_option(option_class_id).is_max.new(value: value)
         when "StringOptionValue"
           alert.alert_string_options.for_option(option_class_id).new(value: value)
         when "BooleanOptionValue"
           alert.alert_boolean_options.for_option(option_class_id).new(value: value)
         when "DateOptionValue"
-          alert.alert_date_options.for_option(option_class_id).is_min.new(value: value)
+          alert.alert_date_options.for_option(option_class_id).is_max.new(value: value)
       end
     end
     

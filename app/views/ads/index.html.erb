@@ -6,13 +6,8 @@
 			<div class="typables clearfix">
 				<div class="non-price">
 			  		<%= form_input("search (title or description)", "text", "search-words", "search_words", @search_words) %>
-					<%= form_input("latest possible move-in", "date", "move-in-date", "start_date", @start_date, "date-filter") %>
+					
 				</div>
-				<div class= "price">
-			  		<%= form_input("min price", "number", "min", "min_price", @min_price, "price-filter" ) %>
-			  		<%= form_input("max price", "number", "max", "max_price", @max_price, "price-filter" ) %>
-		     	</div>
- 	
 			</div>
 
 			<div class="checkables">
@@ -50,8 +45,8 @@
     <thead>
       <tr>
         <th class="title">title</th>
-        <th><%= @subcat.featured_option_class1 && OptionClass.find(@subcat.featured_option_class1).title %></th> 
-      	<th><%= @subcat.featured_option_class2 && OptionClass.find(@subcat.featured_option_class2).title %></th>
+        <th><%= @subcat.featured_option_class1 && OptionClass.find(@subcat.featured_option_class1.id).title %></th> 
+      	<th><%= @subcat.featured_option_class2 && OptionClass.find(@subcat.featured_option_class2.id).title %></th>
         <th>area</th>
 		<th>address</th>
         <th>posted date</th>
