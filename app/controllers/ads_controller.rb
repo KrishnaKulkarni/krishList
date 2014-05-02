@@ -8,7 +8,7 @@ class AdsController < ApplicationController
       }
     @idio_options = @subcat.combined_option_classes
     
-    @option_filters = params[:options].delete_if{ |k, v| !v.present? }
+    @option_filters = params[:options] && params[:options].delete_if{ |k, v| !v.present? }
     
     create_alert(@subcat, current_user, @option_filters) if(params[:save_alert])
     
@@ -24,7 +24,7 @@ class AdsController < ApplicationController
     .includes(:boolean_option_values)
     .includes(:date_option_values)
     .order(created_at: :desc)
-    
+        
     
     if @search_words.present?
       @ads = @ads.search_by_content(@search_words)
@@ -34,14 +34,15 @@ class AdsController < ApplicationController
     if @start_date.present?
       @ads = @ads.where("ads.start_date <= ? ", @start_date)
     end
-    if @regions
+    if @regionsads
       @regions = @regions.keys
       @ads = @ads.where("ads.region IN (?)", @regions)
     end
         
     ##THIS SHOULD BE ABLE TO BE SPED UP WITH BOOTSTRAPPING DATA
-    @option_filters.each do |(id, value)|
+    @option_filters && @option_filters.each do |(id, value)|
       option_class = OptionClass.find(id) 
+     # debugger
       case option_class.value_type
         when "IntegerOptionValue"
           @ads = @ads.where("options.option_class_id = ? AND integer_option_values.value >= ?", id, value)
@@ -56,8 +57,9 @@ class AdsController < ApplicationController
           @ads = @ads.where("options.option_class_id = ? AND date_option_values.value >= ?", id, value)
           .references(:options, :date_option_values)
       end
+      #debugger
     end
-    
+    #fail
     render :index
   end
 
