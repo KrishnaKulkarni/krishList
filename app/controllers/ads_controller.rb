@@ -43,7 +43,7 @@ class AdsController < ApplicationController
     ids = []
     @option_filters.present? && @option_filters.each_with_index do |(id, value), index|
       option_class = OptionClass.find(id) 
-     # debugger
+     debugger
       case option_class.value_type
         when "IntegerOptionValue"
            new_ids = @ads.where("options.option_class_id = ? AND integer_option_values.value <= ?", id, value)
@@ -52,13 +52,12 @@ class AdsController < ApplicationController
           new_ids = @ads.where("options.option_class_id = ? AND string_option_values.value = ?", id, value)
           .references(:options, :string_option_values).pluck(:id)
         when "BooleanOptionValue"
-          new_ids = @ads.where("options.option_class_id = ? AND boolean_option_values.value = ?", id, value)
-          .references(:options, :boolean_option_values).pluck(:id)
+          new_ids = @ads.where("options.option_class_id = ? AND boolean_option_values.value = ?", id, value).references(:options, :boolean_option_values).pluck(:id)
         when "DateOptionValue"
           new_ids = @ads.where("options.option_class_id = ? AND date_option_values.value <= ?", id, value)
           .references(:options, :date_option_values).pluck(:id)
       end
-      #debugger
+      debugger
       if(index == 0)
         ids = new_ids
       else

@@ -258,7 +258,11 @@
     /*END*/
   
   /*POSTS FILTER*/
-  
+  .filter-container {
+  	width: 1230px;
+		margin: auto;
+  }
+	
   	.filter, .all-posts-list {
 	  display: block;
   	  border: 1px solid #000;
@@ -372,7 +376,9 @@
   
   .all-posts-list {
 	  margin-top: 30px;
-	  padding: 20px 0;
+	  padding: 0px 0;
+		border: 0;
+		background: transparent;
   }
  
  
@@ -381,7 +387,7 @@
 		margin: auto;
 		padding: 0;
 		border: 0;
-     	border-collapse: collapse;
+    border-collapse: collapse;
     }
 	
 /*	.all-posts-table a {
@@ -392,7 +398,8 @@
 /*		background: #DEFABB;*/
 		background: #6EA9EB;
 /*		color: #fff;*/
-        border-bottom: 1px solid #C0C0C0;
+    border-bottom: 1px solid #C0C0C0;
+		width: 1230px;
 		
 	}
 	
@@ -412,12 +419,12 @@
       background: #BFBFBF;
 /*      border: 1px solid #C0C0C0;*/
       border-bottom: 1px solid #000;
-	  text-align: center;
+	  	text-align: center;
 /*      font-weight: bold;*/
     }
 	
 	.all-posts-table .title {
-		width: 600px;
+		width: 500px;
 	}
 
     td {
