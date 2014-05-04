@@ -15,9 +15,6 @@ class AdsController < ApplicationController
     create_alert(@subcat, current_user, @option_filters) if(params[:save_alert])
     
     @search_words = params[:search_words]
-    # @min_price = params[:min_price]
-    # @max_price = params[:max_price]
-    # @start_date = params[:start_date]
     @regions = params[:regions]
 
     @ads = @subcat.ads
@@ -32,11 +29,7 @@ class AdsController < ApplicationController
     if @search_words.present?
       @ads = @ads.search_by_content(@search_words)
     end
-    @ads = @ads.where("ads.price >= ? ", @min_price) if @min_price.present?
-    @ads = @ads.where("ads.price <= ? ", @max_price) if @max_price.present?
-    if @start_date.present?
-      @ads = @ads.where("ads.start_date <= ? ", @start_date)
-    end
+
     if @regions
       @regions = @regions.keys
       @ads = @ads.where("ads.region IN (?)", @regions)
@@ -64,7 +57,7 @@ class AdsController < ApplicationController
           .references(:options, :date_option_values).pluck(:id)
           fail
       end
-      debugger
+     # debugger
       if(index == 0)
         ids = new_ids
       else
@@ -99,8 +92,8 @@ class AdsController < ApplicationController
     @header_options = { head_link_text: [@ad.subcat.category.title, @ad.subcat.title, "listings"],
        head_link_url: [subcat_ads_url(@ad.subcat), subcat_ads_url(@ad.subcat), subcat_ad_url(@ad.subcat, @ad)]
       }
-    @address = (@ad.location == "" || @ad.location.nil?) ?
-     "36 Cooper Sq, New York, NY" : @ad.location
+    @address = (@ad.address == "" || @ad.address.nil?) ?
+     "36 Cooper Sq, New York, NY" : @ad.address
     
     render :show
   end
@@ -153,8 +146,8 @@ class AdsController < ApplicationController
 
   private
   def ad_params
-    params.require(:ad).permit(:title, :start_date, :location,
-    :region, :price, :subcat_id, :description, :pic1)
+    params.require(:ad).permit(:title, :address,
+    :region, :subcat_id, :description)
     # params.require(:ad).permit!
   end
 
@@ -186,10 +179,5 @@ class AdsController < ApplicationController
       flash.now[:errors].concat(alert.errors.full_messages)
     end
   end
-
-  # def option_params
-  #   params.require(:ad).permit(:title, :start_date, :location,
-  #   :region, :price, :subcat_id, :description, :options_data, :pic1)
-  # end
 
 end

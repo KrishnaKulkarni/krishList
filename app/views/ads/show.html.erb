@@ -23,7 +23,7 @@
 				<li><h3><%= subcat.featured_text.gsub("~", feature1.option_value.value.to_s).gsub("^", feature2.option_value.value.to_s) %></h3></li>
 			<% end %>
 			
-			<li><h3><%= @ad.location %></h3></li>
+			<li><h3><%= @ad.address %></h3></li>
 	  	<li><h3>Posted: <%= @ad.created_at %></h3></li>
 	  </ul>
   </div>

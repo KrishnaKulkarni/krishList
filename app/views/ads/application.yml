@@ -13,8 +13,6 @@
 		<li>tag3</li>
 	  </ul>
 	  <ul class="essentials">
-		<li><h3>$<%= @ad.price %> / 2BR</h3></li>  
-		<li><h3>Available: <%= @ad.start_date %></h3></li>
 	  	<li><h3>Posted: <%= @ad.created_at %></h3></li>
 	  </ul>
   </div>

@@ -117,20 +117,16 @@ subcats = Subcat.all
 
 ad1 = Subcat.find_by(title: "sublets / temporary").ads.new(
   title: 'For Sublet! Huge Room, Low rent in Bed-Stuy!',
-  start_date: "May 01 2014",
   region: regions[0],
-  price: 808,
-  location: '780 St. Marks Ave, Brooklyn, NY',
+  address: '780 St. Marks Ave, Brooklyn, NY',
   description: 'Super cozy! 5 Min from the Subway!')
 ad1.submitter = u1
 ad1.save!
 
 ad2 =  Subcat.find_by(title: "apts / housing").ads.new(
   title: 'New Inwood Apt open',
-  start_date: "May 21 2014",
   region: regions[1],
-  price: 900,
-  location: '55 Payson, New York, NY',
+  address: '55 Payson, New York, NY',
   description: 'Any questions or concerns, please call or text Jason at 646-662-1907')
 ad2.submitter = u2
 ad2.save!
@@ -208,10 +204,8 @@ Category.includes(:subcats).find_by(title: "housing").subcats.each do |subcat|
   20.times do |i|
     ad = subcat.ads.new(
           title: "Great new place #{i}!",
-          start_date: "Jun 01 2014",
           region: regions.sample,
-          price: 1500,
-          location: '770 Broadway, New York, NY',
+          address: '770 Broadway, New York, NY',
           description: "Description #{i}")
         ad.submitter = User.first
         entered_options = {}
@@ -227,10 +221,8 @@ Category.includes(:subcats).find_by(title: "personals").subcats.each do |subcat|
   20.times do |i|
     ad = subcat.ads.new(
           title: "Great new babe #{i}!",
-          start_date: "Jun 01 2014",
           region: regions.sample,
-          price: 1500,
-          location: '770 Broadway, New York, NY',
+          address: '770 Broadway, New York, NY',
           description: "Description #{i}")
         ad.submitter = User.first
         entered_options = {}

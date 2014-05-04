@@ -11,35 +11,24 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140502034400) do
+ActiveRecord::Schema.define(version: 20140504172605) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
   create_table "ads", force: true do |t|
-    t.string   "title",             null: false
-    t.date     "start_date",        null: false
-    t.string   "location"
-    t.string   "region",            null: false
-    t.integer  "price",             null: false
-    t.integer  "subcat_id",         null: false
-    t.integer  "submitter_id",      null: false
+    t.string   "title",           null: false
+    t.string   "address"
+    t.string   "region",          null: false
+    t.integer  "subcat_id",       null: false
+    t.integer  "submitter_id",    null: false
     t.text     "description"
-    t.text     "options_data"
-    t.integer  "flag_count"
     t.datetime "created_at"
     t.datetime "updated_at"
     t.integer  "responses_count"
-    t.string   "pic1_file_name"
-    t.string   "pic1_content_type"
-    t.integer  "pic1_file_size"
-    t.datetime "pic1_updated_at"
   end
 
-  add_index "ads", ["flag_count"], name: "index_ads_on_flag_count", using: :btree
-  add_index "ads", ["price"], name: "index_ads_on_price", using: :btree
   add_index "ads", ["region"], name: "index_ads_on_region", using: :btree
-  add_index "ads", ["start_date"], name: "index_ads_on_start_date", using: :btree
   add_index "ads", ["subcat_id"], name: "index_ads_on_subcat_id", using: :btree
   add_index "ads", ["submitter_id"], name: "index_ads_on_submitter_id", using: :btree
   add_index "ads", ["title"], name: "index_ads_on_title", using: :btree

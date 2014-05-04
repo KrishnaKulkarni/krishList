@@ -4,8 +4,6 @@ class Ad < ActiveRecord::Base
   
   attr_reader :entered_options
   
-  before_validation :ensure_flag_count
-
   belongs_to :subcat, inverse_of: :ads
   has_many :candidate_alerts, through: :subcat, source: :alerts 
   
@@ -27,18 +25,10 @@ class Ad < ActiveRecord::Base
 
 
 
-  validates(:title, :start_date, :region, :price, :subcat,
+  validates(:title, :region, :subcat,
   :submitter, presence: true)
 
   has_many :pictures, inverse_of: :ad, dependent: :destroy
-
-  has_attached_file :pic1, styles: {
-    full: "600x450#",
-    big: "450x450>",
-    thumbnail: "50x50#"
-  }
-
-  validates_attachment_content_type :pic1, :content_type => /\Aimage\/.*\Z/
 
   after_commit :execute_alerts, on: [:create]
 
@@ -193,8 +183,4 @@ class Ad < ActiveRecord::Base
   
   ###
   
-  
-  def ensure_flag_count
-    self.flag_count ||= 0
-  end
 end
