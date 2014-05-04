@@ -30,7 +30,7 @@
 			<div class="options clearfix">
 				<h5>Other Options</h5>
 				<% @idio_options.each do |id_op|  %>
-				<%= form_input(id_op.title, id_op.input_type, "", "options[#{id_op.id}]", nil ) %>
+				<%= form_input(id_op.title, id_op.input_type, "", "options[#{id_op.id}]", @option_filters['who'] ) %>
 				<% end  %>
 			</div>
 		</div>

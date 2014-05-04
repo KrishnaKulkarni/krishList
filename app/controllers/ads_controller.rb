@@ -8,17 +8,20 @@ class AdsController < ApplicationController
       }
     @idio_options = @subcat.combined_option_classes
     
+   # @option_filters = params[:options] || {}
+  #  @option_filters = params[:options].delete_if{ |k, v| !v.present? }
     @option_filters = params[:options] && params[:options].delete_if{ |k, v| !v.present? }
     
     create_alert(@subcat, current_user, @option_filters) if(params[:save_alert])
     
     @search_words = params[:search_words]
-    @min_price = params[:min_price]
-    @max_price = params[:max_price]
-    @start_date = params[:start_date]
+    # @min_price = params[:min_price]
+    # @max_price = params[:max_price]
+    # @start_date = params[:start_date]
     @regions = params[:regions]
 
     @ads = @subcat.ads
+    .includes(:options)
     .includes(:integer_option_values)
     .includes(:string_option_values)
     .includes(:boolean_option_values)
@@ -43,19 +46,23 @@ class AdsController < ApplicationController
     ids = []
     @option_filters.present? && @option_filters.each_with_index do |(id, value), index|
       option_class = OptionClass.find(id) 
-     debugger
+     #debugger
       case option_class.value_type
         when "IntegerOptionValue"
            new_ids = @ads.where("options.option_class_id = ? AND integer_option_values.value <= ?", id, value)
           .references(:options, :integer_option_values).pluck(:id)
+          fail
         when "StringOptionValue"
           new_ids = @ads.where("options.option_class_id = ? AND string_option_values.value = ?", id, value)
           .references(:options, :string_option_values).pluck(:id)
+          fail
         when "BooleanOptionValue"
           new_ids = @ads.where("options.option_class_id = ? AND boolean_option_values.value = ?", id, value).references(:options, :boolean_option_values).pluck(:id)
+          fail
         when "DateOptionValue"
           new_ids = @ads.where("options.option_class_id = ? AND date_option_values.value <= ?", id, value)
           .references(:options, :date_option_values).pluck(:id)
+          fail
       end
       debugger
       if(index == 0)
@@ -66,7 +73,7 @@ class AdsController < ApplicationController
     end
     #fail
     if(@option_filters.present?)
-      @ads = ids.present? ? Ad.find(*ids) : []
+      @ads = ids.present? ? Ad.order(created_at: :desc).find(*ids) : []
     end
 
     render :index
@@ -77,6 +84,7 @@ class AdsController < ApplicationController
     @subcat = Subcat.includes(:ads).find(params[:subcat_id])
     @idio_options = @subcat.combined_option_classes
     
+    @option_filters = {}
     @ads = @subcat.ads.order(created_at: :desc)
     
     @header_options = { head_link_text: [@subcat.category.title, @subcat.title],
