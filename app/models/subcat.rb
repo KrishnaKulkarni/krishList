@@ -23,6 +23,9 @@ class Subcat < ActiveRecord::Base
   
   has_many :alerts, inverse_of: :subcat, dependent: :destroy
   
+  scope :feature_text, -> (text) { where(featured_text: text) }
+  
+  
   def combined_option_classes
     OptionClass.where("(option_classable_id = ? AND option_classable_type = ?) 
     OR (option_classable_id = ? AND option_classable_type = ?)",

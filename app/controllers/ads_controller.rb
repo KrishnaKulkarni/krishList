@@ -44,18 +44,18 @@ class AdsController < ApplicationController
         when "IntegerOptionValue"
            new_ids = @ads.where("options.option_class_id = ? AND integer_option_values.value <= ?", id, value)
           .references(:options, :integer_option_values).pluck(:id)
-          fail
+          #fail
         when "StringOptionValue"
           new_ids = @ads.where("options.option_class_id = ? AND string_option_values.value = ?", id, value)
           .references(:options, :string_option_values).pluck(:id)
-          fail
+          #fail
         when "BooleanOptionValue"
           new_ids = @ads.where("options.option_class_id = ? AND boolean_option_values.value = ?", id, value).references(:options, :boolean_option_values).pluck(:id)
-          fail
+          #fail
         when "DateOptionValue"
           new_ids = @ads.where("options.option_class_id = ? AND date_option_values.value <= ?", id, value)
           .references(:options, :date_option_values).pluck(:id)
-          fail
+          #fail
       end
      # debugger
       if(index == 0)

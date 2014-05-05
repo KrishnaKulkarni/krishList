@@ -30,7 +30,7 @@ end
 housing = ["apts / housing", "rooms / shared", "sublets / temporary", "housing wanted", "housing swap", "vacation rentals", "parking / storage", "office / commercial", "real estate for sale"]
 h_cat = Category.includes(:subcats).find_by(title: 'housing')
 housing.each do |subcat_title|
-  h_cat.subcats.create!(title: subcat_title)
+  h_cat.subcats.feature_text("$~ / ^BR").create!(title: subcat_title)
 end
 
 jobs = ["account+finance", "admin / office", "arch / engineering", "art / media / design", "biotech / science", "business / mgmt", "customer service", "education", "food / bev / hosp", "general labor", "government", "human resources", "internet engineers", "legal / paralegal", "manufacturing", "marketing / pr / ad", "medical / health", "nonprofit sector", "real estate", "retail / wholesale", "sales / bix dev", "salon / spa / fitness", "security", "skilled trade / craft", "software / qa / dba", "systems / network", "technical support", "transport", "tv / film / video", "web / info design", "writing / editing"]
@@ -176,9 +176,10 @@ def gen_rand_value(oc_title)
   rand_value[oc_title]
 end
 
+rent = Category.find_by(title: "housing").option_classes.find_by(title: "rent")
 Category.includes(:subcats).find_by(title: "housing").subcats.each do |subcat|
-  subcat.featured_option_class_id1 = 1
-  subcat.featured_option_class_id2 = 4
+  subcat.featured_option_class = rent
+  subcat.featured_option_class = subcat.option_classes.find_by(title: "bedrooms")
   subcat.save! 
 end
 
