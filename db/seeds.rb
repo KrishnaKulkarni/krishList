@@ -30,7 +30,7 @@ end
 housing = ["apts / housing", "rooms / shared", "sublets / temporary", "housing wanted", "housing swap", "vacation rentals", "parking / storage", "office / commercial", "real estate for sale"]
 h_cat = Category.includes(:subcats).find_by(title: 'housing')
 housing.each do |subcat_title|
-  h_cat.subcats.feature_text("$~ / ^BR").create!(title: subcat_title)
+  h_cat.subcats.create!(title: subcat_title)
 end
 
 jobs = ["account+finance", "admin / office", "arch / engineering", "art / media / design", "biotech / science", "business / mgmt", "customer service", "education", "food / bev / hosp", "general labor", "government", "human resources", "internet engineers", "legal / paralegal", "manufacturing", "marketing / pr / ad", "medical / health", "nonprofit sector", "real estate", "retail / wholesale", "sales / bix dev", "salon / spa / fitness", "security", "skilled trade / craft", "software / qa / dba", "systems / network", "technical support", "transport", "tv / film / video", "web / info design", "writing / editing"]
@@ -169,8 +169,8 @@ def gen_rand_value(oc_title)
     "internship"    => [true, false].sample,
     "part-time"     => [true, false].sample,
     "non-profit"    => [true, false].sample,
-    "year"          => (rand * 50).to_i + 17,
-    "styles"        => styles.sample    
+    "age"          => (rand * 50).to_i + 17,
+    "style"        => styles.sample    
   }
   
   rand_value[oc_title]
@@ -178,25 +178,29 @@ end
 
 rent = Category.find_by(title: "housing").option_classes.find_by(title: "rent")
 Category.includes(:subcats).find_by(title: "housing").subcats.each do |subcat|
-  subcat.featured_option_class = rent
-  subcat.featured_option_class = subcat.option_classes.find_by(title: "bedrooms")
+  subcat.featured_option_class1 = rent
+  subcat.featured_option_class2 = subcat.option_classes.find_by(title: "bedrooms")
+  subcat.featured_text = "$~ / ^BR"
   subcat.save! 
 end
 
 Category.includes(:subcats).find_by(title: "for sale").subcats.each do |subcat|
   subcat.featured_option_class1 = Category.find_by(title: "for sale").option_classes.find_by(title:"price")
+  subcat.featured_text = "$~"
   subcat.save! 
 end
 
 Category.includes(:subcats).find_by(title: "jobs").subcats.each do |subcat|
   subcat.featured_option_class1 = Category.find_by(title: "jobs").option_classes.find_by(title:"part-time")
   subcat.featured_option_class2 = Category.find_by(title: "jobs").option_classes.find_by(title:"contract")
+  subcat.featured_text = "Part-time: ~ / Contract:  ^"
   subcat.save! 
 end
 
 Category.includes(:subcats).find_by(title: "personals").subcats.each do |subcat|
   subcat.featured_option_class1 = Category.find_by(title: "personals").option_classes.find_by(title:"age")
   subcat.featured_option_class2 = Category.find_by(title: "personals").option_classes.find_by(title:"style")
+  subcat.featured_text = "~ years young / ^"
   subcat.save! 
 end
 
