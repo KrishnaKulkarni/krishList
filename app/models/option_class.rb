@@ -11,17 +11,26 @@
 
 class OptionClass < ActiveRecord::Base
 
+  # VALUE_TYPE = {
+  #   "number"  => "IntegerOptionValue",
+  #   "checkbox"  => "BooleanOptionValue",
+  #   "text"  => "StringOptionValue",
+  #   "date"  => "DateOptionValue"
+  # }
+
   VALUE_TYPE = {
-    "number"  => "IntegerOptionValue",
-    "checkbox"  => "BooleanOptionValue",
-    "text"  => "StringOptionValue",
-    "date"  => "DateOptionValue"
+    "number"    => "IntegerOption",
+    "checkbox"  => "BooleanOption",
+    "text"      => "StringOption",
+    "select"    => "StringOption",
+    "date"      => "DateOption"
   }
+  
   INPUT_TYPES = VALUE_TYPE.keys
   
   belongs_to :option_classable, polymorphic: true, inverse_of: :option_classes
   
-  has_many :options, inverse_of: :option_class, dependent: :destroy
+  # has_many :options, inverse_of: :option_class, dependent: :destroy
   
   has_many :boolean_options, inverse_of: :option_class, dependent: :destroy
   has_many :integer_options, inverse_of: :option_class, dependent: :destroy

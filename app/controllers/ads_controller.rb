@@ -17,14 +17,20 @@ class AdsController < ApplicationController
     @search_words = params[:search_words]
     @regions = params[:regions]
 
-    @ads = @subcat.ads
-    .includes(:options)
-    .includes(:integer_option_values)
-    .includes(:string_option_values)
-    .includes(:boolean_option_values)
-    .includes(:date_option_values)
-    .order(created_at: :desc)
+    # @ads = @subcat.ads
+    # .includes(:options)
+    # .includes(:integer_option_values)
+    # .includes(:string_option_values)
+    # .includes(:boolean_option_values)
+    # .includes(:date_option_values)
+    # .order(created_at: :desc)
         
+    @ads = @subcat.ads
+    .includes(:integer_options)
+    .includes(:string_options)
+    .includes(:boolean_options)
+    .includes(:date_options)
+    .order(created_at: :desc)
     
     if @search_words.present?
       @ads = @ads.search_by_content(@search_words)
@@ -64,6 +70,9 @@ class AdsController < ApplicationController
         ids = ids & new_ids
       end
     end
+    
+    
+    
     #fail
     if(@option_filters.present?)
       @ads = ids.present? ? Ad.order(created_at: :desc).find(*ids) : []

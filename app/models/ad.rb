@@ -16,17 +16,17 @@ class Ad < ActiveRecord::Base
 
   has_many :response_notifications, through: :responses, source: :notification
 
-  has_many :options, inverse_of: :ad, dependent: :destroy
+  # has_many :options, inverse_of: :ad, dependent: :destroy
   
   has_many :boolean_options, inverse_of: :ad, dependent: :destroy
   has_many :integer_options, inverse_of: :ad, dependent: :destroy
   has_many :string_options, inverse_of: :ad, dependent: :destroy
   has_many :date_options, inverse_of: :ad, dependent: :destroy
   
-  has_many :integer_option_values, through: :options, source: :option_value, source_type: 'IntegerOptionValue' 
-  has_many :string_option_values, through: :options, source: :option_value, source_type: 'StringOptionValue'   
-  has_many :boolean_option_values, through: :options, source: :option_value, source_type: 'BooleanOptionValue' 
-  has_many :date_option_values, through: :options, source: :option_value, source_type: 'DateOptionValue' 
+  # has_many :integer_option_values, through: :options, source: :option_value, source_type: 'IntegerOptionValue' 
+#   has_many :string_option_values, through: :options, source: :option_value, source_type: 'StringOptionValue'   
+#   has_many :boolean_option_values, through: :options, source: :option_value, source_type: 'BooleanOptionValue' 
+#   has_many :date_option_values, through: :options, source: :option_value, source_type: 'DateOptionValue' 
 
 
 
@@ -38,42 +38,74 @@ class Ad < ActiveRecord::Base
   after_commit :execute_alerts, on: [:create]
 
   #Note: The following is not an AREL; it cannot be since it concatenates entries multiple different tables.
-  def option_values
-    self.integer_option_values.all
-    .concat(string_option_values)
-    .concat(boolean_option_values)
-    .concat(date_option_values)
+  # def option_values
+  #   self.integer_option_values.all
+  #   .concat(string_option_values)
+  #   .concat(boolean_option_values)
+  #   .concat(date_option_values)
+  # end
+  def combined_options
+    self.integer_options
+    .concat(string_options)
+    .concat(boolean_options)
+    .concat(date_options)
   end
 
+  # def entered_options=(entered_options)
+  #   #return unless entered_options.class == 'Hash'.constantize
+  #   
+  #   entered_options.each do |(opt_class_id, raw_value)|
+  #     next unless raw_value #how else can I ensure/validate that no option is created without raw data
+  #     option = self.options.new()
+  #     option.option_class = OptionClass.find(opt_class_id)
+  #     option.raw_value = raw_value
+  #   end 
+  # end
+  
   def entered_options=(entered_options)
     #return unless entered_options.class == 'Hash'.constantize
-    
     entered_options.each do |(opt_class_id, raw_value)|
       next unless raw_value #how else can I ensure/validate that no option is created without raw data
-      option = self.options.new()
-      option.option_class = OptionClass.find(opt_class_id)
-      option.raw_value = raw_value
+      option_class = OptionClass.find(opt_class_id)
+      option = option_class.value_type.constantize.new(value: raw_value)
+      option.ad = self
     end 
   end
    
-   
-   
-  # a1 = Subcat.first.ads.new(
-#     title: 'For Rent! 1st Avenue and East 10th St- 3 bedroom Apartment',
-#     start_date: "May 01 2014",
-#     region: "mnh",
-#     price: 4600,
-#      description: 'Super cozy! 5 Min from the Subway!', entered_options: { "3" => "cottage", "1" => "3"} )
-
   def option_classes
     self.subcat.combined_option_classes
   end
   
 
+  # def execute_alerts
+  #   #iterate through all alerts, filtering out ones that don't match; with each of the remaining alerts, call Alert#notify_user
+  #   
+  #   ad_options = self.options.includes(:option_value) #.includes(:option_class)
+  #   matching_alerts = []
+  #   
+  #   self.candidate_alerts.each do |alert|
+  #     matching_alert = true
+  #           
+  #     unless(matches_date_or_integer_options?(alert.alert_integer_options, ad_options) &&
+  #       matches_date_or_integer_options?(alert.alert_date_options, ad_options) && 
+  #       matches_string_or_boolean_options?(alert.alert_string_options, ad_options) &&
+  #       matches_string_or_boolean_options?(alert.alert_boolean_options, ad_options))
+  #        
+  #        matching_alert = false      
+  #     end
+  #     #debugger
+  #     matching_alerts << alert if(matching_alert) 
+  #   end
+  #   
+  #   matching_alerts.each do |alert|
+  #     alert.notify_user(self)
+  #   end    
+  # end
+  # 
   def execute_alerts
     #iterate through all alerts, filtering out ones that don't match; with each of the remaining alerts, call Alert#notify_user
-    
-    ad_options = self.options.includes(:option_value) #.includes(:option_class)
+    # ad_options = self.options.includes(:option_value) #.includes(:option_class)
+    ad_options = self.combined_options
     matching_alerts = []
     
     self.candidate_alerts.each do |alert|
@@ -96,57 +128,6 @@ class Ad < ActiveRecord::Base
   end
   
   private
-  # unless(matches_integer_options?(alert, ad_options) 
-#     && matches_date_options?(alert, ad_options))
-#     matching_alert = false
-#   end
-#   
-  # def matches_integer_options?(alert, ad_options)
-  #   alert_integer_options = alert.alert_integer_options
-  # 
-  #   alert_integer_options.each do |alert_integer_option|
-  #     ##need to know whether it's a greater than or less than filter
-  #     matched_option = ad_options.select do |ad_option|
-  #        ad_option.option_class_id == alert_integer_option.option_class_id
-  #     end
-  #           
-  #     return false unless(matched_option.present?)
-  #      
-  #     if(alert_integer_option.is_lower_bound)
-  #       return false unless(alert_integer_option.value <= matched_option.option_value.value)
-  #     else
-  #       return false unless(alert_integer_option.value >= matched_option.option_value.value)
-  #     end
-  #   end
-  #   true
-  # end
-  # 
-  # def matches_date_options?(alert, ad_options)
-  #   alert_date_options = alert.alert_date_options
-  #   
-  #   alert_date_options.each do |alert_date_option|
-  #     matched_option = ad_options.select do |ad_option|
-  #       ad_option.option_class_id == alert_date_option.option_class_id
-  #     end
-  # 
-  #     return false unless(matched_option.present?)
-  #   
-  #     if(alert_date_option.is_lower_bound)
-  #       return false unless (alert_date_option.value <= matched_option.option_value.value)
-  #     else
-  #       return false unless (alert_date_option.value >= matched_option.option_value.value)
-  #     end
-  #   end
-  #   true
-  # end
-  
-  ###
-  
-  #matched_option = ad_options.detect do |ad_option| ad_option.option_class_id == alert_option.option_class_id end
-  
-  # integer_alert_options = alert.alert_integer_options
- #  date_alert_options = alert.alert_date_options
- #  matches_date_or_integer_options(alert_integer_options, ad_options) && matches_date_or_integer_options(alert_date_options, ad_options) 
   def matches_date_or_integer_options?(alert_options, ad_options)    
     alert_options.each do |alert_option|
       matched_option = ad_options.detect do |ad_option|
@@ -156,9 +137,9 @@ class Ad < ActiveRecord::Base
       return false unless(matched_option.present?)
     
       if(alert_option.is_lower_bound)
-        return false unless (alert_option.value <= matched_option.option_value.value)
+        return false unless (alert_option.value <= matched_option.value)
       else
-        return false unless (alert_option.value >= matched_option.option_value.value)
+        return false unless (alert_option.value >= matched_option.value)
       end
     end
     true
@@ -168,7 +149,7 @@ class Ad < ActiveRecord::Base
     alert_options.each do |alert_option|
       is_matched = ad_options.any? do |ad_option|
         (ad_option.option_class_id == alert_option.option_class_id &&
-        alert_option.value == ad_option.option_value.value)
+        alert_option.value == ad_option.value)
       end
       return false unless(is_matched)
     end
