@@ -25,4 +25,23 @@ module AdsHelper
     end
     output.html_safe
   end
+  
+  def find_featured_option(subcat, ad, ord)
+    if(ord == 1)
+      feature_class = subcat.featured_option_class1
+    elsif(ord == 2)
+      feature_class = subcat.featured_option_class2
+    end
+    
+    case feature_class.value_type
+    when "IntegerOption"
+      ad.integer_options.where("option_class_id = ?", feature_class.id).first
+    when "StringOption"
+      ad.string_options.where("option_class_id = ?", feature_class.id).first
+    when "BooleanOption"
+      ad.boolean_options.where("option_class_id = ?", feature_class.id).first
+    when "DateOption"
+      ad.date_options.where("option_class_id = ?", feature_class.id).first
+    end
+  end
 end

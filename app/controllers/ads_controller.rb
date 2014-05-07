@@ -2,7 +2,8 @@ class AdsController < ApplicationController
   before_action :require_signed_in!, only: [:new, :create]
   
   def filter    
-    @subcat = Subcat.includes(:ads).find(params[:subcat_id])
+    @subcat = Subcat.includes(:ads, :featured_option_class1, :featured_option_class2)
+    .find(params[:subcat_id])
     @header_options = { head_link_text: [@subcat.category.title, @subcat.title],
        head_link_url: [subcat_ads_url(@subcat), subcat_ads_url(@subcat)]
       }
@@ -41,28 +42,53 @@ class AdsController < ApplicationController
       @ads = @ads.where("ads.region IN (?)", @regions)
     end
         
-    ##THIS SHOULD BE ABLE TO BE SPED UP WITH BOOTSTRAPPING DATA
-    ids = []
+    ids = []    
     @option_filters.present? && @option_filters.each_with_index do |(id, value), index|
       option_class = OptionClass.find(id) 
-     #debugger
+    
       case option_class.value_type
-        when "IntegerOptionValue"
-           new_ids = @ads.where("options.option_class_id = ? AND integer_option_values.value <= ?", id, value)
-          .references(:options, :integer_option_values).pluck(:id)
+        when "IntegerOption"
+           new_ids = @ads.where("integer_options.option_class_id = ? AND integer_options.value <= ?", id, value)
+          .references(:integer_options).pluck(:id)
           #fail
-        when "StringOptionValue"
-          new_ids = @ads.where("options.option_class_id = ? AND string_option_values.value = ?", id, value)
-          .references(:options, :string_option_values).pluck(:id)
+        when "StringOption"
+          new_ids = @ads.where("string_options.option_class_id = ? AND string_options.value = ?", id, value)
+          .references(:string_options).pluck(:id)
           #fail
-        when "BooleanOptionValue"
-          new_ids = @ads.where("options.option_class_id = ? AND boolean_option_values.value = ?", id, value).references(:options, :boolean_option_values).pluck(:id)
+        when "BooleanOption"
+          new_ids = @ads.where("boolean_options.option_class_id = ? AND boolean_options.value = ?", id, value)
+          .references(:boolean_options).pluck(:id)
           #fail
-        when "DateOptionValue"
-          new_ids = @ads.where("options.option_class_id = ? AND date_option_values.value <= ?", id, value)
-          .references(:options, :date_option_values).pluck(:id)
+        when "DateOption"
+          new_ids = @ads.where("date_options.option_class_id = ? AND date_options.value <= ?", id, value)
+          .references(:date_options).pluck(:id)
           #fail
       end
+    
+    end   
+    
+    ##THIS SHOULD BE ABLE TO BE SPED UP WITH BOOTSTRAPPING DATA
+    # ids = []
+    # @option_filters.present? && @option_filters.each_with_index do |(id, value), index|
+    #   option_class = OptionClass.find(id) 
+    #  #debugger
+    #   case option_class.value_type
+    #     when "IntegerOptionValue"
+    #        new_ids = @ads.where("options.option_class_id = ? AND integer_option_values.value <= ?", id, value)
+    #       .references(:options, :integer_option_values).pluck(:id)
+    #       #fail
+    #     when "StringOptionValue"
+    #       new_ids = @ads.where("options.option_class_id = ? AND string_option_values.value = ?", id, value)
+    #       .references(:options, :string_option_values).pluck(:id)
+    #       #fail
+    #     when "BooleanOptionValue"
+    #       new_ids = @ads.where("options.option_class_id = ? AND boolean_option_values.value = ?", id, value).references(:options, :boolean_option_values).pluck(:id)
+    #       #fail
+    #     when "DateOptionValue"
+    #       new_ids = @ads.where("options.option_class_id = ? AND date_option_values.value <= ?", id, value)
+    #       .references(:options, :date_option_values).pluck(:id)
+    #       #fail
+    #   end
      # debugger
       if(index == 0)
         ids = new_ids
@@ -70,9 +96,7 @@ class AdsController < ApplicationController
         ids = ids & new_ids
       end
     end
-    
-    
-    
+      
     #fail
     if(@option_filters.present?)
       @ads = ids.present? ? Ad.order(created_at: :desc).find(*ids) : []
@@ -83,7 +107,8 @@ class AdsController < ApplicationController
 
 
   def index
-    @subcat = Subcat.includes(:ads).find(params[:subcat_id])
+    @subcat = Subcat.includes(:ads, :featured_option_class1, :featured_option_class2)
+    .find(params[:subcat_id])
     @idio_options = @subcat.combined_option_classes
     
     @option_filters = {}
@@ -97,12 +122,16 @@ class AdsController < ApplicationController
   end
 
   def show
-    @ad = Ad.includes(:subcat).includes(:pictures).includes(:options).find(params[:id])
+    @ad = Ad.includes(:subcat).includes(:pictures)
+    .includes(:boolean_options)
+    .includes(:integer_options)
+    .includes(:string_options)
+    .includes(:date_options)
+    .find(params[:id])
     @header_options = { head_link_text: [@ad.subcat.category.title, @ad.subcat.title, "listings"],
        head_link_url: [subcat_ads_url(@ad.subcat), subcat_ads_url(@ad.subcat), subcat_ad_url(@ad.subcat, @ad)]
       }
-    @address = (@ad.address == "" || @ad.address.nil?) ?
-     "36 Cooper Sq, New York, NY" : @ad.address
+    @address = @ad.address
     
     render :show
   end
@@ -169,13 +198,13 @@ class AdsController < ApplicationController
     options_values.each do |(option_class_id, value)|
       option_class = OptionClass.find(option_class_id) 
       case option_class.value_type
-        when "IntegerOptionValue"
+        when "IntegerOption"
           alert.alert_integer_options.for_option(option_class_id).is_max.new(value: value)
-        when "StringOptionValue"
+        when "StringOption"
           alert.alert_string_options.for_option(option_class_id).new(value: value)
-        when "BooleanOptionValue"
+        when "BooleanOption"
           alert.alert_boolean_options.for_option(option_class_id).new(value: value)
-        when "DateOptionValue"
+        when "DateOption"
           alert.alert_date_options.for_option(option_class_id).is_max.new(value: value)
       end
     end

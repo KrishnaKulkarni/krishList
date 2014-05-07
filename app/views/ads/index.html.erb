@@ -30,7 +30,7 @@
 			<div class="options clearfix">
 				<h5>Other Options</h5>
 				<% @idio_options.each do |id_op|  %>
-				<%= form_input(id_op.title, id_op.input_type, "", "options[#{id_op.id}]", @option_filters['who'] ) %>
+				<%= form_input(id_op.title, id_op.input_type, "", "options[#{id_op.id}]", nil) %>
 				<% end  %>
 			</div>
 		</div>
@@ -48,7 +48,7 @@
         <th><%= @subcat.featured_option_class1 && @subcat.featured_option_class1.title %></th> 
       	<th><%= @subcat.featured_option_class2 && @subcat.featured_option_class2.title %></th>
         <th>area</th>
-		<th>address</th>
+				<th>address</th>
         <th>posted date</th>
       </tr>
     </thead>
