@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140504172605) do
+ActiveRecord::Schema.define(version: 20140506150305) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -95,6 +95,17 @@ ActiveRecord::Schema.define(version: 20140504172605) do
     t.datetime "updated_at"
   end
 
+  create_table "boolean_options", force: true do |t|
+    t.integer  "ad_id",           null: false
+    t.integer  "option_class_id", null: false
+    t.boolean  "value"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "boolean_options", ["ad_id"], name: "index_boolean_options_on_ad_id", using: :btree
+  add_index "boolean_options", ["option_class_id"], name: "index_boolean_options_on_option_class_id", using: :btree
+
   create_table "categories", force: true do |t|
     t.string   "title",      null: false
     t.datetime "created_at"
@@ -109,11 +120,33 @@ ActiveRecord::Schema.define(version: 20140504172605) do
     t.datetime "updated_at"
   end
 
+  create_table "date_options", force: true do |t|
+    t.integer  "ad_id",           null: false
+    t.integer  "option_class_id", null: false
+    t.date     "value",           null: false
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "date_options", ["ad_id"], name: "index_date_options_on_ad_id", using: :btree
+  add_index "date_options", ["option_class_id"], name: "index_date_options_on_option_class_id", using: :btree
+
   create_table "integer_option_values", force: true do |t|
     t.integer  "value",      null: false
     t.datetime "created_at"
     t.datetime "updated_at"
   end
+
+  create_table "integer_options", force: true do |t|
+    t.integer  "ad_id",           null: false
+    t.integer  "option_class_id", null: false
+    t.integer  "value",           null: false
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "integer_options", ["ad_id"], name: "index_integer_options_on_ad_id", using: :btree
+  add_index "integer_options", ["option_class_id"], name: "index_integer_options_on_option_class_id", using: :btree
 
   create_table "notifications", force: true do |t|
     t.integer  "notifiable_id",                   null: false
@@ -187,6 +220,17 @@ ActiveRecord::Schema.define(version: 20140504172605) do
     t.datetime "created_at"
     t.datetime "updated_at"
   end
+
+  create_table "string_options", force: true do |t|
+    t.integer  "ad_id",           null: false
+    t.integer  "option_class_id", null: false
+    t.string   "value",           null: false
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "string_options", ["ad_id"], name: "index_string_options_on_ad_id", using: :btree
+  add_index "string_options", ["option_class_id"], name: "index_string_options_on_option_class_id", using: :btree
 
   create_table "subcats", force: true do |t|
     t.string   "title",                     null: false

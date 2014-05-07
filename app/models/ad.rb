@@ -18,6 +18,11 @@ class Ad < ActiveRecord::Base
 
   has_many :options, inverse_of: :ad, dependent: :destroy
   
+  has_many :boolean_options, inverse_of: :ad, dependent: :destroy
+  has_many :integer_options, inverse_of: :ad, dependent: :destroy
+  has_many :string_options, inverse_of: :ad, dependent: :destroy
+  has_many :date_options, inverse_of: :ad, dependent: :destroy
+  
   has_many :integer_option_values, through: :options, source: :option_value, source_type: 'IntegerOptionValue' 
   has_many :string_option_values, through: :options, source: :option_value, source_type: 'StringOptionValue'   
   has_many :boolean_option_values, through: :options, source: :option_value, source_type: 'BooleanOptionValue' 

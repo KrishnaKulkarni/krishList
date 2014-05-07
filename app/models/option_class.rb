@@ -23,6 +23,14 @@ class OptionClass < ActiveRecord::Base
   
   has_many :options, inverse_of: :option_class, dependent: :destroy
   
+  has_many :boolean_options, inverse_of: :option_class, dependent: :destroy
+  has_many :integer_options, inverse_of: :option_class, dependent: :destroy
+  has_many :string_options, inverse_of: :option_class, dependent: :destroy
+  has_many :date_options, inverse_of: :option_class, dependent: :destroy
+  
+  
+  
+  
   has_many(
   :featured_first_subcats,
   class_name: 'OptionClass',
