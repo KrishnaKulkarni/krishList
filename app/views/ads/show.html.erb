@@ -20,7 +20,7 @@
 			<% feature1 = find_featured_option(@ad.subcat, @ad, 1) %>
 			<% feature2 = find_featured_option(@ad.subcat, @ad, 2) %>
 			<% if(subcat.featured_text && (feature1 || feature2)) %>
-				<li><h3><%= subcat.featured_text.gsub("~", feature1.try(:value).to_s).gsub("^", feature2(:value).to_s) %></h3></li>
+				<li><h3><%= subcat.featured_text.gsub("~", feature1.try(:value).to_s).gsub("^", feature2.try(:value).to_s) %></h3></li>
 			<% end %>
 			
 			<li><h3><%= @ad.address %></h3></li>

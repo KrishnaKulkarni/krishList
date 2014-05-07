@@ -64,7 +64,11 @@ class AdsController < ApplicationController
           .references(:date_options).pluck(:id)
           #fail
       end
-    
+      if(index == 0)
+        ids = new_ids
+      else
+        ids = ids & new_ids
+      end
     end   
     
     ##THIS SHOULD BE ABLE TO BE SPED UP WITH BOOTSTRAPPING DATA
@@ -90,12 +94,12 @@ class AdsController < ApplicationController
     #       #fail
     #   end
      # debugger
-      if(index == 0)
-        ids = new_ids
-      else
-        ids = ids & new_ids
-      end
-    end
+     #  if(index == 0)
+    #     ids = new_ids
+    #   else
+    #     ids = ids & new_ids
+    #   end
+    # end
       
     #fail
     if(@option_filters.present?)
@@ -187,10 +191,6 @@ class AdsController < ApplicationController
     params.require(:ad).permit(:title, :address,
     :region, :subcat_id, :description)
     # params.require(:ad).permit!
-  end
-
-  def option_params
-    # params.require(:entered_options).permit!
   end
 
   def create_alert(subcat, user, options_values)

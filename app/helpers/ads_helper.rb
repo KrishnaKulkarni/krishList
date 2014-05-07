@@ -32,7 +32,7 @@ module AdsHelper
     elsif(ord == 2)
       feature_class = subcat.featured_option_class2
     end
-    
+    return nil unless feature_class
     case feature_class.value_type
     when "IntegerOption"
       ad.integer_options.where("option_class_id = ?", feature_class.id).first

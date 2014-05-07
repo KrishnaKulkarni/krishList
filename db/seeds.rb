@@ -9,19 +9,6 @@ u3 = User.create!(email: 'demo@example.com', password: 'password',
  username: 'DemoUser')
 users = [u1, u2, a1, u3]
 
-
-# c1 = Category.create!(title: 'Housing')
-# c2 = Category.create!(title: 'For Sale')
-# c3 = Category.create!(title: 'Jobs')
-# categories = [c1, c2, c3]
-
-
-# s1 = c1.subcats.create!(title: 'Apartments / Housing')
-# s2 = c1.subcats.create!(title: 'Sublets / Temporary')
-# s3 = c1.subcats.create!(title: 'Housing Wanted')
-# s4 = c3.subcats.create!(title: 'Food / Bev. / Hosp.')
-# subcats = [s1, s2, s3, s4]
-
 categories = %w<community personals housing services jobs gigs> << "for sale"
 categories.each do |cat_title|
   Category.create!(title: cat_title)

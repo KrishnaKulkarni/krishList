@@ -45,10 +45,10 @@ class Ad < ActiveRecord::Base
   #   .concat(date_option_values)
   # end
   def combined_options
-    self.integer_options
-    .concat(string_options)
-    .concat(boolean_options)
-    .concat(date_options)
+    self.integer_options.all
+    .concat(self.string_options)
+    .concat(self.boolean_options)
+    .concat(self.date_options)
   end
 
   # def entered_options=(entered_options)
@@ -67,8 +67,17 @@ class Ad < ActiveRecord::Base
     entered_options.each do |(opt_class_id, raw_value)|
       next unless raw_value #how else can I ensure/validate that no option is created without raw data
       option_class = OptionClass.find(opt_class_id)
-      option = option_class.value_type.constantize.new(value: raw_value)
-      option.ad = self
+      case option_class.value_type
+        when "IntegerOption"
+          option = self.integer_options.new(value: raw_value)
+        when "StringOption"
+          option = self.string_options.new(value: raw_value)
+        when "BooleanOption"
+          option = self.boolean_options.new(value: raw_value)
+        when "DateOption"
+          option = self.date_options.new(value: raw_value)
+      end
+      option.option_class = option_class
     end 
   end
    
