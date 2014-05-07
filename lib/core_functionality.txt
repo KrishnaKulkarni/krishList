@@ -1,0 +1,5 @@
+CORE FUNCTIONALITY
+
+
+- Can Navigate Between { home, ads-index, filter-ads-index, ad-show, new-ad, account(s), sign_in/ sign_up}
+- Expected results from: filtering, viewing an ad-show, posting a new-ad (including notifications), responding to an ad, setting up an alert
