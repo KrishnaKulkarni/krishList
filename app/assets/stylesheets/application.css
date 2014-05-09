@@ -1004,5 +1004,30 @@
   }*/
 
 /*END		*/
-	
+	 
+	 /*  New Ad form */
+	 
+	 #new-listing {
+		 padding: 20px;
+	 }
+	 
+	 #new-listing label {
+		 margin-bottom: 3px;
+/*		 display: inline-block;*/
+	 }
+	 
+	 #new-listing .input {
+		 display: inline-block;
+		 margin-right: 15px;
+		 margin-bottom: 3px;
+	 }
+	 
+	 #ad-description {
+		 margin: 0;
+	 }
+
+	 #new-listing .submit {
+		 margin-top: 10px;
+	 }
+/* END	*/
 	
