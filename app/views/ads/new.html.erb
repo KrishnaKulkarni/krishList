@@ -6,7 +6,7 @@
     <%= auth_token %>
     
 	<div id="new-listing-categories">
-		<label class="form-input">Category :</label>
+		<label class="form-input">category :</label>
 	      <select id="category" name="category">
 	        <option></option>
 	        <% Category.all.each do |cat| %>
@@ -18,20 +18,20 @@
 	</div>
 
 	<div id="new-listing-options">
-    <%= form_input('Title', 'text', 'new-ad-title', 'ad[title]', @ad.title) %>
+    <%= form_input('title', 'text', 'new-ad-title', 'ad[title]', @ad.title) %>
 
-    <%= form_input('Address', 'text', 'new-ad-location', 'ad[address]', @ad.address) %>
+    <%= form_input('address', 'text', 'new-ad-location', 'ad[address]', @ad.address) %>
 
-    <%= form_input('Region', 'text', 'new-ad-region', 'ad[region]',
+    <%= form_input('region', 'text', 'new-ad-region', 'ad[region]',
      @ad.region) %>
-
-		<div id="new-image-uploads">
-	
-			<%= form_input("Upload Image", "file", "", "pictures[]", nil) %>
-		</div>
 	
 	</div>
 	<div id="subcat-options"></div>
+	<div id="new-image-uploads">
+
+		<%= form_input("upload image", "file", "", "pictures[]", nil) %>
+	</div>
+	<a id="add-another-pic">add another image</a>
 	<div id="new-listing-description">
     <label for="ad-description" class="form-input">
       Description :
@@ -73,12 +73,17 @@
 			 	 }); 
 		 });
 		 
-	   var fileForm = "<div class='input'><label>Upload Another Image</label><input type='file' name='pictures[]'></input></div>";
+	   var fileForm = "<div class='input'><input type='file' name='pictures[]'></input></div>";
 
-	   $("#new-image-uploads").change(function () {
+	   $("#add-another-pic").click(function () {
 			 console.log("image div");
 			 $("#new-image-uploads").append(fileForm);
 		 });
+
+	   // $("#new-image-uploads").change(function () {
+   // 			 console.log("image div");
+   // 			 $("#new-image-uploads").append(fileForm);
+   // 		 });
 		 
 });
 </script>	

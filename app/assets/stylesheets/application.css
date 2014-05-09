@@ -1016,11 +1016,33 @@
 /*		 display: inline-block;*/
 	 }
 	 
+	 #new-listing-categories label {
+		 display: inline-block;
+	 }
+	 
+	 #new-listing-categories select {
+		 margin: 0;
+	 }
+	 
+	 #subcat-dropdown {
+		 margin: 5px 0;
+	 }
+	 
 	 #new-listing .input {
 		 display: inline-block;
 		 margin-right: 15px;
 		 margin-bottom: 3px;
 	 }
+	 
+	 #new-image-uploads .input {
+		 display: block;
+		 margin-bottom: 3px;
+	 }
+	 
+	 #new-image-uploads input {
+		 margin: 0;
+	 }
+	 
 	 
 	 #ad-description {
 		 margin: 0;
@@ -1028,6 +1050,19 @@
 
 	 #new-listing .submit {
 		 margin-top: 10px;
+	 }
+	 
+	 #add-another-pic {
+		 font-size: 14px;
+		 display: block;
+		 margin-top: 5px;
+		 margin-bottom: 8px;
+	 }
+	 
+	 #new-listing-options {
+		 padding-bottom: 8px;
+		 border-bottom: 1px solid #fff;
+		 margin-bottom: 12px;
 	 }
 /* END	*/
 	
