@@ -1,0 +1,100 @@
+Tests
+
+
+Sign in / Sign Out/ Sign Up
+
+- signed in user
+	- has username displayed
+	- has options "account", "post", "sign out"
+	- can respond to ads
+- new user can sign up
+	- signup requires (a) email, (b) password, (c) username
+	- upon sign up, user is signed in
+- signed in users can sign-out
+	- upon sign out user is not signed in
+		- has option "sign in", but not other options
+		- can not post ads or respond to ads
+		
+Categories page
+	- has content "personals", "housing", etc.
+	- upon mouseover "housing", has content "apts/ housing", etc.
+	- upon mouseover "personals", has content "men seeking men", etc.
+	- has "demo", "sign in", "account"
+	
+Post page
+	- Displays proper post category
+	- Can post a new ad
+	- Can not post a new ad w/o proper categories filled in
+	- Receives good error messages when proper categories not filled in
+	
+Subcategory page
+	- before: navigate to root, hover on housing, click on apts/housing
+
+	- nav bar displays "the krish list", "housing", "apts / housing", "post", "account", "sign out"
+	- displays "housing" and "apts/ housing"
+	- displays "title", "bedrooms", "rent", "address", "region", "posted"
+	- before: create new ad in "apts/ housing" with { 
+		title: "Great apt for a test!", 
+		bedrooms: 4,
+		cats: yes,
+		dogs: yes,
+		rent: 929,
+		housing type: "cottage",
+		address: 123 Fake St, New York City,
+		available_by: ,
+		region: mnh,
+		description: "Sporcle"
+	}
+	create new {
+	title: "Less great apt for a test", 
+	bedrooms: 2,
+	rent: 2051,
+	cats: yes,
+	housing type: "apartment",
+	address: 456 Fake St, New York City,
+	available_by: June 1 2017,
+	region: brk,
+	description: "Wonk"
+	}
+	
+	- displays "Great apt for test", "929", "123 Fake St, New York City", "Less great apt", "2051",
+	"456 Fake St"
+
+
+	- Filters correctly
+		- Filters nothing
+				- Click filter, should display "Great apt for test", "Less great apt for test"
+		- Filters by search words
+				- Enter search "Sporcle", displays (1), not (2)
+				- Enter search "apt test", displays (1) and (2)
+		- Filters by region
+				- click/uncheck "brk", displays (1), not (2)
+		- Filters by integers
+					- ?? min vs. max
+		- Filters by dates
+		- Filters by strings
+		- Filters by booleans
+		- Filters by multiple options
+			- w/ universals
+			- w/o universals
+	- Enables Filters to be created
+			
+Ad show page
+	before: create ad, navigate to subcategories page, click on appropriate row
+
+	- nav bar displays "the krish list", "housing", "apts / housing", " listings"
+	- displays title, tags, description, and featured info
+	- ?? displays pictures, map
+	- Replies
+		- displays "reply"
+		- can submit a reply
+		- cannot submit a reply w/o a body or title
+		- displays useful error messages when submitting w/o those
+		- re renders page upon submission, without reply box, with "Notice: You have submitted a reply. If the poster is interested, he/she will respond with an email"
+
+Profile page
+		- posted ads
+			- responses
+		- notifications
+		- alerts
+		- settings
