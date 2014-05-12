@@ -1,0 +1,8 @@
+Integer And Date Options converted to Max Min
+
+- When filtering, need way to distinguish
+
+--> Add column to option_class - range_code : { nil, 1, 2, 3, 4}
+				nil --> display option as normal
+				1 --> in filter, create "min_rent" AND "max_rent"
+				2 --> in filter, create "min_rent"
