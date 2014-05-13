@@ -143,6 +143,9 @@ class AdsController < ApplicationController
   def new
     @subcat_id = params[:subcat_id]
     @ad = Ad.new #I forget whether I need this declaration
+    @header_options = { head_link_text: ["new ad"],
+       head_link_url: [new_ad_url]
+      }
     render :new
   end
 
