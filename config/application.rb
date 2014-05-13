@@ -14,6 +14,8 @@ require 'rails/all'
 Bundler.require(:default, Rails.env)
 
 module KrishList
+  CATEGORIES = %w<community gigs personals housing services jobs> << 'for sale'
+  
   class Application < Rails::Application
     config.initialize_on_precompile = false
 

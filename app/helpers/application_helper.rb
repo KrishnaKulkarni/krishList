@@ -92,7 +92,7 @@ module ApplicationHelper
           if(signed_in?)
               bracket_link('account', user_ads_url(current_user), 'GET') + 
               bracket_link('post', new_ad_url, 'GET') + 
-              bracket_link('sign out', session_url, 'DELETE')
+              bracket_link('sign out', session_url, 'DELETE', ["sign-out"])
           else
     	  	    bracket_link('sign in', new_session_url, 'GET')
           end

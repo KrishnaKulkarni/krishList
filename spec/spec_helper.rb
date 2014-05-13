@@ -49,12 +49,12 @@ def sign_up(email, username)
   visit "/users/new"
   fill_in "Email", with: email
   fill_in "Password", with: 'abcdef'
-  fill_in "Username", with: username if username
+  fill_in "Username", with: username
   click_button 'Register'
 end
 
-def sign_up_as_example_user
-  sign_up('example_user', nil)
+def sign_up_as_test_user
+  sign_up('test@gmail.com', 'test')
 end
 
 def sign_in(email)
