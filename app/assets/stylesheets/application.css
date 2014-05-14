@@ -113,6 +113,57 @@
   
 	/*END*/
 	
+	/*MODALS*/
+	#modal {
+		display: none;
+		position: absolute;
+		top: 0;
+		left: 0;
+		width: 100%;
+		z-index: 100;
+	}
+	
+	#modal.is-active {
+		display: block;
+	}
+	
+	#modal:before {
+		content: "";
+		position: fixed;
+		width: 100%;
+		height: 100%;
+		background: rgba(0, 0, 0, 0.55);
+	}
+	
+	#modal > article {
+		position: absolute;
+		top: 100px;
+		left: 50%;
+		width: 400px;
+		margin-bottom: 100px;
+		margin-left: -250px;
+		min-height: 200px;
+		padding: 50px;
+		background: #fff;
+		border-radius: 3px;
+	}
+	
+	#modal .hide-modal {
+		position: absolute;
+		top: 0;
+		right: 10px;
+		font-size: 25px;
+		font-weight: bold;
+		cursor: pointer;
+		color: gray;
+	}
+	
+	
+	#modal .hide-modal:hover {
+		color: #000;
+	}
+	/*MODALS END*/
+	
 /* HEADER*/
   header {
 	 	position: fixed;

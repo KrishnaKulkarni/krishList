@@ -1,5 +1,17 @@
 <main class="city-home">
-
+	<% if(!signed_in?) %>
+		<section id="modal" class="is-active">
+			<article>
+				<span class="hide-modal">&times;</span>
+					Dear User,
+					<p>KrishList is currently undergoing major redesign/reconstruction, and should be back up with full functionality in a few days. Feel free to look around, but please keep this in mind.</p>
+					<p>I apologize for the inconvenience. Check back in a few days to see the
+						slick the new design!</p>
+						<p>-Krishna</p>
+			</article>
+		</section>
+	<% end %>
+	
 	<section class="cats-container clearfix">
 		<div class="first column">
 		<%= render @categories.select{ |cat| ["community", "gigs"].include? cat.title  } %>
@@ -22,3 +34,22 @@
 		</div>
 	</section>
 </main>
+
+<script>
+	$(document).ready(function(){
+		
+		$(".hide-modal").on("click", function(event){
+			event.preventDefault();
+			$("#modal").removeClass("is-active");
+		});
+		
+		$("#modal").on("click", function(event){
+			if(event.target.id == this.id){
+				event.preventDefault();
+				$("#modal").removeClass("is-active");
+			};
+		});
+		
+	});
+	
+</script>
