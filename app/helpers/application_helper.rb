@@ -54,6 +54,7 @@ module ApplicationHelper
 
   def form_input(label_text, type, id, name, value, div_class =  "", input_appends = "")
     value = true if type == "checkbox"
+    input_appends += "min=0".html_safe if type == "number"
     <<-HTML.html_safe
       <div class="input #{div_class}">
         <label for="#{id}">#{label_text}</label>
@@ -64,9 +65,9 @@ module ApplicationHelper
     HTML
   end
 
-  def form_submit(text)
+  def form_submit(text, size = "medium")
     <<-HTML.html_safe
-     	<div class="submit">
+     	<div class="submit slick-button #{size}">
      		  <input type="submit" value="#{text}">
      	</div>
     HTML

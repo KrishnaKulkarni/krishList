@@ -1,7 +1,6 @@
-<label for="subcat-choice" class="form-input">subcategory</label>
-  <select id="subcat-choice" name="ad[subcat_id]">
-    <option></option>
-    <% @category.subcats.each do |subcat| %>
-        <option value="<%= subcat.id %>"><%= subcat.title %></option>
-    <% end  %>
-  </select>	
+ <select id="subcat-choice" name="ad[subcat_id]">
+   <option></option>
+   <% @category.subcats.each do |subcat| %>
+       <option value="<%= subcat.id %>"><%= subcat.title %></option>
+   <% end  %>
+ </select>	

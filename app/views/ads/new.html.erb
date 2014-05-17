@@ -1,45 +1,71 @@
-<main class="new-ad">
-		
+<%= header(@header_options) %>
+<main class="new-listing">
 	
-  <form id="new-listing" action="<%= ads_url %>"
+  <form class="new-listing-form y-on-b" action="<%= ads_url %>"
     method="post" accept-charset="utf-8" enctype="multipart/form-data">
     <%= auth_token %>
-    
-	<div id="new-listing-categories">
-		<label class="form-input">category</label>
-	      <select id="category" name="category">
-	        <option></option>
-	        <% Category.all.each do |cat| %>
-	            <option value="<%= cat.id %>"><%= cat.title %></option>
-	        <% end  %>
-	      </select>
-		  <div id="subcat-dropdown"></div>
-		  
-	</div>
+  	
+		<section class="form-basics-container clearfix">
+	    <section class="left">
+				<div id="new-listing-categories">
+					<label>category</label>
+				      <select id="category" name="category">
+				        <option></option>
+				        <% Category.all.each do |cat| %>
+				            <option value="<%= cat.id %>"><%= cat.title %></option>
+				        <% end  %>
+				      </select>
+					  <div id="subcat-dropdown">
+					  	<label for="subcat-choice">subcategory</label>
+					  </div>
+				</div>
+			</section>
+			
+			
+			<section class="left middle-section">
+	      <div class="input">
+	        <label for="new-ad-region">region</label>
+	        <select>
+						<option></option>
+	        	<option value="mnh" >manhattan</option>
+						<option value="brk" >brooklyn</option>
+						<option value="brx" >bronx</option>
+						<option value="que" >queens</option>
+						<option value="stn" >staten island</option>
+						<option value="jsy" >new jersey</option>
+						<option value="wch" >westchester</option>
+						<option value="lgi" >long island</option>
+						<option value="fct" >fairfield</option>
+	        </select>
+	      </div>
+				<div id="new-image-uploads">
+					<%= form_input("upload image", "file", "", "pictures[]", nil) %>
+				</div>
+				<a id="add-another-pic">add another image</a>					
+			</section>
+			<section id="new-listing-options">
+	  	  <%= form_input('title', 'text', 'new-ad-title', 'ad[title]', @ad.title) %>
+    	
+	  	  <%= form_input('address', 'text', 'new-ad-location', 'ad[address]', @ad.address) %>
+    	
+	  	  <%= form_input('region', 'text', 'new-ad-region', 'ad[region]',
+	  	   @ad.region) %>
+			</section>
+		</section>
+		
 
-	<div id="new-listing-options">
-    <%= form_input('title', 'text', 'new-ad-title', 'ad[title]', @ad.title) %>
 
-    <%= form_input('address', 'text', 'new-ad-location', 'ad[address]', @ad.address) %>
 
-    <%= form_input('region', 'text', 'new-ad-region', 'ad[region]',
-     @ad.region) %>
+		<div id="subcat-options" class="clearfix"></div>
+  	
+		<div id="new-listing-description">
+  	  <label for="ad-description" class="form-input">
+  	    Description
+  	  </label>
+  	  <textarea id="ad-description" name="ad[description]" rows="15" cols="45" placeholder="Provide additional description or contact info here"><%= @ad.description if @ad.description%></textarea>
+		</div>
 	
-	</div>
-	<div id="subcat-options"></div>
-	<div id="new-image-uploads">
-
-		<%= form_input("upload image", "file", "", "pictures[]", nil) %>
-	</div>
-	<a id="add-another-pic">add another image</a>
-	<div id="new-listing-description">
-    <label for="ad-description" class="form-input">
-      Description :
-    </label>
-    <textarea id="ad-description" name="ad[description]" rows="15" cols="45" placeholder="Provide additional description or contact info here"><%= @ad.description if @ad.description%></textarea>
-	</div>
-	
-    <%= form_submit("Submit Ad") %>
+    <%= form_submit("Submit", "medium") %>
   </form>
 </main>
 
