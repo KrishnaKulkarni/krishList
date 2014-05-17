@@ -15,6 +15,17 @@ module ApplicationHelper
     HTML
   end
 
+  def delete_session_link
+    <<-HTML.html_safe
+			<form class="sign-out"
+      action="#{session_url}" method="post">
+        #{set_form_method('DELETE')}
+        #{auth_token}
+			  <input class="" type="submit" value="sign out">
+			</form>
+    HTML
+  end
+
   def bracket_link(text, url, action, appended_classes = [])
     #should switch it so that it doesn't submit a form when going a 'GET'
     classes = appended_classes.join(" ").html_safe #is html_safe necessary here?
@@ -67,40 +78,65 @@ module ApplicationHelper
     if header_options[:head_link_text].present?
       header_options[:head_link_text].each_index do |i|
         header_append_html += <<-HTML.html_safe
-        > <a href="#{ header_options[:head_link_url][i] }">
-            #{ header_options[:head_link_text][i] }
-          </a>
+          <li>
+            <a href="#{ header_options[:head_link_url][i] }">
+              #{ header_options[:head_link_text][i] }
+            </a>
+          </li>
         HTML
       end
     end 
     
     <<-HTML.html_safe
-    <header class="all-pages">
+    <header class="page-header">
       
       <nav class="header clearfix">
-        <ul class="header-path-links">
-          <a href="#{root_url}">krishList</a>
-          >
-          <a href="#{root_url}">new york city</a>
+        <ul class="header-path-links left clearfix arrow">
+          <li class="first">
+            <a href="#{root_url}">the krishlist</a>
+          </li>
+          <li>
+            <a href="#{root_url}">new york city</a>
+          </li>
           
           #{header_append_html}
         </ul>  
         
-        <div class="bracket-link-container">
+        <ul class="header-path-links right">
 
-          #{
-          if(signed_in?)
-              bracket_link('account', user_ads_url(current_user), 'GET') + 
-              bracket_link('post', new_ad_url, 'GET') + 
-              bracket_link('sign out', session_url, 'DELETE', ["sign-out"])
-          else
-    	  	    bracket_link('sign in', new_session_url, 'GET')
-          end
-           }
-        </div>
+          #{header_user_options}
+        </ul>
       </nav>
     </header>
     HTML
+  end
+
+  def header_user_options
+    if(signed_in?)
+      <<-HTML.html_safe
+      <li>
+				<a href=#{user_ads_url(current_user)}>
+					account
+				</a>
+			</li>
+      <li>
+				<a href=#{new_ad_url}>
+					post
+				</a>
+			</li>
+      <li>
+				#{delete_session_link}
+			</li>
+      HTML
+    else
+      <<-HTML.html_safe
+      <li>
+				<a href=#{new_session_url}>
+					sign in
+				</a>
+			</li>
+      HTML
+    end
   end
 
   def position_classes(category_title)

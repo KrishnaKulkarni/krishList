@@ -1,5 +1,7 @@
+<%= header(@header_options) %>
+
 <main class="sign-in">
-	<form action="<%= users_url %>" method="post">
+	<form class="sign-in-form sign-up-form y-on-b" action="<%= users_url %>" method="post">
 		<h1>Sign Up</h1>
 		<%= auth_token %>
 
@@ -24,7 +26,7 @@
 		 </input>
 		</div>
 
-		<div class="submit">
+		<div class="submit slick-button med-long">
 			  <input type="submit" value="Register">
 		</div>
 	</form>

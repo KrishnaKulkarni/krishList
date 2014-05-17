@@ -136,6 +136,12 @@
 			padding: 5px;
 			font-size: 95%;
 		}
+		
+		.submit.slick-button.med-long  > input[type="submit"] {
+			width: 90px;
+			height: 25px;
+			font-size: 95%;
+		}
 	
 		.slick-button > input[type="submit"]:hover, a.slick-button:hover {
 			color: #68D8A8;
@@ -336,7 +342,7 @@
 			padding: 1px 3px;
 		}
 		
-		a:hover {
+		a:hover, .sign-out:hover {
 			color: #68D8A8;
 		}
 
@@ -870,6 +876,10 @@
 			min-height: 280px;
 		}
 		
+		.sign-up-form {
+			padding-bottom: 35px;
+		}
+		
 		.sign-in-form .submit {
 			position: absolute;
 			bottom: 20px;
@@ -892,6 +902,8 @@
 		.sign-in input[type="password"],
 		.sign-in input[type="text"],
 		.sign-in input[type="email"] {
+			background: #EFE152;
+			border-radius: 3px;
 			padding: 5px;
 			margin-bottom: 10px;
 		}

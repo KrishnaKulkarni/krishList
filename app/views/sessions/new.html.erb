@@ -1,5 +1,7 @@
+<%= header(@header_options) %>
+
 <main class="sign-in">
-	<form action="<%= session_url %>" method="post" accept-charset="utf-8">
+	<form class="sign-in-form y-on-b" action="<%= session_url %>" method="post">
 	  <h1>Sign In</h1>
 	  <%= auth_token %>
 
@@ -16,10 +18,10 @@
 		   name="user[password]"></input>
 	   	</div>
 
-		<div class="submit">	
+		<div class="submit slick-button medium">	
 			  <input type="submit" value="Sign In">
 		</div>
 	
-		<a href="<%= new_user_url %>">Sign Up for an Account</a>
+		<a href="<%= new_user_url %>" class="slick-button long">New Account</a>
 	</form>
 </main>
