@@ -1,3 +1,4 @@
+<% is_extended = signed_in? ? "extended" : nil %>
 <main class="home clearfix">
 	<% if(false) %>
 		<section id="modal" class="is-active">
@@ -19,15 +20,29 @@
 		</ul> 
 	</div>
 	
+	
 	<div class="right column">
 		<h1 class="home-title">new york city</h1>
-		<div class="misc">
+		<div class="misc <%= is_extended %>">
 			<div class="item top">
 				<a>demo</a>
 			</div>
+			
+			<% if is_extended %>
+			<div class="item">
+				<a href="<%= user_ads_url(current_user) %>">account</a>
+			</div>
+			<div class="item">
+				<a href="<%= new_ad_url %>">post</a>
+			</div>
+			<div class="item y-on-b">
+				<%= delete_session_link %>
+			</div>
+			<% else %>
 			<div class="item">
 				<a href="<%= new_session_url %>">sign in</a>
-			</div>
+			</div>			
+			<% end %>
 			<div class="item">
 				<a>about</a>
 			</div>

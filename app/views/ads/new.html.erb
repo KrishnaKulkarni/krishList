@@ -15,27 +15,27 @@
 				            <option value="<%= cat.id %>"><%= cat.title %></option>
 				        <% end  %>
 				      </select>
-					  <div id="subcat-dropdown">
-					  	<label for="subcat-choice">subcategory</label>
-					  </div>
+					  
+						<label for="subcat-choice">subcategory</label>	
+					  <div id="subcat-dropdown"></div>
 				</div>
 			</section>
 			
-			
+			<% is_selected = { @ad.region  => "selected".html_safe } %>
 			<section class="left middle-section">
 	      <div class="input">
 	        <label for="new-ad-region">region</label>
-	        <select>
+	        <select name="ad[region]">
 						<option></option>
-	        	<option value="mnh" >manhattan</option>
-						<option value="brk" >brooklyn</option>
-						<option value="brx" >bronx</option>
-						<option value="que" >queens</option>
-						<option value="stn" >staten island</option>
-						<option value="jsy" >new jersey</option>
-						<option value="wch" >westchester</option>
-						<option value="lgi" >long island</option>
-						<option value="fct" >fairfield</option>
+	        	<option value="mnh" <%= is_selected["mnh"] %> >manhattan</option>
+						<option value="brk" <%= is_selected["brk"] %> >brooklyn</option>
+						<option value="brx" <%= is_selected["brx"] %> >bronx</option>
+						<option value="que" <%= is_selected["que"] %> >queens</option>
+						<option value="stn" <%= is_selected["stn"] %> >staten island</option>
+						<option value="jsy" <%= is_selected["jsy"] %> >new jersey</option>
+						<option value="wch" <%= is_selected["wch"] %> >westchester</option>
+						<option value="lgi" <%= is_selected["lgi"] %> >long island</option>
+						<option value="fct" <%= is_selected["fct"] %> >fairfield</option>
 	        </select>
 	      </div>
 				<div id="new-image-uploads">
@@ -47,9 +47,6 @@
 	  	  <%= form_input('title', 'text', 'new-ad-title', 'ad[title]', @ad.title) %>
     	
 	  	  <%= form_input('address', 'text', 'new-ad-location', 'ad[address]', @ad.address) %>
-    	
-	  	  <%= form_input('region', 'text', 'new-ad-region', 'ad[region]',
-	  	   @ad.region) %>
 			</section>
 		</section>
 		
@@ -74,7 +71,7 @@
 <script>
 
 
- $(document).ready(function() {    
+function createDropdownHandlers() {    
  
  
 	 $( "#category" ).change(function () {	 
@@ -111,5 +108,7 @@
    // 			 $("#new-image-uploads").append(fileForm);
    // 		 });
 		 
-});
+} 
+$(document).ready(createDropdownHandlers);
+
 </script>	

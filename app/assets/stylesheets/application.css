@@ -320,6 +320,10 @@
 			padding: 15px 0;
 		}
 		
+		.misc.extended {
+			height: 390px;
+		}
+		
 		.misc .item {
 			text-align: center;
 			padding: 15px 0;
@@ -340,6 +344,11 @@
 			height: 20px;
 			border-radius: 3px;
 			padding: 1px 3px;
+		}
+		
+		.misc .sign-out input {
+			font-size: 24px;
+			font-weight: 100;
 		}
 		
 		a:hover, .sign-out:hover {
@@ -711,12 +720,14 @@
 			display: block;
 			height: 450px;
 			width: 600px;
+			border: 1px solid #000;
 		}
 	
 		.listing-show .apt-thumbs {
-			margin-top: 10px;
+			margin-top: 20px;
 			height: 50px;
 			width: 600px;
+			background: transparent;
 		}
 	
 		.listing-show .apt-thumbs li {
@@ -759,6 +770,7 @@
 			left:0 ;
 			width: 100%; 
 			height: 100%;
+			border: 1px solid #000;
 		 }
 	
 		 .listing .description {
@@ -776,9 +788,9 @@
 		}
 	
 		.apt-thumbs .selected {
-			border: solid 1px orange;
-			-webkit-box-shadow: 0 0 0 1px orange;
-			box-shadow: 0 0 0 1px orange;
+			border: solid 1px #fff;
+			-webkit-box-shadow: 0 0 0 1px #fff;
+			box-shadow: 0 0 0 1px #fff;
 		}
 	
 		.apt-thumbs img{
@@ -863,6 +875,12 @@
 			bottom: 20px;
 			right: 20px;
 		}
+		
+		/* This may not be the best solution, as it leverages a width that is too small
+		to actually contain the dropdown.*/
+		#subcat-dropdown {
+			max-width: 90px;
+		}
 	
 /* --NEW AD END--	*/
 		
@@ -906,6 +924,10 @@
 			border-radius: 3px;
 			padding: 5px;
 			margin-bottom: 10px;
+		}
+		
+		#sign-up-username {
+			color: #000;
 		}
 			
 

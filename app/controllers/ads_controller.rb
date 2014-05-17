@@ -156,11 +156,14 @@ class AdsController < ApplicationController
     params[:pictures] && params[:pictures].reverse.each do |uploaded_img|
       @ad.pictures.new(image: uploaded_img) 
     end
-    
+    #fail
     if @ad.save
       flash[:notices] = ["Ad saved"]
       redirect_to subcat_ad_url(@ad.subcat, @ad)
     else
+      @header_options = { head_link_text: ["new ad"],
+         head_link_url: [new_ad_url]
+        }
       flash.now[:errors] = @ad.errors.full_messages
       render :new
     end

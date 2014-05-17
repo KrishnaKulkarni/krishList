@@ -1,4 +1,4 @@
-<% is_first = (category == @categories.first) ? "first" : nil  %>
+<% is_first = (category == @categories.first) ? "top" : nil  %>
 <% position_classes = position_classes(category.title) %>
 <li class="<%= is_first %>">
 	<a><h2><%= category.title %></h2></a>

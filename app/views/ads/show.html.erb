@@ -1,22 +1,26 @@
+<!-- Future Revision: Reduce gap between pic thumbs and description bar -->
+
 <meta name='viewport' content='width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no' />
 <script src='https://api.tiles.mapbox.com/mapbox.js/v1.6.2/mapbox.js'></script>
 <link href='https://api.tiles.mapbox.com/mapbox.js/v1.6.2/mapbox.css' rel='stylesheet' />
 <% subcat = @ad.subcat  %>	
+
+
+<%= header(@header_options) %>
 <main class="listing-show">
 	<div class="listing-title clearfix">
-	  <h2><%= @ad.title %></h2>
-	  <ul class="tags">
+	  <h2 class="title"><%= @ad.title %></h2>
+	  <ul class="tags b-on-y">
 			<% @ad.combined_options.each do |option|  %>
 				<%	next if(option.option_class_id == subcat.try(:featured_option_class_id1))  %>
 				<%	next if(option.option_class_id == subcat.try(:featured_option_class_id2))  %>
 				<% value = option.value %>
 				<% value = value == true ? "ok" : value%>
-				<li> <%= option.option_class.title %>:<%= value %></li>  <!-- option_values and classes are not prefetched with the option. How can I optimize these queries? -->
+				<li> <%= option.option_class.title %>:<%= value %></li>  
 			<% end %>
+			<!-- option_values and classes are not prefetched with the option. How can I optimize these queries? -->
 	  </ul>
-	  <ul class="essentials">
-			
-	
+	  <ul class="essentials b-on-y">
 			<% feature1 = find_featured_option(@ad.subcat, @ad, 1) %>
 			<% feature2 = find_featured_option(@ad.subcat, @ad, 2) %>
 			<% if(subcat.featured_text && (feature1 || feature2)) %>
@@ -46,13 +50,11 @@
 				</ul>
 			</section>
 			<% end %>
-  		</div>	
-  	  <div class="right-column">
+  	</div>	
+		<div class="right-column">
 		  
 		  <section class="response-bar">
-		    <!-- <a href="">Respond</a> -->
-		    <form class="new-response" action="<%= ad_responses_url(@ad) %>"
-		       method="post">
+				<form action="<%= ad_responses_url(@ad) %>" method="post">
 		      <%= auth_token %>
 
 		      <div class="input">
@@ -69,15 +71,28 @@
 		      <!-- <%#= @response.try(:body)%> -->
 		      </div>
 
-		     	<div class="submit">
+		     	<div class="submit slick-button small">
 		     		  <input type="submit" value="reply">
 		     	</div>
 		    </form>
-		  </section>
+			</section>
 	  
 		  <section class="map">
-		  	<div id='map' data-coordinates="<%= Geocoder.coordinates(@address) %>"></div>
+		  	<div id='map' data-coordinates="<%= Geocoder.coordinates(@address) %>">
+				</div>
 		  </section>
+
+		</div>
+	</div>	
+
+
+  <section class="description b-on-y">
+		<h4 class="y-on-b">Description</h4>
+    <article class="b-on-y">
+      <%= @ad.description %>
+    </article>
+  </section>
+</main>
 			<script>
 			// var address = '780 St Marks Ave, NYC';
 			// var geocoder = L.mapbox.geocoder('krishnakulkarni.i4a9i1jm'),
@@ -111,17 +126,6 @@
 			}).addTo(map);		
 					
 			</script>
-		  </div>
-	</div>	
-
-
-  <section class="description">
-	<h4 class="description">Description</h4>
-    <article class="ad-description-article">
-      <%= @ad.description %>
-    </article>
-  </section>
-</main>
 <script>
 function makePicsSwap(){
   

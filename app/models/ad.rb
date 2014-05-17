@@ -66,9 +66,9 @@ class Ad < ActiveRecord::Base
   # end
   
   def entered_options=(entered_options)
-    return unless entered_options.class == 'Hash'.constantize
+    # return unless entered_options.class == 'Hash'.constantize
     entered_options.each do |(opt_class_id, raw_value)|
-      next unless raw_value #how else can I ensure/validate that no option is created without raw data
+      next unless raw_value.present? #how else can I ensure/validate that no option is created without raw data
       option_class = OptionClass.find(opt_class_id)
       case option_class.value_type
         when "IntegerOption"
