@@ -1,5 +1,5 @@
-<main class="city-home">
-	<% if(!signed_in?) %>
+<main class="home clearfix">
+	<% if(false) %>
 		<section id="modal" class="is-active">
 			<article>
 				<span class="hide-modal">&times;</span>
@@ -12,27 +12,28 @@
 		</section>
 	<% end %>
 	
-	<section class="cats-container clearfix">
-		<div class="first column">
-		<%= render @categories.select{ |cat| ["community", "gigs"].include? cat.title  } %>
+	<div class="left column">
+		<h1 class="home-title">the krishlist</h1>
+		<ul class="categories">
+			<%= render @categories %>
+		</ul> 
+	</div>
+	
+	<div class="right column">
+		<h1 class="home-title">new york city</h1>
+		<div class="misc">
+			<div class="item top">
+				<a>demo</a>
+			</div>
+			<div class="item">
+				<a href="<%= new_session_url %>">sign in</a>
+			</div>
+			<div class="item">
+				<a>about</a>
+			</div>
 		</div>
-		<div class="second column">
-		<%= render @categories.select{ |cat| ["personals", "housing"].include? cat.title  } %>
-		</div>
-		
-		<div class="third column">
-		<%= render @categories.select{ |cat| ["services"].include? cat.title  }  %>
-		</div>
-		
-		<div class="fifth column">
-		<%= render @categories.select{ |cat| ["jobs"].include? cat.title  }  %>
-		</div>
-		
-		<div class="fourth column clearfix">
-				<%= render @categories.select{ |cat| ["for sale"].include? cat.title  }  %>
-
-		</div>
-	</section>
+	</div>
+	
 </main>
 
 <script>

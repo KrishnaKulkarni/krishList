@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <title>KrishList</title>
+  <title>krishlist</title>
   <%= stylesheet_link_tag    "application", media: "all", "data-turbolinks-track" => true %>
   <%= javascript_include_tag "application", "data-turbolinks-track" => true %>
   <%= csrf_meta_tags %>
@@ -10,8 +10,6 @@
 
 
 <body>
-	<%= header(@header_options) %>
-<section id="content">
 <% if flash[:errors]  %>
   <div class="page-errors">
     Errors: <%= flash[:errors].join('<br>').html_safe %>
@@ -28,21 +26,19 @@
 
 
 		<%= yield %>
-		</section>
 		
-<footer class="footer">
-  
-	<nav class="footer-nav">
-    <ul class="links-list clearfix">
-			<li>© 2014 krishList</li> 
-      <li><a href="#">about</a></li>
-	    <li><a href="#">help</a></li>
-      <li><a href="#">safety</a></li>
-	   	<li><a href="#">privacy</a></li>				
-    </ul>  
-   </nav>
-  </nav>
-</footer>
+	<footer class="footer">
+		<nav>
+	    <ul class="clearfix">
+				<li>© 2014 the krishlist</li> 
+	      <li><a href="#">about</a></li>
+		    <li><a href="#">help</a></li>
+	      <li><a href="#">safety</a></li>
+		   	<li><a href="#">privacy</a></li>				
+	    </ul>  
+	   </nav>
+	  </nav>
+	</footer>
 </body>
 
 </html>

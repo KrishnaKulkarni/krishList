@@ -1,29 +1,33 @@
-<section class="category <%= category.title %>">
-  <h4><%= category.title %></h4>
-  <ul class="subcat-list left">
-		
-		<% if ["for sale"].include? category.title  %>
-		<div class="subcolumn">
-		  <% subcats =  category.subcats.take(19) %>
-		  <%= render subcats %>
-		</div>
-		<div class="subcolumn">
-		  <% subcats =  category.subcats.drop(19) %>
-		  <%= render subcats %>
-		</div>
-		<% elsif ["gigs"].include? category.title %>
-		<div class="subcolumn">
-		  <% subcats =  category.subcats.take(4) %>
-		  <%= render subcats %>
-		</div>
-		<div class="subcolumn">
-		  <% subcats =  category.subcats.drop(4) %>
-		  <%= render subcats %>
-		</div>
+<% is_first = (category == @categories.first) ? "first" : nil  %>
+<% position_classes = position_classes(category.title) %>
+<li class="<%= is_first %>">
+	<a><h2><%= category.title %></h2></a>
+	
+		<% if(['for sale', 'services', 'jobs'].include? category.title)  %>
+			<ul class="cat-side-dropdown first
+				<%= position_classes %>">
+				<% @subcats = category.subcats.take(14) %>
+				<%= render @subcats %>
+			</ul>
+			<ul class="cat-side-dropdown second
+				<%= position_classes %>">
+				<% @subcats = category.subcats.drop(14).take(14) %>
+				<%= render @subcats %>
+			</ul>
+			
+				<% if(category.title == "for sale") %>
+					<ul class="cat-side-dropdown third 
+						<%= position_classes %>">
+						<% @subcats = category.subcats.drop(28) %>
+						<%= render @subcats %>
+					</ul>
+				<% end %>
 		<% else %>
-		
-	  	<% subcats =  category.subcats.take(23) %>
-	  	<%= render subcats %>
+			<ul class="cat-side-dropdown 
+				<%= position_classes %>">
+				<% @subcats = category.subcats %>
+				<%= render @subcats %>
+			</ul>
 		<% end %>
-  </ul>
-</section>
+	
+</li>

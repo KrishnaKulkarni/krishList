@@ -103,6 +103,20 @@ module ApplicationHelper
     HTML
   end
 
+  def position_classes(category_title)
+    position_class = {
+      "community" => "high short",
+      "personals" => "high long",
+      "housing" => "high long",
+      "for sale"  => "high short",
+      "services" => "high short",
+      "jobs"  => "high long",
+      "gigs"  => "low short" 
+    }
+    
+    position_class[category_title]
+  end
+
 end
 
 

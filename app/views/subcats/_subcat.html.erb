@@ -1,3 +1,4 @@
-<li class="subcat-title">
+<% is_top = (subcat == @subcats.first) ? "top" : nil %>
+<li class="<%= is_top %>">
   <a href="<%= subcat_ads_url(subcat) %>"><%= subcat.title %></a>
 </li>
