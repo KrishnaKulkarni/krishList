@@ -40,11 +40,13 @@ module UsersHelper
   #   <% end  %>
 
   def user_posts_list(ads)
+    #Implement Active/ Expired Later
     output = ""
     ads.each do |ad|
+      status = (rand(4) > 0) ? "active" : "expired"
       output += <<-HTML.html_safe
-      <tr class="user-posts-list">
-        <td class="status">Active</td>
+      <tr class="user-posts-list #{status}">
+        <td class="status">#{status.capitalize}</td>
         <td class="manage"><a href="#{ad_url(ad)}/repost">repost</a></td>
         <td class="title">
           <a href="#{subcat_ad_url(ad.subcat, ad)}">
@@ -55,6 +57,7 @@ module UsersHelper
         <td class="category">#{h(ad.subcat.title)}</td>
         <td class="posted-date">#{h(ad.created_at)}</td>
         <td class="responses">
+          #{}
           <a href="#{user_ad_responses_url(current_user, ad)}">
             #{ad.responses_count}
           </a>
@@ -66,22 +69,31 @@ module UsersHelper
   end
 
   def account_header(user)
-    # <section class="user-dashboard-header">
- #        </section>
- #      <h1>#{user.username}'s Dashboard : Postings </h1>
     <<-HTML.html_safe
-   
-      <nav class="user-dashboard">
-        <a class="user-dashboard-nav" href="#{user_ads_url(user)}">Postings</a>
-        <a class="user-dashboard-nav" href="#{user_url(user)}">Settings</a>
-        <a class="user-dashboard-nav" href="#{user_notifications_url(user)}">
-          Notifications
-        </a>
-        <a class="user-dashboard-nav" href="#{user_alerts_url(user)}">
-          Alerts
-        </a>
-      </nav>
-
+		<nav class="account-nav y-on-b">
+			<ul class="account-nav-links clearfix">
+				<li>
+					<a class="user-dashboard-nav first" href="#{user_ads_url(user)}">
+					postings
+				</a>
+				</li>
+				<li>
+					<a class="user-dashboard-nav" href="#{user_url(user)}">
+					settings
+				</a>
+				</li>
+				<li>
+					<a class="user-dashboard-nav" href="#{user_notifications_url(user)}">
+					notifications
+				</a>
+				</li>
+				<li>
+					<a class="user-dashboard-nav last" href="#{user_alerts_url(user)}">
+					alerts
+				</a>
+				</li>
+			</ul>
+		 </nav>
     HTML
   end
 end

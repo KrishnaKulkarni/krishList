@@ -1,63 +1,120 @@
-<main>
-<section class="filter-container">
-	<form class="filter" action="<%= filter_subcat_ads_url(@subcat) %>" method="post">
-		<%= auth_token %>
-		<div class="filter-parameters clearfix">
-			<div class="typables clearfix">
-				<div class="non-price">
-			  		<%= form_input("search (title or description)", "text", "search-words", "search_words", @search_words) %>
-					
-				</div>
-			</div>
+<%= header(@header_options) %>
+<main class="ads-index">
+	<section class="filter-container">
+		<form class="filter-form" action="<%= filter_subcat_ads_url(@subcat) %>" method="post">
+			<%= auth_token %>
+			<div class="filter-parameters clearfix">
+				<div class="universal-filters clearfix left">
+					<div class="search">
+						<%= form_input("search (title or description)", "text", "search-words", "search_words", @search_words) %>
+					</div>
+					<div class="regions clearfix">
+								 <h5>areas</h5>
+							   <div class="input ">
+						    	<label for="mnh-ok">mnh</label>
+						      <input type="checkbox" id="mnh-ok"
+						        name="regions[mnh]" value="true" checked>
+						      </input>
+								</div>
 
-			<div class="checkables">
-				<div class="regions clearfix">
-					<h5>Areas</h5>
-				    <% %w<mnh brk que brx stn jsy lgi wch fct>.each do |region| %>
-				            <%= form_input(
-				            region, "checkbox", "#{region}-ok",
-				             "regions[#{region}]", true, "",
-				              ("checked" if (@regions.nil? || @regions.include?(region)) ) )%>
-				    <% end %>
-				</div>
+								<div class="input ">
+						      <label for="brk-ok">brk</label>
+						      <input type="checkbox" id="brk-ok"
+						        name="regions[brk]" value="true" checked>
+						      </input>
+						    </div>
 
-			</div>
-	
+								<div class="input ">
+						      <label for="que-ok">que</label>
+						      <input type="checkbox" id="que-ok"
+						        name="regions[que]" value="true" checked>
+						      </input>
+						    </div>
+
+								<div class="input ">
+						      <label for="brx-ok">brx</label>
+						      <input type="checkbox" id="brx-ok"
+						        name="regions[brx]" value="true" checked>
+						      </input>
+						    </div>
+
+								<div class="input ">
+						      <label for="stn-ok">stn</label>
+						      <input type="checkbox" id="stn-ok"
+						        name="regions[stn]" value="true" checked>
+						      </input>
+						    </div>
+
+								<div class="input ">
+						      <label for="jsy-ok">jsy</label>
+						      <input type="checkbox" id="jsy-ok"
+						        name="regions[jsy]" value="true" checked>
+						      </input>
+						    </div>
+
+								<div class="input ">
+						      <label for="lgi-ok">lgi</label>
+						      <input type="checkbox" id="lgi-ok"
+						        name="regions[lgi]" value="true" checked>
+						      </input>
+						    </div>
+
+								<div class="input ">
+						      <label for="wch-ok">wch</label>
+						      <input type="checkbox" id="wch-ok"
+						        name="regions[wch]" value="true" checked>
+						      </input>
+						    </div>
+
+								<div class="input ">
+						      <label for="fct-ok">fct</label>
+						      <input type="checkbox" id="fct-ok"
+						        name="regions[fct]" value="true" checked>
+						      </input>
+						    </div>
+					</div>
+				</div>
+				
+				<div class="filter-submittables right">
+					<%= form_input("create alert on filter", "checkbox", "save-alert", "save_alert", nil ) %>
+					<%= form_submit("filter") %>
+				</div>	
 			
-		</div>
-		
-		<div class="optionables">
-			<div class="options clearfix">
-				<h5>Other Options</h5>
-				<% @idio_options.each do |id_op|  %>
-				<%= form_input(id_op.title, id_op.input_type, "", "options[#{id_op.id}]", nil) %>
-				<% end  %>
+				<div class="optionables right">
+						<% @idio_options.each do |id_op|  %>
+						<%= form_input(id_op.title, id_op.input_type, "", "options[#{id_op.id}]", nil) %>
+						<% end  %>
+				</div>		
 			</div>
-		</div>
-				<%= form_input("Create alert on filter", "checkbox", "save-alert", "save_alert", nil ) %>
-				<%= form_submit("filter") %>
-	</form>
-</section>
+		</form>
+	</section>
 
-<section class="all-posts-list">
+	<section class="list-options-container b-on-y">
+		<ul class="list-view b-on-y clearfix">
+			<li class="table-opt selected">table</li>
+			<li class="thumb-opt">thumbnails</li>
+		</ul>
+	</section>
 
-  <table class="all-posts-table">
-    <thead>
-      <tr>
-        <th class="title">title</th>
-        <th><%= @subcat.featured_option_class1 && @subcat.featured_option_class1.title %></th> 
-      	<th><%= @subcat.featured_option_class2 && @subcat.featured_option_class2.title %></th>
-        <th>area</th>
-				<th>address</th>
-        <th>posted date</th>
-      </tr>
-    </thead>
-    <tbody>
-      <%= render @ads %>
-    </tbody>
-  </table>
+	<section class="all-posts-container b-on-y">
 
-</section>
+	  <table class="posts-table">
+	    <thead>
+	      <tr>
+	        <th class="title">title</th>
+	        <th><%= @subcat.featured_option_class1 && @subcat.featured_option_class1.title %></th> 
+	      	<th><%= @subcat.featured_option_class2 && @subcat.featured_option_class2.title %></th>
+	        <th>area</th>
+					<th>address</th>
+	        <th>posted date</th>
+	      </tr>
+	    </thead>
+	    <tbody>
+	      <%= render @ads %>
+	    </tbody>
+	  </table>
+
+	</section>
 </main>
 <script>
 
@@ -67,12 +124,16 @@ function makeRowsClick() {
       });
 }
 
- $(document).ready(makeRowsClick);
- $(document).on('page:load', makeRowsClick);
- // $(document).on('page:change', makeRowsClick);
-</script>
+function togglableListView() {
+	$(".list-view").click(function(event) {
+		event.preventDefault();
+		$(".list-view li").toggleClass("selected");
+	}); 
+}
 
-  <!-- <ul class="ads-list">
-     <li>moved</li>
-    <%#= render  @subcat.ads.all%>
-  </ul> -->
+$(document).ready( function(){
+	 makeRowsClick();
+ togglableListView();
+});
+$(document).on('page:load', makeRowsClick);
+</script>

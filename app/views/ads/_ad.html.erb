@@ -1,16 +1,14 @@
 <% @subcat ||= ad.subcat.includes(:featured_option_class1, :featured_option_class2)  %>
 <tr class="user-posts-list clickable-row" href="<%= subcat_ad_url(@subcat, ad) %>">
-  <td class="title">
-   
-      <%= h(ad.title) %>
-   
+  <td class="title">  
+      <%= h(ad.title) %> 
   </td>
 	<% feature1 = find_featured_option(@subcat, ad, 1) %>
 	<% feature2 = find_featured_option(@subcat, ad, 2) %>
 	<td><%= feature1 && h(feature1.value) %></td>
 	<td><%= feature2 && h(feature2.value) %></td>
 	<td><%= h(ad.region) %></td>
-	<td><%= h(ad.address) %></td>
+	<td class="address"><%= h(ad.address) %></td>
   <td><%= h(ad.created_at) %></td> 
 </tr>
 

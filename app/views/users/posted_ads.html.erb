@@ -1,11 +1,7 @@
-
-<main class="posted-ads">
+<%= header(@header_options) %>
+<main class="account-posts">
 	<%= account_header(@user) %>
-  <!-- <h4>Filter</h4> -->
-  <!-- <section class="user-dashboard filter"></section> -->
-
-  <h4>Showing All Postings</h4>
-  <section class="user-dashboard posts-list">
+	<section class="user-posts-container b-on-y">
 
     <table class="user-posts-table">
       <thead>
@@ -20,8 +16,7 @@
         </tr>
       </thead>
       <tbody>
-      <%= user_posts_list(@user.posted_ads) %>
-
+      	<%= user_posts_list(@user.posted_ads) %>
       </tbody>
     </table>
 
