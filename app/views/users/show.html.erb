@@ -1,21 +1,24 @@
+<%= header(@header_options) %>
+
+<main>
 <%= account_header(@user) %>
-
-<section class="user-dashboard">
-  <p><strong class="user-account-info">Username:</strong>
-    <%= @user.username %></p>
-  <p><strong class="user-account-info">Email:</strong> <%= @user.email %></p>
-  <p><strong class="user-account-info">Password:</strong> </p>
-  <p><strong class="user-account-info">Email Responses to Posts?</strong>
-   <%= @user.wants_forwarded_responses %></p>
-
-   <a class="button" href="<%= edit_user_url(@user) %>">Edit Settings</a>
-
-   <%= bracket_link('Delete Account', user_url(@user), 'DELETE', ["blue"]) %>
-
-   <form class="delete-user" action="<%= user_url(@user) %>" method="post">
-     <%= auth_token %>
-     <%= set_form_method('DELETE') %>
-     <%= form_submit('Delete Account') %>
-     <!-- <input class="delete-user" type="submit" value="Delete Account"> -->
-   </form>
-</section>
+	<section class="user-dashboard">
+	  <p><strong class="user-account-info">Username:</strong>
+	    <%= @user.username %></p>
+	  <p><strong class="user-account-info">Email:</strong> <%= @user.email %></p>
+	  <p><strong class="user-account-info">Password:</strong> </p>
+	  <p><strong class="user-account-info">Email Responses to Posts?</strong>
+	   <%= @user.wants_forwarded_responses %></p>
+	
+	   <a class="button" href="<%= edit_user_url(@user) %>">Edit Settings</a>
+	
+	   <%= bracket_link('Delete Account', user_url(@user), 'DELETE', ["blue"]) %>
+	
+	   <form class="delete-user" action="<%= user_url(@user) %>" method="post">
+	     <%= auth_token %>
+	     <%= set_form_method('DELETE') %>
+	     <%= form_submit('Delete Account') %>
+	     <!-- <input class="delete-user" type="submit" value="Delete Account"> -->
+	   </form>
+	</section>
+</main>
