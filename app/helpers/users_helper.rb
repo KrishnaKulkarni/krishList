@@ -43,7 +43,7 @@ module UsersHelper
     #Implement Active/ Expired Later
     output = ""
     ads.each do |ad|
-      status = (rand(4) > 0) ? "active" : "expired"
+      status = (ad.title.length % 4 > 0) ? "active" : "expired"
       output += <<-HTML.html_safe
       <tr class="user-posts-list #{status}">
         <td class="status">#{status.capitalize}</td>

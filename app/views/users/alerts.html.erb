@@ -1,13 +1,16 @@
-<main class="posted-ads">
+<%= header(@header_options) %>
+<main class="account-alerts">
   <%= account_header(@user) %>
 
-  <section class="notifications-list">
-    <h4>Alerts for <%= @user.username %></h4>
-			<% @user.alerts.each do |alert| %>
-				<li>
-				  Alert #<%= alert.id%>  --- <%= alert.subcat.title %>
-				</li>
-			<% end %>
+  <section class="alerts-container b-on-y">
+    <h4 class="item-list-heading">Alerts for <%= @user.username %></h4>
+    <ul class="account-item-list b-on-y">
+		<% @user.alerts.each do |alert| %>
+			<li>
+			  Alert #<%= alert.id%>  --- <%= alert.subcat.title %>
+			</li>
+		<% end %>
+		</ul>
   </section>
 
 </main>

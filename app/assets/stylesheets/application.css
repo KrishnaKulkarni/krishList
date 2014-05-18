@@ -107,6 +107,9 @@
 		}
 		
 		/* SUBMIT BUTTON */
+		a.slick-button {
+			display: block;
+		}
 	
 		.slick-button > input[type="submit"], a.slick-button {
 			border: 2px solid #EFE152;
@@ -120,8 +123,9 @@
 		}
 	
 		.slick-button.medium > input[type="submit"], a.slick-button.medium {
-			width: 70px;
-			height: 30px;
+			width: 60px;
+			height: 20px;
+			padding: 5px;
 		}
 		
 		.slick-button.small > input[type="submit"], a.slick-button.small {
@@ -130,7 +134,7 @@
 			font-size: 95%;
 		}
 		
-		a.slick-button.long {
+		a.slick-button.long, .slick-button.long > input[type="submit"] {
 			width: 115px;
 			height: 20px;
 			padding: 5px;
@@ -149,7 +153,8 @@
 			cursor: pointer;
 		}
 	
-		.home, .ads-index, .listing-show, .new-listing, .sign-in {
+		.home, .ads-index, .listing-show, .new-listing, .sign-in,
+		.account-settings, .account-notifications, .account-alerts, .account-responses {
 			display: block;
 			min-height: 800px;
 			min-width: 1100px;
@@ -936,7 +941,8 @@
 /* --ACCOUNT POSTS--*/
 			
 			/* Note: table styling largely covered in index table-styling section*/
-		.account-posts {
+		.account-posts, .account-settings,
+		.account-notifications, .account-alerts, .account-responses {
 			padding-top: 65px;
 		}
 		
@@ -1026,3 +1032,33 @@
 			
 /* --ACCOUNT POSTS END--*/
 		
+/* --ACCOUNT SETTINGS, etc.--*/
+		.account-settings-container, .notifications-container,
+		.alerts-container, .responses-container {
+			width: 1000px;
+			margin: 40px auto;
+			border: 3px solid #000;
+			border-radius: 5px;
+			padding: 15px;
+/*			position: relative;
+			left: 3px;*/
+		}
+		
+		.delete-user {
+			margin-left: 40px;
+		}
+		
+		.account-item-list > li {
+			border-top: 1px solid #000;
+			padding: 5px 0;
+		}
+		
+		.item-list-heading {
+			margin: 0;
+			padding-bottom: 15px;
+			border-bottom: 2px solid #000;
+			font-size: 22px;
+			font-weight: normal;
+		}
+		
+/* --ACCOUNT SETTINGS END--*/
