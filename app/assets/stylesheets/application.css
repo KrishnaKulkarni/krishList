@@ -783,8 +783,9 @@
 			border: 1px solid #000;
 		 }
 	
-		 .listing .description {
-			 padding: 5px;
+		 .listing-show .description {
+/*			 padding: 5px;*/
+			 padding-bottom: 40px;
 		 }
 	
 		.listing-show .description > h4 {
@@ -819,6 +820,7 @@
 			top: 200px;
 			left: 100px;
 		}
+		
 	
 /* --AD SHOW END--*/
 	

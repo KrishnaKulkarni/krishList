@@ -82,7 +82,12 @@
 			
 				<div class="optionables right">
 						<% @idio_options.each do |id_op|  %>
-						<%= form_input(id_op.title, id_op.input_type, "", "options[#{id_op.id}]", nil) %>
+							<% clarifier = "" %>
+
+							<% clarifier = " (max)" if(id_op.input_type == "number") %>
+							<% clarifier = " (latest)" if(id_op.input_type == 'date') %>
+						
+						<%= form_input(id_op.title + clarifier, id_op.input_type, "", "options[#{id_op.id}]", nil) %>
 						<% end  %>
 				</div>		
 			</div>

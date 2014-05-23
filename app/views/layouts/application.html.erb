@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <title>krishlist</title>
+  <title>the krishlist</title>
   <%= stylesheet_link_tag    "application", media: "all", "data-turbolinks-track" => true %>
   <%= javascript_include_tag "application", "data-turbolinks-track" => true %>
   <%= csrf_meta_tags %>
@@ -10,16 +10,19 @@
 
 
 <body>
-<% if false && flash[:errors]  %>
-  <div class="page-errors">
-    Errors: <%= flash[:errors].join('<br>').html_safe %>
-  </div><br>
+<% if flash[:errors]  %>
+	<section id="modal" class="page-errors is-active">
+		<span class="hide-modal">&times;</span>
+    <p>There has been an error(s):</p> 
+		<%= flash[:errors].join('<br>').html_safe %>
+	</section>
 <% end  %>
 
-<% if false && flash[:notices]  %>
-  <div class="page-notices">
-    Notice: <%= flash[:notices].join('<br>').html_safe %>
-  </div><br>
+<% if flash[:notices]  %>
+	<section id="modal" class="page-notices is-active">
+		<span class="hide-modal">&times;</span>
+    <%= flash[:notices].join('<br>').html_safe %>
+	</section>
 <% end  %>
 
 
@@ -40,5 +43,23 @@
 	  </nav>
 	</footer>
 </body>
+<script>
+	$(document).ready(function(){
+		
+		$(".hide-modal").on("click", function(event){
+			event.preventDefault();
+			$("#modal").removeClass("is-active");
+		});
+		
+		$("#modal").on("click", function(event){
+			if(event.target.id == this.id){
+				event.preventDefault();
+				$("#modal").removeClass("is-active");
+			};
+		});
+		
+	});
+	
+</script>
 
 </html>
