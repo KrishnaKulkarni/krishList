@@ -1,3 +1,5 @@
+require_relative 'seed_data'
+
 regions = %w<mnh brk que brx stn jsy lgi wch fct>
 
 
@@ -5,9 +7,11 @@ u1 = User.create!(email: 'john@example.com', password: 'password',
  username: 'Johnny')
 u2 = User.create!(email: 'jane@example.com', password: 'password', username: 'Jane216')
 a1 = User.create!(email: 'admin@example.com', password: 'password', username: 'Admin', is_admin: true)
-u3 = User.create!(email: 'demo@example.com', password: 'password',
- username: 'DemoUser')
-users = [u1, u2, a1, u3]
+u3 = User.create!(email: 'demo1@example.com', password: 'password',
+ username: 'DemoUser1')
+u4 = User.create!(email: 'demo2@example.com', password: 'password',
+  username: 'DemoUser2')
+users = [u1, u2, a1, u3, u4]
 
 categories = %w<community personals housing services jobs gigs> << "for sale"
 categories.each do |cat_title|
@@ -102,34 +106,34 @@ Category.find_by(title: "personals").option_classes.discretionary.create!(title:
 
 subcats = Subcat.all
 
-ad1 = Subcat.find_by(title: "sublets / temporary").ads.new(
-  title: 'For Sublet! Huge Room, Low rent in Bed-Stuy!',
-  region: regions[0],
-  address: '780 St. Marks Ave, Brooklyn, NY',
-  description: 'Super cozy! 5 Min from the Subway!')
-ad1.submitter = u1
-ad1.save!
+# ad1 = Subcat.find_by(title: "sublets / temporary").ads.new(
+#   title: 'For Sublet! Huge Room, Low rent in Bed-Stuy!',
+#   region: regions[0],
+#   address: '780 St. Marks Ave, Brooklyn, NY',
+#   description: 'Super cozy! 5 Min from the Subway!')
+# ad1.submitter = u1
+# ad1.save!
 
 ad2 =  Subcat.find_by(title: "apts / housing").ads.new(
   title: 'New Inwood Apt open',
-  region: regions[1],
+  region: 'mnh',
   address: '55 Payson, New York, NY',
-  description: 'Any questions or concerns, please call or text Jason at 646-662-1907')
-ad2.submitter = u2
+  description: 'Any questions or concerns, please call')
+ad2.submitter = u3
 ad2.save!
 
-ads = [ad1, ad2]
+# ads = [ad1, ad2]
 
 
 
-r1 = ad1.responses.new(title: "hey", body: "I like manhattan")
-r1.author = a1
-r1.save!
-
-r2 = ad2.responses.new(title: "hey", body: "I wanna sublet")
-r2.author = u1
-r2.save!
-responses = [r1, r2]
+# r1 = ad1.responses.new(title: "hey", body: "I like manhattan")
+# r1.author = a1
+# r1.save!
+# 
+# r2 = ad2.responses.new(title: "hey", body: "I wanna sublet")
+# r2.author = u1
+# r2.save!
+# responses = [r1, r2]
 
 
 
@@ -157,7 +161,7 @@ def gen_rand_value(oc_title)
     "part-time"     => [true, false].sample,
     "non-profit"    => [true, false].sample,
     "age"          => (rand * 50).to_i + 17,
-    "style"        => styles.sample    
+    "style"        => styles.sample   
   }
   
   rand_value[oc_title]
@@ -194,12 +198,13 @@ end
 
 Category.includes(:subcats).find_by(title: "housing").subcats.each do |subcat|
   20.times do |i|
+    region = regions.sample
     ad = subcat.ads.new(
-          title: "Great new place #{i}!",
-          region: regions.sample,
-          address: '770 Broadway, New York, NY',
-          description: "Description #{i}")
-        ad.submitter = User.first
+          title: TITLES['housing'].sample,
+          region: region,
+          address: ADDRESSES[region].sample,
+          description: DESCRIPTIONS['housing'].sample)
+        ad.submitter = [u1, u2, a1, u4].sample
         entered_options = {}
         subcat.combined_option_classes.each do |opt_class|
           entered_options[opt_class.id] = gen_rand_value(opt_class.title)
@@ -211,19 +216,19 @@ Category.includes(:subcats).find_by(title: "housing").subcats.each do |subcat|
           ad.pictures.new(image: File.open(Rails.root.join("seed_pictures", "bedroom#{rand(8) + 1}.jpg")))
         end
         
-        
         ad.save!
   end
 end
 
 Category.includes(:subcats).find_by(title: "personals").subcats.each do |subcat|
   20.times do |i|
+    region = regions.sample
     ad = subcat.ads.new(
-          title: "Great new babe #{i}!",
-          region: regions.sample,
-          address: '770 Broadway, New York, NY',
-          description: "Description #{i}")
-        ad.submitter = User.first
+          title: TITLES['personals'].sample,
+          region: region,
+          address: ADDRESSES[region].sample,
+          description: DESCRIPTIONS['personals'].sample)
+        ad.submitter = [u1, u2, a1, u4].sample
         entered_options = {}
         subcat.combined_option_classes.each do |opt_class|
           entered_options[opt_class.id] = gen_rand_value(opt_class.title)
@@ -243,6 +248,25 @@ Category.includes(:subcats).find_by(title: "personals").subcats.each do |subcat|
         ad.save!
   end
 end
+
+subcat = Subcat.find_by(title: "cars+trucks")
+  20.times do |i|
+    region = regions.sample
+    ad = subcat.ads.new(
+          title: TITLES['for sale'].sample,
+          region: region,
+          address: ADDRESSES[region].sample,
+          description: DESCRIPTIONS['for sale'].sample)
+        ad.submitter = [u1, u2, a1, u4].sample
+        entered_options = {}
+        subcat.combined_option_classes.each do |opt_class|
+          entered_options[opt_class.id] = gen_rand_value(opt_class.title)
+        end
+        
+        ad.entered_options = entered_options
+        
+        ad.save!
+  end
 
 
 
