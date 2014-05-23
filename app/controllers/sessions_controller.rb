@@ -12,7 +12,8 @@ class SessionsController < ApplicationController
 
     if user
       sign_in!(user)
-      flash[:notices] = ["User signed in"]
+      flash[:notices] = ["Welcome back, #{user.username}"]
+      flash[:notices] << "You have new notifications!" if(user.has_unviewed_notifications?)
       redirect_to root_url
     else
       @email_attempt = params[:user][:email]

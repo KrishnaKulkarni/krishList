@@ -53,6 +53,10 @@ class User < ActiveRecord::Base
   def is_password?(attempted_password)
     BCrypt::Password.new(self.password_digest).is_password?(attempted_password)
   end
+  
+  def has_unviewed_notifications?
+    self.notifications.any? { |note| !note.is_viewed }
+  end
 
   private
   def ensure_session_token

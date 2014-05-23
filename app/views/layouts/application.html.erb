@@ -10,18 +10,22 @@
 
 
 <body>
-<% if flash[:errors]  %>
-	<section id="modal" class="page-errors is-active">
+<% if flash[:errors] %>
+	<section id="modal" class="page-notice error is-active">
+		<article>
 		<span class="hide-modal">&times;</span>
     <p>There has been an error(s):</p> 
 		<%= flash[:errors].join('<br>').html_safe %>
+	</article>
 	</section>
 <% end  %>
 
 <% if flash[:notices]  %>
-	<section id="modal" class="page-notices is-active">
+	<section id="modal" class="page-notice is-active">
+		<article>
 		<span class="hide-modal">&times;</span>
     <%= flash[:notices].join('<br>').html_safe %>
+		</article>
 	</section>
 <% end  %>
 
@@ -51,12 +55,12 @@
 			$("#modal").removeClass("is-active");
 		});
 		
-		$("#modal").on("click", function(event){
-			if(event.target.id == this.id){
-				event.preventDefault();
-				$("#modal").removeClass("is-active");
-			};
-		});
+		// $("#modal").on("click", function(event){
+		// 	if(event.target.id == this.id){
+		// 		event.preventDefault();
+		// 		$("#modal").removeClass("is-active");
+		// 	};
+		// });
 		
 	});
 	

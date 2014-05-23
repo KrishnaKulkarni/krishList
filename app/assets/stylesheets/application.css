@@ -164,6 +164,67 @@
 		.hidden {
 			display: none;
 		}
+		
+		
+		.page-notice {
+			color: #000;
+		}
+		
+	
+		
+		
+	  #modal {
+	     display: none;
+	     position: fixed;
+	     left: 0px;
+	     top: 0px;
+	     z-index: 100;
+			 background: transparent;
+	   }
+
+	   #modal.is-active {
+	     display: block;
+	   }
+
+
+
+	   #modal > article {
+	     position: fixed;
+	     top: 200px;
+	     left: 400px;
+	     width: 300px;
+/*	     margin-bottom: 100px;*/
+/*	     margin-left: -250px;*/
+/*	     min-height: 200px;*/
+	     padding: 20px;
+	     background: white;
+			 color: #000;
+	     border-radius: 5px;
+			 border: 2px solid #000;
+	   }
+		 
+		 #modal.error > article {
+     	top: 45px;
+     	left: 40px;
+		}	
+		
+		#modal.error > article {
+			color: red;
+		}
+			
+	   #modal .hide-modal {
+	     position: absolute;
+	     top: 0;
+	     right: 15px;
+	     font-size: 25px;
+	     font-weight: bold;
+	     cursor: pointer;
+	     color: #000;
+	   }
+
+	   #modal .hide-modal:hover {
+	     color: #68D8A8;
+	   }
 	
 /* --GENERAL END-- */
 

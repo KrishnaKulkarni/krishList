@@ -9,7 +9,7 @@ class ResponsesController < ApplicationController
       }))
 
     if @response.save
-      flash[:notices] = ["Response saved"]
+      flash[:notices] = ["Your response has been sent!"]
 
       # MIGHT BE UNNECESSARY GIVEN javasctipt prefetching
 
