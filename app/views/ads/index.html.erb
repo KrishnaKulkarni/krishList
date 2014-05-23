@@ -87,7 +87,9 @@
 							<% clarifier = " (max)" if(id_op.input_type == "number") %>
 							<% clarifier = " (latest)" if(id_op.input_type == 'date') %>
 						
-						<%= form_input(id_op.title + clarifier, id_op.input_type, "", "options[#{id_op.id}]", nil) %>
+						<% entered_value = @option_filters[id_op.id.to_s] %>
+						<!-- <% checked = @option_filters[id_op.id] ? "checked".html_safe : nil  %> -->
+						<%= form_input(id_op.title + clarifier, id_op.input_type, "", "options[#{id_op.id}]", entered_value, "", checked) %>
 						<% end  %>
 				</div>		
 			</div>

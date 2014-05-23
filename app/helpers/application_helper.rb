@@ -54,9 +54,10 @@ module ApplicationHelper
 
   def form_input(label_text, type, id, name, value, div_class =  "", input_appends = "")
     value = true if type == "checkbox"
-    input_appends += "min=0".html_safe if type == "number"
-    input_appends += "class=date".html_safe if type == "date"
-    
+    if(input_appends) 
+      input_appends += "min=0".html_safe if type == "number"
+      input_appends += "class=date".html_safe if type == "date"
+    end
     <<-HTML.html_safe
       <div class="input #{div_class}">
         <label for="#{id}">#{label_text}</label>

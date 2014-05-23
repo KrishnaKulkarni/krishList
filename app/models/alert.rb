@@ -22,6 +22,10 @@ class Alert < ActiveRecord::Base
     .concat(self.alert_date_options)
   end
   
+  # def alert_text
+ #    alert_options.each do 
+ #  end
+  
   def notify_user(ad)
      #create notification for the user
      notification = self.notifications.unviewed.event(:new_relevant_ad).new
