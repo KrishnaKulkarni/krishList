@@ -6,26 +6,26 @@
 		<% if(['for sale', 'services', 'jobs'].include? category.title)  %>
 			<ul class="cat-side-dropdown first
 				<%= position_classes %>">
-				<% @subcats = category.subcats.take(14) %>
+				<% @subcats = category.subcats.order('title').take(14) %>
 				<%= render @subcats %>
 			</ul>
 			<ul class="cat-side-dropdown second
 				<%= position_classes %>">
-				<% @subcats = category.subcats.drop(14).take(14) %>
+				<% @subcats = category.subcats.order('title').drop(14).take(14) %>
 				<%= render @subcats %>
 			</ul>
 			
 				<% if(category.title == "for sale") %>
 					<ul class="cat-side-dropdown third 
 						<%= position_classes %>">
-						<% @subcats = category.subcats.drop(28) %>
+						<% @subcats = category.subcats.order('title').drop(28) %>
 						<%= render @subcats %>
 					</ul>
 				<% end %>
 		<% else %>
 			<ul class="cat-side-dropdown 
 				<%= position_classes %>">
-				<% @subcats = category.subcats %>
+				<% @subcats = category.subcats.order('title') %>
 				<%= render @subcats %>
 			</ul>
 		<% end %>

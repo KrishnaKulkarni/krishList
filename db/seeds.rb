@@ -205,12 +205,19 @@ Category.includes(:subcats).find_by(title: "housing").subcats.each do |subcat|
           entered_options[opt_class.id] = gen_rand_value(opt_class.title)
         end
         ad.entered_options = entered_options
+        unless(["parking / storage", "office / commercial"].include?(subcat.title))
+          ad.pictures.new(image: File.open(Rails.root.join("seed_pictures", "bathroom#{rand(8) + 1}.jpg")))
+          ad.pictures.new(image: File.open(Rails.root.join("seed_pictures", "kitchen#{rand(8) + 1}.jpg")))
+          ad.pictures.new(image: File.open(Rails.root.join("seed_pictures", "bedroom#{rand(8) + 1}.jpg")))
+        end
+        
+        
         ad.save!
   end
 end
 
 Category.includes(:subcats).find_by(title: "personals").subcats.each do |subcat|
-  1.times do |i|
+  20.times do |i|
     ad = subcat.ads.new(
           title: "Great new babe #{i}!",
           region: regions.sample,
@@ -221,7 +228,9 @@ Category.includes(:subcats).find_by(title: "personals").subcats.each do |subcat|
         subcat.combined_option_classes.each do |opt_class|
           entered_options[opt_class.id] = gen_rand_value(opt_class.title)
         end
+        
         ad.entered_options = entered_options
+        
         if(["men seeking women", "men seeking men"].include?(subcat.title))
           gender = "men"
         elsif(["women seek women", "women seeking men"].include?(subcat.title))
@@ -229,8 +238,8 @@ Category.includes(:subcats).find_by(title: "personals").subcats.each do |subcat|
         else
           gender = ['men', 'fem'].sample
         end
-
         ad.pictures.new(image: File.open(Rails.root.join("seed_pictures", "personals_#{gender}#{rand(8) + 1}.jpg")))
+        
         ad.save!
   end
 end
