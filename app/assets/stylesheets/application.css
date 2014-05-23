@@ -800,7 +800,20 @@
 	
 		.apt-thumbs img{
 			display: block;
+		}
+		
+		.listing-show .no-pics {
+			position: relative;
 		}	
+		
+		#no-image-found {
+			position: absolute;
+			color: #fff;
+			text-shadow: 1px 1px 6px black;
+			font-size: 40px;
+			top: 200px;
+			left: 100px;
+		}
 	
 /* --AD SHOW END--*/
 	
